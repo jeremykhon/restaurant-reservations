@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_065946) do
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "location"
+    t.text "description"
     t.integer "capacity"
     t.text "allowed_table_sizes", default: [], array: true
     t.bigint "user_id"

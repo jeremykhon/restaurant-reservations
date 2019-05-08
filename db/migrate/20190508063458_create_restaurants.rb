@@ -3,6 +3,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.2]
     create_table :restaurants do |t|
       t.string :name
       t.string :location
+      t.text :description
       t.integer :capacity
       t.text :allowed_table_sizes, array: true, default: []
       t.references :user, foreign_key: true
