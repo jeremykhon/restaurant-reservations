@@ -1,5 +1,5 @@
 class DefaultTimeSlot < ApplicationRecord
   belongs_to :restaurant
 
-  validates :restaurant, presence: true
+  validates :time, :weekday, :discount, :capacity, :restaurant, presence: true
 end
