@@ -8,6 +8,9 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :email
       t.string :number
+      t.time :time
+      t.date :date
+      t.integer :discount
 
       t.timestamps
     end
