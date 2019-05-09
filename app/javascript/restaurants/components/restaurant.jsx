@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TimeSlot from './time_slot';
 
 const BASE_URL = '/api/v1';
 
@@ -6,7 +7,7 @@ class Restaurant extends Component {
   constructor() {
     super();
     this.state = {
-      time_slots_today: [],
+      timeSlotsToday: [],
     };
   }
 
@@ -16,13 +17,15 @@ class Restaurant extends Component {
     const end = new Date().setHours(23, 59, 59, 999);
     fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => this.setState({ timeSlotsToday: data }));
   }
 
   render() {
+    const { timeSlotsToday } = this.state;
     return (
       <div className="restaurant-container">
-        {this.props.restaurant.name}
+        <h1>{this.props.restaurant.name}</h1>
+        {timeSlotsToday.map(timeSlot => <TimeSlot timeSlot={timeSlot} />)}
       </div>
     );
   }

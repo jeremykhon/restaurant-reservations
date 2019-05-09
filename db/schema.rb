@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 2019_05_08_065946) do
 
   create_table "time_slots", force: :cascade do |t|
     t.datetime "time"
-    t.date "date"
     t.integer "discount"
     t.integer "capacity"
     t.bigint "restaurant_id"

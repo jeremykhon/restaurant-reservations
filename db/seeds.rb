@@ -27,10 +27,11 @@ Restaurant.create!(name: "Burger King", description: "the ol burger place", user
 Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40, allowed_table_sizes: [2, 4, 6], booking_window: 7)
 Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40, allowed_table_sizes: [2, 4, 6], booking_window: 7)
 
-d = Time.now.utc.beginning_of_hour
+d = (Time.now.utc).beginning_of_hour
+d -= 1440.minutes
 
-(1..50).each do |i|
-  timeslot = TimeSlot.create!(time: d, date: Date.parse("2019-05-20"), discount: 50, capacity: 20, restaurant: Restaurant.all.sample)
+(1..100).each do |i|
+  timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: Restaurant.all.sample)
   puts timeslot.time
-  d += 60.minutes
+  d += 30.minutes
 end
