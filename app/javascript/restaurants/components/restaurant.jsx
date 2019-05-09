@@ -4,10 +4,10 @@ const BASE_URL = '/api/v1';
 
 class Restaurant extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      
-    }
+      time_slots_today: [],
+    };
   }
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class Restaurant extends Component {
 
   render() {
     return (
-      <div>
+      <div className="restaurant-container">
         {this.props.restaurant.name}
       </div>
     );
