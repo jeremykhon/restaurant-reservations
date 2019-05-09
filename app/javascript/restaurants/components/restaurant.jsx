@@ -12,7 +12,8 @@ class Restaurant extends Component {
 
   componentDidMount() {
     const { restaurant } = this.props;
-    fetch(`${BASE_URL}/restaurants/${restaurant.id}`)
+    const offset = new Date().getTimezoneOffset();
+    fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?offset=${offset}`)
       .then(response => response.json())
       .then(data => console.log(data));
   }
