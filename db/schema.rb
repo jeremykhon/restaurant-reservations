@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_065946) do
   end
 
   create_table "time_slots", force: :cascade do |t|
-    t.time "time"
+    t.datetime "time"
     t.date "date"
     t.integer "discount"
     t.integer "capacity"
