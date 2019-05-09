@@ -13,9 +13,11 @@ class Restaurant extends Component {
 
   componentDidMount() {
     const { restaurant } = this.props;
-    const start = new Date().setHours(0, 0, 0, 0);
-    const end = new Date().setHours(23, 59, 59, 999);
-    fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
+    // assuming no timezone difference for now
+    // const start = new Date().setHours(0, 0, 0, 0);
+    // const end = new Date().setHours(23, 59, 59, 999);
+    const today = new Date().getTime();
+    fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?date=${today}`)
       .then(response => response.json())
       .then(data => this.setState({ timeSlotsToday: data }));
   }
@@ -25,7 +27,7 @@ class Restaurant extends Component {
     return (
       <div className="restaurant-container">
         <h1>{this.props.restaurant.name}</h1>
-        {timeSlotsToday.map(timeSlot => <TimeSlot timeSlot={timeSlot} />)}
+        {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
       </div>
     );
   }
