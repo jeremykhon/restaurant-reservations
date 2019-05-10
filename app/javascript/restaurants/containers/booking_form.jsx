@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import SelectableTimeSlot from './selectable_time_slot'
 
 const BASE_URL = '/api/v1';
+const modalStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+Modal.setAppElement('#root');
 
 class BookingForm extends Component {
   constructor() {
@@ -13,12 +29,21 @@ class BookingForm extends Component {
       name: '',
       email: '',
       number: '',
-      timeSlots: []
+      timeSlots: [],
+      modalIsOpen: false,
     };
   }
   
   componentDidMount() {
     this.fetchTimeSlots()
+  }
+
+  openModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
   }
 
   selectTimeSlot = (timeSlotId) => {
@@ -66,7 +91,7 @@ class BookingForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
+    this.openModal()
   }
 
   render() {
@@ -102,6 +127,14 @@ class BookingForm extends Component {
               <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
             </label>
             <input type="submit" value="Submit" />
+            <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              contentLabel="Confirm Modal"
+              style={modalStyles}
+            >
+              <div>hello</div>
+            </Modal>
           </form>
           {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
         </div>
