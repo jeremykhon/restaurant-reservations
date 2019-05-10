@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BookingForm from './booking_form';
 
 const BASE_URL = '/api/v1';
 
@@ -23,7 +24,12 @@ class RestaurantPage extends Component {
     if (restaurant === null) {
       result = <div />;
     } else {
-      result = <div>{restaurant.name}</div>;
+      result = (
+        <div>
+          <h1>{restaurant.name}</h1>
+          <BookingForm />
+        </div>
+      );
     }
     return (
       <div>
