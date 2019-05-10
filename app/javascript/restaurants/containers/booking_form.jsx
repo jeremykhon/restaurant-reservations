@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TimeSlot from '../components/time_slot'
+import SelectableTimeSlot from './selectable_time_slot'
+import { ninvoke } from 'q';
 
 const BASE_URL = '/api/v1';
 
@@ -9,7 +10,7 @@ class BookingForm extends Component {
     this.state = {
       date: this.formatDate(new Date()),
       tableSize: '',
-      selectedTimeSlot: '',
+      selectedTimeSlot: null,
       name: '',
       email: '',
       number: '',
@@ -19,6 +20,10 @@ class BookingForm extends Component {
   
   componentDidMount() {
     this.fetchTimeSlots()
+  }
+
+  selectTimeSlot = (timeSlotId) => {
+    this.setState({ selectedTimeSlot: timeSlotId })
   }
 
   fetchTimeSlots = () => {
@@ -39,6 +44,7 @@ class BookingForm extends Component {
     } else {
       this.setState({[name]: target.value});
     }
+    this.setState({selectedTimeSlot: null})
   }
 
   formatDate = (date) => {
@@ -78,10 +84,6 @@ class BookingForm extends Component {
             <input type="number" name="tableSize" value={this.state.tableSize} onChange={this.handleChange} />
           </label>
           <label>
-            TimeSlot:
-            <input type="text" name="selectedTimeSlot" value={this.state.selectedTimeSlot} onChange={this.handleChange} />
-          </label>
-          <label>
             Name:
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
           </label>
@@ -95,7 +97,7 @@ class BookingForm extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        {timeSlots.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot}/>)}
+        {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
       </div>
     );
   }
