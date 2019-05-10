@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TimeSlot from '../components/time_slot'
 
 const BASE_URL = '/api/v1';
 
@@ -6,13 +7,50 @@ class BookingForm extends Component {
   constructor() {
     super();
     this.state = {
-      date: '',
+      date: this.formatDate(new Date()),
       tableSize: '',
-      timeSlotId: '',
+      selectedTimeSlot: '',
       name: '',
       email: '',
       number: '',
+      timeSlots: []
     };
+  }
+  
+  componentDidMount() {
+    this.fetchTimeSlots()
+  }
+
+  fetchTimeSlots = () => {
+    const { restaurant } = this.props;
+    const start = new Date(this.state.date).setHours(0, 0, 0, 0);
+    const end = new Date(this.state.date).setHours(23, 59, 59, 999);
+    fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
+      .then(response => response.json())
+      .then(data => this.setState({ timeSlots: data }));
+  }
+
+  handleChangeTimeSlots = (event) => {
+    const target = event.target
+    const name = target.name;
+
+    if (target.value !== "") {
+      this.setState({[name]: target.value}, this.fetchTimeSlots)
+    } else {
+      this.setState({[name]: target.value});
+    }
+  }
+
+  formatDate = (date) => {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   handleChange = (event) => {
@@ -27,34 +65,38 @@ class BookingForm extends Component {
   }
 
   render() {
+    const { timeSlots } = this.state
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Date:
-          <input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
-        </label>
-        <label>
-          Number of People:
-          <input type="number" name="tableSize" value={this.state.tableSize} onChange={this.handleChange} />
-        </label>
-        <label>
-          TimeSlot:
-          <input type="text" name="timeSlotId" value={this.state.timeSlotId} onChange={this.handleChange} />
-        </label>
-        <label>
-          Name:
-          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-        </label>
-        <label>
-          Number:
-          <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Date:
+            <input type="date" name="date" value={this.state.date} onChange={this.handleChangeTimeSlots} />
+          </label>
+          <label>
+            Number of People:
+            <input type="number" name="tableSize" value={this.state.tableSize} onChange={this.handleChange} />
+          </label>
+          <label>
+            TimeSlot:
+            <input type="text" name="selectedTimeSlot" value={this.state.selectedTimeSlot} onChange={this.handleChange} />
+          </label>
+          <label>
+            Name:
+            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+          </label>
+          <label>
+            Email:
+            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
+          </label>
+          <label>
+            Number:
+            <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        {timeSlots.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot}/>)}
+      </div>
     );
   }
 }

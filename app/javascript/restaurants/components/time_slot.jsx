@@ -15,6 +15,7 @@ const TimeSlot = ({ timeSlot }) => {
   return (
     <div className="timeSlot">
       {time}
+      {timeSlot.time}
     </div>
   );
 }

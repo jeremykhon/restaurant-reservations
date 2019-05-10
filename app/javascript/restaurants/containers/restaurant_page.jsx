@@ -27,7 +27,7 @@ class RestaurantPage extends Component {
       result = (
         <div>
           <h1>{restaurant.name}</h1>
-          <BookingForm />
+          <BookingForm restaurant={restaurant} />
         </div>
       );
     }
