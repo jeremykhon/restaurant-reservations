@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TimeSlot from './time_slot';
+import { Link } from 'react-router-dom';
+import TimeSlot from '../components/time_slot';
 
 const BASE_URL = '/api/v1';
 
@@ -22,9 +23,10 @@ class Restaurant extends Component {
 
   render() {
     const { timeSlotsToday } = this.state;
+    const { restaurant } = this.props;
     return (
       <div className="restaurant-container">
-        <h1>{this.props.restaurant.name}</h1>
+        <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>
         {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
       </div>
     );

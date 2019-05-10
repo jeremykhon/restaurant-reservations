@@ -1,8 +1,8 @@
-class Api::V1::BookingsController < ApplicationController
+class Api::V1::TimeSlotsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    bookings = Booking.where(
+    time_slots = TimeSlot.where(
       'restaurant_id = ? AND time > ? AND time < ?',
       params[:restaurant_id], DateTime.strptime(params[:start], '%Q'), DateTime.strptime(params[:end], '%Q')
     )
