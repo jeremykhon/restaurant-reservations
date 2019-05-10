@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :restaurants, only: [ :index, :show, :create ] do
         resources :default_time_slots, only: [ :index, :create ]
-        resources :time_slots, only: [ :index ]
         resources :reviews, only: [ :index, :create ]
+        resources :time_slots, only: [ :index ] do
+          resources :bookings, only: [ :index, :create]
+        end
       end
     end
   end

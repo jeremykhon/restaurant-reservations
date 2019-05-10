@@ -4,4 +4,8 @@ class RestaurantsController < ApplicationController
   def index
     @hi = "hi"
   end
+
+  def show
+    @show = "show"
+  end
 end
