@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SelectableTimeSlot from './selectable_time_slot'
-import { ninvoke } from 'q';
 
 const BASE_URL = '/api/v1';
 
@@ -66,14 +65,14 @@ class BookingForm extends Component {
   }
 
   handleSubmit = (event) => {
-    alert('A name was submitted: ' + this.state.date);
     event.preventDefault();
+    
   }
 
   render() {
     const { timeSlots } = this.state
     return (
-      <div>
+      <div className="col-12 col-sm-5">
         <form onSubmit={this.handleSubmit}>
           <label>
             Date:
@@ -81,7 +80,13 @@ class BookingForm extends Component {
           </label>
           <label>
             Number of People:
-            <input type="number" name="tableSize" value={this.state.tableSize} onChange={this.handleChange} />
+            <select name="tableSize" onChange={this.handleChange}>
+              <option value="2">2 people</option>
+              <option value="3">3 people</option>
+              <option value="4">4 people</option>
+              <option value="5">5 people</option>
+              <option value="6">6 people</option>
+            </select>
           </label>
           <label>
             Name:

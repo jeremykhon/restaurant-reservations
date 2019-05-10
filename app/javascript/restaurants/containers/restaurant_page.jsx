@@ -25,9 +25,11 @@ class RestaurantPage extends Component {
       result = <div />;
     } else {
       result = (
-        <div>
-          <h1>{restaurant.name}</h1>
-          <BookingForm restaurant={restaurant} />
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-sm-7">{restaurant.name}</div>
+            <BookingForm restaurant={restaurant} />
+          </div>
         </div>
       );
     }
