@@ -66,43 +66,45 @@ class BookingForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
+
   }
 
   render() {
     const { timeSlots } = this.state
     return (
       <div className="col-12 col-sm-5">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Date:
-            <input type="date" name="date" value={this.state.date} onChange={this.handleChangeTimeSlots} />
-          </label>
-          <label>
-            Number of People:
-            <select name="tableSize" onChange={this.handleChange}>
-              <option value="2">2 people</option>
-              <option value="3">3 people</option>
-              <option value="4">4 people</option>
-              <option value="5">5 people</option>
-              <option value="6">6 people</option>
-            </select>
-          </label>
-          <label>
-            Name:
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-          </label>
-          <label>
-            Email:
-            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-          </label>
-          <label>
-            Number:
-            <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-        {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
+        <div className="booking-form">
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Date:
+              <input type="date" name="date" value={this.state.date} onChange={this.handleChangeTimeSlots} />
+            </label>
+            <label>
+              Number of People:
+              <select name="tableSize" onChange={this.handleChange}>
+                <option value="2">2 people</option>
+                <option value="3">3 people</option>
+                <option value="4">4 people</option>
+                <option value="5">5 people</option>
+                <option value="6">6 people</option>
+              </select>
+            </label>
+            <label>
+              Name:
+              <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            </label>
+            <label>
+              Email:
+              <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
+            </label>
+            <label>
+              Number:
+              <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
+          {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
+        </div>
       </div>
     );
   }
