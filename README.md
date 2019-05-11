@@ -1,1 +1,3 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+A restaurant reservation website which gives customers discounts if they make reservations at non peak hours, thus helping restaurants smooth out demand and attract more customers overall.
+
+Built using react and rails api
