@@ -26,13 +26,19 @@ class BookingForm extends Component {
     super();
     this.state = {
       date: formatDate(new Date()),
-      tableSize: '',
+      tableSize: '2',
       selectedTimeSlot: null,
       name: '',
       email: '',
       number: '',
       timeSlots: [],
       modalIsOpen: false,
+      dateValid: false,
+      tableSizeValid: false,
+      selectedTimeSlotValid: false,
+      nameValid: false,
+      emailValid: false,
+      numberValid: false,
     };
   }
   
@@ -79,9 +85,34 @@ class BookingForm extends Component {
     this.setState({[name]: target.value});
   }
 
+  validateForm = () => {
+    let dateValid = this.state.dateValid
+    let selectedTimeSlotValid = this.state.selectedTimeSlotValid
+    let nameValid = this.state.nameValid
+    let emailValid = this.state.emailValid
+    let numberValid = this.state.numberValid
+
+    dateValid = (/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/).test(this.state.date)
+    nameValid = this.state.name.length > 0
+    selectedTimeSlotValid = this.state.selectedTimeSlot !== null
+    emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+    numberValid = (/[0-9]{5,15}/).test(this.state.number)
+
+    this.setState({dateValid: dateValid,
+                  nameValid: nameValid,
+                  selectedTimeSlotValid: selectedTimeSlotValid,
+                  emailValid: emailValid,
+                  numberValid: numberValid,
+                  });
+
+    return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    // this.validate()
+    if (this.validateForm()) {
+      this.openModal()
+    }
     // this.openModal()
   }
 
@@ -95,7 +126,7 @@ class BookingForm extends Component {
               <input type="date" name="date" value={this.state.date} onChange={this.handleChangeDate} />
             </div>
             <div className="bookingform-tablesize">
-              <select name="tableSize" onChange={this.handleChange}>
+              <select name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
                 <option value="4">4 people</option>
