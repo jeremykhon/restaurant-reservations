@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_065946) do
     t.string "name"
     t.string "email"
     t.string "number"
-    t.time "time"
+    t.datetime "time"
     t.string "date"
     t.integer "discount"
     t.datetime "created_at", null: false

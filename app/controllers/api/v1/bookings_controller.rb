@@ -15,10 +15,10 @@ class Api::V1::BookingsController < ApplicationController
                           number: params[:number],
                           discount: params[:selectedTimeSlot][:discount])
     booking.user = current_user if user_signed_in?
-    p "$$$$$$$$$$$$$$"
-    p booking
-    # restaurant = Restaurant.new(name: params[:name])
-    # restaurant.save
-    # render json: channel
+    if booking.save
+      render json: booking
+    else
+      render json: { message: "something went wrong" }
+    end
   end
 end
