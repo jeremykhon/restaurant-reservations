@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
+import hhmmTime from '../utils/hhmm_time';
 
 class SelectableTimeSlot extends Component {
-  strfTime = (time) => {
-    const checkTime = (i) => {
-      return (i < 10) ? "0" + i : i;
-    };
-    const hh = checkTime(time.getHours());
-    const mm = checkTime(time.getMinutes());
-    return `${hh}:${mm}`;
-  };
-
   handleClick = (event) => {
-    this.props.selectTimeSlot(this.props.timeSlot.id)
+    this.props.selectTimeSlot(this.props.timeSlot)
   }
 
   selectedStyle = () => {
-    if (this.props.selectedTimeSlot === this.props.timeSlot.id) {
+    if (this.props.selectedTimeSlot === this.props.timeSlot) {
       return {"color": "red"}
     }
   }
 
   render() {
     const { timeSlot } = this.props
-    const time = this.strfTime(new Date(timeSlot.time));
+    const time = hhmmTime(new Date(timeSlot.time));
     return (
       <div style={this.selectedStyle()} className="timeSlot" onClick={this.handleClick}>
         {time}

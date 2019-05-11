@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import SelectableTimeSlot from './selectable_time_slot'
+import ConfirmationModal from './confirmation_modal'
 
 const BASE_URL = '/api/v1';
 const modalStyles = {
@@ -46,8 +47,8 @@ class BookingForm extends Component {
     this.setState({modalIsOpen: false});
   }
 
-  selectTimeSlot = (timeSlotId) => {
-    this.setState({ selectedTimeSlot: timeSlotId })
+  selectTimeSlot = (timeSlot) => {
+    this.setState({ selectedTimeSlot: timeSlot })
   }
 
   fetchTimeSlots = () => {
@@ -133,7 +134,7 @@ class BookingForm extends Component {
               contentLabel="Confirm Modal"
               style={modalStyles}
             >
-              <div>hello</div>
+              <ConfirmationModal bookingForm={this.state}/>
             </Modal>
           </form>
           {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
