@@ -101,12 +101,10 @@ class BookingForm extends Component {
       <div className="col-12 col-sm-5">
         <div className="booking-form">
           <form onSubmit={this.handleSubmit}>
-            <label>
-              Date:
+            <div className="bookingform-date">
               <input type="date" name="date" value={this.state.date} onChange={this.handleChangeTimeSlots} />
-            </label>
-            <label>
-              Number of People:
+            </div>
+            <div className="bookingform-tablesize">
               <select name="tableSize" onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
@@ -114,20 +112,19 @@ class BookingForm extends Component {
                 <option value="5">5 people</option>
                 <option value="6">6 people</option>
               </select>
-            </label>
-            <label>
-              Name:
-              <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-            </label>
-            <label>
-              Email:
-              <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-            </label>
-            <label>
-              Number:
-              <input type="text" name="number" value={this.state.number} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
+            </div>
+            <div className="bookingform-name">
+              <input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="Name" />
+            </div>
+            <div className="bookingform-email">
+              <input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email" />
+            </div>
+            <div className="bookingform-number">
+              <input type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="Number"/>
+            </div>
+            <div className="bookingform-submit">
+              <input type="submit" value="Submit" />
+            </div>
             <Modal
               isOpen={this.state.modalIsOpen}
               onRequestClose={this.closeModal}

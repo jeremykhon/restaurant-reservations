@@ -2,7 +2,7 @@ import React from 'react';
 import hhmmTime from '../utils/hhmm_time';
 
 const TimeSlot = ({ timeSlot }) => {
-  const time = hhmmTime(new Date(timeSlot.time));
+  const time = hhmmTime(timeSlot.time);
   return (
     <div className="timeSlot">
       {time}

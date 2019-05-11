@@ -14,10 +14,15 @@ class SelectableTimeSlot extends Component {
 
   render() {
     const { timeSlot } = this.props
-    const time = hhmmTime(new Date(timeSlot.time));
+    const time = hhmmTime(timeSlot.time);
     return (
       <div style={this.selectedStyle()} className="timeSlot" onClick={this.handleClick}>
-        {time}
+        <div>
+          {time}
+        </div>
+        <div>
+          {timeSlot.discount}
+        </div>
       </div>
     );
   }
