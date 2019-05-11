@@ -61,7 +61,7 @@ class BookingForm extends Component {
       .then(data => this.setState({ timeSlots: data }));
   }
 
-  handleChangeTimeSlots = (event) => {
+  handleChangeDate = (event) => {
     const target = event.target
     const name = target.name;
 
@@ -92,7 +92,7 @@ class BookingForm extends Component {
         <div className="booking-form">
           <form onSubmit={this.handleSubmit}>
             <div className="bookingform-date">
-              <input type="date" name="date" value={this.state.date} onChange={this.handleChangeTimeSlots} />
+              <input type="date" name="date" value={this.state.date} onChange={this.handleChangeDate} />
             </div>
             <div className="bookingform-tablesize">
               <select name="tableSize" onChange={this.handleChange}>
