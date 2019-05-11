@@ -5,6 +5,14 @@ import hhmmTime from '../utils/hhmm_time';
 const BASE_URL = '/api/v1';
 
 class ConfirmationModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      confirmed: false,
+      booking: null,
+    };
+  }
+
   createBooking = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const body = this.props.bookingForm;
@@ -17,7 +25,7 @@ class ConfirmationModal extends Component {
       },
       body: JSON.stringify(body),
     }).then(response => response.json())
-      .then(data => console.log(data));;
+      .then(data => this.setState({booking: data, confirmed: true}));;
   }
 
   render() {
