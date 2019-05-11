@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import SelectableTimeSlot from './selectable_time_slot'
-import ConfirmationModal from './confirmation_modal'
+import SelectableTimeSlot from './selectable_time_slot';
+import ConfirmationModal from './confirmation_modal';
+import formatDate from '../utils/yymmdd_date';
 
 const BASE_URL = '/api/v1';
 const modalStyles = {
@@ -24,7 +25,7 @@ class BookingForm extends Component {
   constructor() {
     super();
     this.state = {
-      date: this.formatDate(new Date()),
+      date: formatDate(new Date()),
       tableSize: '',
       selectedTimeSlot: null,
       name: '',
@@ -72,18 +73,6 @@ class BookingForm extends Component {
     this.setState({selectedTimeSlot: null})
   }
 
-  formatDate = (date) => {
-    let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
-
   handleChange = (event) => {
     const target = event.target
     const name = target.name;
@@ -92,7 +81,8 @@ class BookingForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.openModal()
+    // this.validate()
+    // this.openModal()
   }
 
   render() {
