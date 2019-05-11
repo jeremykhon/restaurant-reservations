@@ -30,7 +30,7 @@ Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_hour
   d -= 1440.minutes
-  (1..100).each do |i|
+  (1..200).each do |i|
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
     d += 30.minutes
   end

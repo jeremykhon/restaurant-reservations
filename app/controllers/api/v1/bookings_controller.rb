@@ -1,11 +1,11 @@
-class Api::V1::RestaurantsController < ApplicationController
+class Api::V1::BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :create]
 
   def index
   end
 
   def create
-    if user_signed_in?
+    puts params
     # restaurant = Restaurant.new(name: params[:name])
     # restaurant.save
     # render json: channel
