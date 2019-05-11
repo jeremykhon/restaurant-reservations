@@ -151,7 +151,7 @@ class BookingForm extends Component {
               contentLabel="Confirm Modal"
               style={modalStyles}
             >
-              <ConfirmationModal bookingForm={this.state}/>
+              <ConfirmationModal closeModal={this.closeModal} bookingForm={this.state}/>
             </Modal>
           </form>
           <div className={this.state.selectedTimeSlotValid ? "select-time-slots-container" : "select-time-slots-container invalid"}>

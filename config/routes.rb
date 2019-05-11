@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :reviews, only: [ :index, :create ]
         resources :time_slots, only: [ :index ]
       end
+      resources :bookings , only: [ :index, :create ]
     end
   end
 
