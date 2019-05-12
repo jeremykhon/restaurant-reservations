@@ -111,7 +111,6 @@ class BookingForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.validateForm()) {
-      console.log("hello")
       this.openModal()
     }
   }
@@ -121,12 +120,15 @@ class BookingForm extends Component {
     return (
       <div className="col-12 col-sm-5">
         <div className="booking-form">
+          <div className="booking-form-title">
+            reservation details
+          </div>
           <form onSubmit={this.handleSubmit}>
             <div className={this.state.dateValid ? "booking-form-date" : "booking-form-date invalid"} >
-              <input type="date" name="date" value={this.state.date} onChange={this.handleChangeDate} />
+              <input className="no-select" type="date" name="date" value={this.state.date} onChange={this.handleChangeDate} />
             </div>
             <div className="booking-form-tablesize">
-              <select name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
+              <select className="no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
                 <option value="4">4 people</option>
@@ -135,18 +137,21 @@ class BookingForm extends Component {
               </select>
             </div>
             <div className={this.state.selectedTimeSlotValid ? "booking-form-timeslots" : "booking-form-timeslots invalid"}>
+              <div className="form-label-vertical">
+                choose time & discount
+              </div>
               <div className="time-slots-container">
                 {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
               </div>
             </div>
-            <div className={this.state.nameValid ? "booking-form-name" : "booking-form-name invalid"}>
-              <input className="booking-form-text-input" type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="Name" />
+            <div className={this.state.nameValid ? "booking-form-name" : "invalid booking-form-name"}>
+              <input className="booking-form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="name" />
             </div>
             <div className={this.state.emailValid ? "booking-form-email" : "booking-form-email invalid"}>
-              <input className="booking-form-text-input" type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email" />
+              <input className="booking-form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="email" />
             </div>
             <div className={this.state.numberValid ? "booking-form-number" : "booking-form-number invalid"}>
-              <input className="booking-form-text-input" type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="Number"/>
+              <input className="booking-form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="number"/>
             </div>
             <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
           </form>

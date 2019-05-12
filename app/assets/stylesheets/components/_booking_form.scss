@@ -1,15 +1,39 @@
 .booking-form {
   background-color: white;
+  border-radius: 5px;
   padding: 10px;
 }
 
+.booking-form-title {
+  font-weight: bold;
+  margin: 20px 0 15px 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid $orange;
+  display: inline-block;
+}
+
 .invalid {
-  border: 1px solid $red;
+  border-color: $red !important;
 }
 
 .booking-form-text-input {
   border: none;
   font-size: 14px;
+  width: 100%;
+}
+
+.booking-form-date {
+  border: 1px solid $light-gray;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.booking-form-tablesize {
+  border: 1px solid $light-gray;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 10px;
 }
 
 .booking-form-timeslots {
@@ -17,6 +41,11 @@
   padding: 5px;
   border-radius: 3px;
   margin-bottom: 10px;
+}
+
+.form-label-vertical {
+  font-size: 14px;
+  color: $ligher-gray;
 }
 
 .booking-form-name {
