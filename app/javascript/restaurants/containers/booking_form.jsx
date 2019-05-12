@@ -57,7 +57,7 @@ class BookingForm extends Component {
   }
 
   selectTimeSlot = (timeSlot) => {
-    this.setState({ selectedTimeSlot: timeSlot })
+    this.setState({ selectedTimeSlot: timeSlot, selectedTimeSlotValid: true })
   }
 
   fetchTimeSlots = () => {
@@ -78,6 +78,30 @@ class BookingForm extends Component {
     const target = event.target
     const name = target.name;
     this.setState({[name]: target.value});
+  }
+
+
+  validateField = (event) => {
+    console.log("hello")
+    const name = event.target.name
+    let nameValid = this.state.nameValid
+    let emailValid = this.state.emailValid
+    let numberValid = this.state.numberValid
+
+    switch(name) {
+      case 'name':
+        nameValid = this.state.name.length > 0;
+        this.setState({nameValid: nameValid});
+        break
+      case 'email':
+        emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+        this.setState({emailValid: emailValid});
+        break
+      case 'number':
+        numberValid = (/[0-9]{5,15}/).test(this.state.number)
+        this.setState({numberValid: numberValid});
+        break
+    }
   }
 
   validateForm = () => {
@@ -147,13 +171,13 @@ class BookingForm extends Component {
               </div>
             </div>
             <div className={this.state.nameValid ? "booking-form-name" : "invalid booking-form-name"}>
-              <input className="booking-form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="name" />
+              <input className="booking-form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
             </div>
             <div className={this.state.emailValid ? "booking-form-email" : "booking-form-email invalid"}>
-              <input className="booking-form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="email" />
+              <input className="booking-form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
             </div>
             <div className={this.state.numberValid ? "booking-form-number" : "booking-form-number invalid"}>
-              <input className="booking-form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="number"/>
+              <input className="booking-form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
             </div>
             <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
           </form>
