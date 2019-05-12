@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-datepicker'
 import Modal from 'react-modal';
 import SelectableTimeSlot from './selectable_time_slot';
 import ConfirmationModal from './confirmation_modal';
-import formatDate from '../utils/yymmdd_date';
+import addDays from '../utils/add_days';
+import "react-datepicker/dist/react-datepicker.css";
 
 const BASE_URL = '/api/v1';
 const modalStyles = {
@@ -25,7 +27,7 @@ class BookingForm extends Component {
   constructor() {
     super();
     this.state = {
-      date: formatDate(new Date()),
+      date: new Date(),
       tableSize: '2',
       selectedTimeSlot: null,
       name: '',
@@ -60,22 +62,15 @@ class BookingForm extends Component {
 
   fetchTimeSlots = () => {
     const { restaurant } = this.props;
-    const start = new Date(this.state.date).setHours(0, 0, 0, 0);
-    const end = new Date(this.state.date).setHours(23, 59, 59, 999);
+    const start = this.state.date.setHours(0, 0, 0, 0);
+    const end = this.state.date.setHours(23, 59, 59, 999);
     fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
       .then(response => response.json())
       .then(data => this.setState({ timeSlots: data }));
   }
 
-  handleChangeDate = (event) => {
-    const target = event.target
-    const name = target.name;
-
-    if (target.value !== "") {
-      this.setState({[name]: target.value}, this.fetchTimeSlots)
-    } else {
-      this.setState({[name]: target.value});
-    }
+  handleChangeDate = (date) => {
+    this.setState({date: date}, this.fetchTimeSlots)
     this.setState({selectedTimeSlot: null})
   }
 
@@ -125,10 +120,17 @@ class BookingForm extends Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className={this.state.dateValid ? "booking-form-date" : "booking-form-date invalid"} >
-              <input className="no-select" type="date" name="date" value={this.state.date} onChange={this.handleChangeDate} />
+              <DatePicker
+                selected={this.state.date}
+                onChange={this.handleChangeDate}
+                dateFormat="MMMM d, yyyy"
+                minDate={new Date()}
+                maxDate={addDays(new Date(), 14)}
+                className="booking-form-date-input no-select"
+              />
             </div>
             <div className="booking-form-tablesize">
-              <select className="no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
+              <select className="booking-form-select-input no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
                 <option value="4">4 people</option>

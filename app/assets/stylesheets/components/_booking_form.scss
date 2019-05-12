@@ -22,6 +22,13 @@
   width: 100%;
 }
 
+.booking-form-date-input {
+  border: none;
+  font-size: 14px;
+  width: 400px;
+  background-color: transparent;
+}
+
 .booking-form-date {
   border: 1px solid $light-gray;
   padding: 5px;
@@ -75,4 +82,11 @@
   color: white;
   width: 100%;
   border-radius: 3px;
+}
+
+.booking-form-select-input {
+  width: 100%;
+  background-color: white;
+  border: none;
+  font-size: 14px;
 }
