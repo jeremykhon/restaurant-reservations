@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BookingForm from './booking_form';
-import { ninvoke } from 'q';
 
 const BASE_URL = '/api/v1';
 
@@ -21,25 +20,18 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
-    let result;
     if (restaurant === null) {
-      result = <div />;
-    } else {
-      result = (
-        <div className="container">
-          <div className="row">
-            <div className="col-12">{restaurant.name}</div>
-          </div>
-          <div className="row">
-            <div className="col-12 col-sm-7">restaurant info</div>
-            <BookingForm restaurant={restaurant} />
-          </div>
-        </div>
-      );
+      return <div />;
     }
     return (
-      <div>
-        {result}
+      <div className="container">
+        <div className="row">
+          <div className="col-12">{restaurant.name}</div>
+        </div>
+        <div className="row">
+          <div className="col-12 col-sm-7">restaurant info</div>
+          <BookingForm restaurant={restaurant} />
+        </div>
       </div>
     );
   }
