@@ -111,6 +111,7 @@ class BookingForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.validateForm()) {
+      console.log("hello")
       this.openModal()
     }
   }
@@ -133,33 +134,31 @@ class BookingForm extends Component {
                 <option value="6">6 people</option>
               </select>
             </div>
+            <div className={this.state.selectedTimeSlotValid ? "booking-form-timeslots" : "booking-form-timeslots invalid"}>
+              <div className="time-slots-container">
+                {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
+              </div>
+            </div>
             <div className={this.state.nameValid ? "booking-form-name" : "booking-form-name invalid"}>
-              <input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="Name" />
+              <input className="booking-form-text-input" type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="Name" />
             </div>
             <div className={this.state.emailValid ? "booking-form-email" : "booking-form-email invalid"}>
-              <input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email" />
+              <input className="booking-form-text-input" type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email" />
             </div>
             <div className={this.state.numberValid ? "booking-form-number" : "booking-form-number invalid"}>
-              <input type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="Number"/>
+              <input className="booking-form-text-input" type="text" name="number" value={this.state.number} onChange={this.handleChange} placeholder="Number"/>
             </div>
-            <div className="bookingform-submit">
-              <input type="submit" value="Submit" />
-            </div>
-            <Modal
-              isOpen={this.state.modalIsOpen}
-              onRequestClose={this.closeModal}
-              contentLabel="Confirm Modal"
-              style={modalStyles}
-            >
-              <ConfirmationModal closeModal={this.closeModal} bookingForm={this.state}/>
-            </Modal>
+            <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
           </form>
-          <div className={this.state.selectedTimeSlotValid ? "booking-form-timeslots" : "booking-form-timeslots invalid"}>
-            <div className="time-slots-container">
-              {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
-            </div>
-          </div>
         </div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Confirm Modal"
+          style={modalStyles}
+        >
+          <ConfirmationModal closeModal={this.closeModal} bookingForm={this.state}/>
+        </Modal>
       </div>
     );
   }
