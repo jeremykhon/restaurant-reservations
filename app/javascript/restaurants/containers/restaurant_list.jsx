@@ -20,7 +20,7 @@ class RestaurantList extends Component {
   render() {
     const { restaurants } = this.state;
     return (
-      <div>
+      <div className="container">
         {restaurants.map(restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} />)}
       </div>
     );
