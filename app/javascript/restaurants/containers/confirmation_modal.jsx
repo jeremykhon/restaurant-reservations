@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import hhmmTime from '../utils/hhmm_time';
+import formatDate from '../utils/yymmdd_date';
 
 const BASE_URL = '/api/v1';
 
@@ -41,7 +42,7 @@ class ConfirmationModal extends Component {
     } else {
       return (  
         <div>
-          <div>{bookingForm.date}</div>
+          <div>{formatDate(bookingForm.date)}</div>
           <div>{bookingForm.tableSize}</div>
           <div>{hhmmTime(bookingForm.selectedTimeSlot.time)}</div>
           <div>{bookingForm.selectedTimeSlot.discount}</div>

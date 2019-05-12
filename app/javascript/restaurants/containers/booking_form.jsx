@@ -87,7 +87,7 @@ class BookingForm extends Component {
     let emailValid = this.state.emailValid
     let numberValid = this.state.numberValid
 
-    dateValid = (/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/).test(this.state.date)
+    dateValid = Object.prototype.toString.call(this.state.date) === "[object Date]"
     nameValid = this.state.name.length > 0
     selectedTimeSlotValid = this.state.selectedTimeSlot !== null
     emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
