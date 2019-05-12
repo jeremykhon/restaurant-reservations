@@ -1,0 +1,26 @@
+.time-slots-container {
+  display: flex;
+  overflow: auto;
+}
+
+.time-slot {
+  margin: 3px;
+  height: 60px;
+  flex: 0 0 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: $red;
+  border-radius: 50%;
+}
+
+.time-slot-time {
+  font-size: 12px;
+  margin: 0px;
+}
+
+.time-slot-discount {
+  margin-top: -2px;
+}

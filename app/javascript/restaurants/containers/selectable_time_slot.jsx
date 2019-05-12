@@ -8,7 +8,7 @@ class SelectableTimeSlot extends Component {
 
   selectedStyle = () => {
     if (this.props.selectedTimeSlot === this.props.timeSlot) {
-      return {"color": "red"}
+      return {"backgroundColor": "#ed9102"}
     }
   }
 
@@ -16,12 +16,12 @@ class SelectableTimeSlot extends Component {
     const { timeSlot } = this.props
     const time = hhmmTime(timeSlot.time);
     return (
-      <div style={this.selectedStyle()} className="timeSlot" onClick={this.handleClick}>
-        <div>
+      <div style={this.selectedStyle()} className="time-slot" onClick={this.handleClick}>
+        <div className="time-slot-time">
           {time}
         </div>
-        <div>
-          {timeSlot.discount}
+        <div className="time-slot-discount">
+          {`-${timeSlot.discount}%`}
         </div>
       </div>
     );

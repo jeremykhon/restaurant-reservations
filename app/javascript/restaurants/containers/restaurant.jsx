@@ -25,9 +25,11 @@ class Restaurant extends Component {
     const { timeSlotsToday } = this.state;
     const { restaurant } = this.props;
     return (
-      <div className="restaurant-container">
+      <div className="col-12 col-sm-3 restaurant-container">
         <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>
-        {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
+        <div className="time-slots-container">
+          {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
+        </div>
       </div>
     );
   }

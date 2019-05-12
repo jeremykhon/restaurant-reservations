@@ -21,7 +21,9 @@ class RestaurantList extends Component {
     const { restaurants } = this.state;
     return (
       <div className="container">
-        {restaurants.map(restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} />)}
+        <div className="row">
+          {restaurants.map(restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} />)}
+        </div>
       </div>
     );
   }
