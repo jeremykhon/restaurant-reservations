@@ -13,6 +13,6 @@ const TimeSlot = ({ timeSlot }) => {
       </div>
     </div>
   );
-};
+}
 
 export default TimeSlot;
