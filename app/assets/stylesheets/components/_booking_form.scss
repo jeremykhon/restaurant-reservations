@@ -90,3 +90,9 @@
   border: none;
   font-size: 14px;
 }
+
+.validation-error-message {
+  color: $red;
+  font-size: 11px;
+  margin: -8px 0 10px 5px;
+}

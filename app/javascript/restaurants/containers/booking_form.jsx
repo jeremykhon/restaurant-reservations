@@ -82,7 +82,6 @@ class BookingForm extends Component {
 
 
   validateField = (event) => {
-    console.log("hello")
     const name = event.target.name
     let nameValid = this.state.nameValid
     let emailValid = this.state.emailValid
@@ -90,7 +89,7 @@ class BookingForm extends Component {
 
     switch(name) {
       case 'name':
-        nameValid = this.state.name.length > 0;
+        nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
         this.setState({nameValid: nameValid});
         break
       case 'email':
@@ -98,7 +97,7 @@ class BookingForm extends Component {
         this.setState({emailValid: emailValid});
         break
       case 'number':
-        numberValid = (/[0-9]{5,15}/).test(this.state.number)
+        numberValid = (/^[0-9][0-9]{5,15}$/).test(this.state.number)
         this.setState({numberValid: numberValid});
         break
     }
@@ -112,10 +111,10 @@ class BookingForm extends Component {
     let numberValid = this.state.numberValid
 
     dateValid = Object.prototype.toString.call(this.state.date) === "[object Date]"
-    nameValid = this.state.name.length > 0
+    nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
     selectedTimeSlotValid = this.state.selectedTimeSlot !== null
     emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
-    numberValid = (/[0-9]{5,15}/).test(this.state.number)
+    numberValid = (/^[0-9]{5,15}$/).test(this.state.number) 
 
     this.setState({dateValid: dateValid,
                   nameValid: nameValid,
@@ -125,6 +124,39 @@ class BookingForm extends Component {
                   });
 
     return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
+  }
+
+  errorMessage = (name) => {
+    switch(name) {
+      case 'timeSlots':
+        if (this.state.selectedTimeSlotValid === false) {
+          return (
+            <div className="validation-error-message">please select a time and discount</div>
+          )
+        }
+        break
+      case 'name':
+        if (this.state.nameValid === false) {
+          return (
+            <div className="validation-error-message">please enter your name</div>
+          )
+        }
+        break
+      case 'email':
+        if (this.state.emailValid === false) {
+          return (
+            <div className="validation-error-message">please enter a valid email address</div>
+          )
+        }
+        break
+      case 'number':
+        if (this.state.numberValid === false) {
+          return (
+            <div className="validation-error-message">please enter your phone number</div>
+          )
+        }
+        break
+    }
   }
 
   handleSubmit = (event) => {
@@ -170,15 +202,19 @@ class BookingForm extends Component {
                 {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
               </div>
             </div>
+            {this.errorMessage("timeSlots")}
             <div className={this.state.nameValid ? "booking-form-name" : "invalid booking-form-name"}>
               <input className="booking-form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
             </div>
+            {this.errorMessage("name")}
             <div className={this.state.emailValid ? "booking-form-email" : "booking-form-email invalid"}>
               <input className="booking-form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
             </div>
+            {this.errorMessage("email")}
             <div className={this.state.numberValid ? "booking-form-number" : "booking-form-number invalid"}>
               <input className="booking-form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
             </div>
+            {this.errorMessage("number")}
             <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
           </form>
         </div>
