@@ -30,7 +30,7 @@ class ConfirmationModal extends Component {
       .then(data => this.setState({booking: data, confirmed: true}));;
   }
 
-  result = () => {
+  render() {
     const {bookingForm, closeModal} = this.props
     if (this.state.confirmed) {
       return (
@@ -54,14 +54,6 @@ class ConfirmationModal extends Component {
         </div>
       )
     }
-  }
-
-  render() {
-    return (
-      <div>
-        {this.result()}
-      </div>
-    );
   }
 }
 export default ConfirmationModal;

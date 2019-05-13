@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BookingForm from './booking_form';
-
-const BASE_URL = '/api/v1';
+import BASE_URL from '../utils/base_url';
 
 class RestaurantPage extends Component {
   constructor() {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Restaurant from './restaurant';
-
-const BASE_URL = '/api/v1';
+import BASE_URL from '../utils/base_url';
 
 class RestaurantList extends Component {
   constructor() {

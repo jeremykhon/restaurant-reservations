@@ -4,9 +4,9 @@ import Modal from 'react-modal';
 import SelectableTimeSlot from './selectable_time_slot';
 import ConfirmationModal from './confirmation_modal';
 import addDays from '../utils/add_days';
+import BASE_URL from '../utils/base_url';
 import "react-datepicker/dist/react-datepicker.css";
 
-const BASE_URL = '/api/v1';
 const modalStyles = {
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
