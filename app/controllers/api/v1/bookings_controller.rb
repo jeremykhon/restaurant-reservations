@@ -14,8 +14,13 @@ class Api::V1::BookingsController < ApplicationController
                           email: params[:email],
                           number: params[:number],
                           discount: params[:selectedTimeSlot][:discount])
-    booking.user = current_user if user_signed_in?
-    if booking.save
+
+    unless request.headers["authorization"] == "null"
+      authenticate_request
+      booking.user = current_user
+    end
+
+    if booking.save!
       render json: booking
     else
       render json: { message: "something went wrong" }
