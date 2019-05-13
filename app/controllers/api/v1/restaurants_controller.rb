@@ -1,5 +1,5 @@
 class Api::V1::RestaurantsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_request, only: [:index, :show]
 
   def index
     restaurants = Restaurant.all

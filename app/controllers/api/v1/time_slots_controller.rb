@@ -1,5 +1,5 @@
 class Api::V1::TimeSlotsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_request, only: [:index]
 
   def index
     time_slots = TimeSlot.where(

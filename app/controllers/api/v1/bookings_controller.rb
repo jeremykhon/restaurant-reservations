@@ -1,5 +1,5 @@
 class Api::V1::BookingsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :create]
+  skip_before_action :authenticate_request, only: [:index, :create]
 
   def index
   end
