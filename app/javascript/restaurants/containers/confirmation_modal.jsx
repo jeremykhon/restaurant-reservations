@@ -24,7 +24,7 @@ class ConfirmationModal extends Component {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken,
-        'jwt': localStorage.getItem('jwt'),
+        'Authentication': localStorage.getItem('Authentication'),
       },
       body: JSON.stringify(body),
     }).then(response => response.json())

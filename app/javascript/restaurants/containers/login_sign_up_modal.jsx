@@ -3,7 +3,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BASE_URL from '../utils/base_url';
 
-class ConfirmationModal extends Component {
+class LoginSignUpModal extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      name: "",
+    };
+  }
+
   // createBooking = () => {
   //   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
   //   const body = this.props.bookingForm;
@@ -19,20 +29,37 @@ class ConfirmationModal extends Component {
   //     .then(data => this.setState({booking: data, confirmed: true}));;
   // }
 
-  render() {
-    const { loggingIn } = this.props;
-    if (loggingIn) {
-      return (
+  logIn = () => {
+    return (
+      <form onSubmit={this.handleSubmit}>
         <div>
-          loggin in
+          <input type="text" name="email" autoComplete="username" placeholder="email"/>
         </div>
+        <div>
+          <input type="password" name="password" autoComplete="current-password" placeholder="password"/>
+        </div>
+        <button className="booking-form-submit" type="submit" value="Submit">Log in</button>
+      </form>
+    )
+  }
+
+  signUp = () => {
+    return (
+      <form onSubmit={this.handleSubmit}>
+
+      </form>
+    )
+  }
+
+  render() {
+    if (this.props.loggingIn) {
+      return (
+        this.logIn()
       );
     }
     return (
-      <div>
-        signing up
-      </div>
+      this.signUp()
     );
   }
 }
-export default ConfirmationModal;
+export default LoginSignUpModal;
