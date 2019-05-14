@@ -20,7 +20,6 @@ class LogInSignUpModal extends Component {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, password } = this.state
     const body = { email, password };
-    console.log(body)
     fetch(`${BASE_URL}/authenticate`, {
       method: 'POST',
       headers: {
@@ -43,6 +42,11 @@ class LogInSignUpModal extends Component {
   logInSuccess = () => {
     this.props.logIn()
     this.props.closeModal()
+  }
+
+  signUp = () => {
+    event.preventDefault();
+    // TODO
   }
 
   handleChange = (event) => {
@@ -81,7 +85,7 @@ class LogInSignUpModal extends Component {
 
   signUpForm = () => {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.signUp}>
         <div className="form-div">
           <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
         </div>

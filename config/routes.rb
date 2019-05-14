@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post 'authenticate', to: 'authentication#authenticate'
+      resources :users, only: [ :create ]
       resources :restaurants, only: [ :index, :show, :create ] do
         resources :default_time_slots, only: [ :index, :create ]
         resources :reviews, only: [ :index, :create ]
