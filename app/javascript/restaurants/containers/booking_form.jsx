@@ -175,7 +175,7 @@ class BookingForm extends Component {
             reservation details
           </div>
           <form onSubmit={this.handleSubmit}>
-            <div className={this.state.dateValid ? "form-div" : "form-div invalid"} >
+            <div className={this.state.dateValid ? "form-item" : "form-item invalid"} >
               <DatePicker
                 selected={this.state.date}
                 onChange={this.handleChangeDate}
@@ -185,7 +185,7 @@ class BookingForm extends Component {
                 className="form-date-input no-select"
               />
             </div>
-            <div className="form-div">
+            <div className="form-item">
               <select className="form-select-input no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
@@ -194,7 +194,7 @@ class BookingForm extends Component {
                 <option value="6">6 people</option>
               </select>
             </div>
-            <div className={this.state.selectedTimeSlotValid ? "form-div" : "form-div invalid"}>
+            <div className={this.state.selectedTimeSlotValid ? "form-item" : "form-item invalid"}>
               <div className="form-label-vertical">
                 choose time & discount
               </div>
@@ -203,15 +203,15 @@ class BookingForm extends Component {
               </div>
             </div>
             {this.errorMessage("timeSlots")}
-            <div className={this.state.nameValid ? "form-div" : "invalid form-div"}>
+            <div className={this.state.nameValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
             </div>
             {this.errorMessage("name")}
-            <div className={this.state.emailValid ? "form-div" : "form-div invalid"}>
+            <div className={this.state.emailValid ? "form-item" : "form-item invalid"}>
               <input className="form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
             </div>
             {this.errorMessage("email")}
-            <div className={this.state.numberValid ? "form-div" : "form-div invalid"}>
+            <div className={this.state.numberValid ? "form-item" : "form-item invalid"}>
               <input className="form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
             </div>
             {this.errorMessage("number")}

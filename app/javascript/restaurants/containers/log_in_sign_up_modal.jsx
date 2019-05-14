@@ -82,44 +82,56 @@ class LogInSignUpModal extends Component {
 
   logInForm = () => {
     return (
-      <form onSubmit={(e) => {e.preventDefault(); this.logIn()}}>
-        <div>
+      <div className="authentication-container">
+        <div className="authentication-form-title">
           Log in
         </div>
-        <div className="log-in-sign-up-messages-container">
-          {this.errorMessage()}
-        </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
-        </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="password" name="password" autoComplete="current-password" placeholder="password" onChange={this.handleChange}/>
-        </div>
-        <button className="form-submit no-select" type="submit" value="Submit">log in</button>
-      </form>
+        <form className="authentication-form" onSubmit={(e) => {e.preventDefault(); this.logIn()}}>
+          <div className="authentication-form-items">
+            <div className="authentication-form-messages">
+              {this.errorMessage()}
+            </div>
+            <div className="form-item">
+              <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
+            </div>
+            <div className="form-item">
+              <input className="form-text-input no-select" type="password" name="password" autoComplete="current-password" placeholder="password" onChange={this.handleChange}/>
+            </div>
+          </div>
+          <div className="authentication-form-actions">
+            <button className="form-submit no-select" type="submit" value="Submit">log in</button>
+          </div>
+        </form>
+      </div>
     )
   }
 
   signUpForm = () => {
     return (
-      <form className="sign-up-form" onSubmit={this.signUp}>
-        <div>
+      <div className="authentication-container">
+        <div className="authentication-form-title">
           Sign up
         </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
-        </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
-        </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange}/>
-        </div>
-        <div className="form-div">
-          <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange}/>
-        </div>
-        <button className="form-submit no-select" type="submit" value="Submit">sign up</button>
-      </form>
+          <form className="authentication-form" onSubmit={this.signUp}>
+            <div className="authentication-form-items">
+              <div className="form-item">
+                <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
+              </div>
+              <div className="form-item">
+                <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
+              </div>
+              <div className="form-item">
+                <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange}/>
+              </div>
+              <div className="form-item">
+                <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange}/>
+              </div>
+            </div>
+            <div className="authentication-form-actions">
+              <button className="form-submit no-select" type="submit" value="Submit">sign up</button>
+            </div>
+        </form>
+      </div>
     )
   }
 

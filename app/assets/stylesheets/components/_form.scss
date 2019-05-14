@@ -1,8 +1,9 @@
-.form-div {
+.form-item {
   border: 1px solid $light-gray;
   padding: 5px;
   border-radius: 3px;
   margin-bottom: 10px;
+  padding: 8px;
 }
 
 .form-text-input {
@@ -12,7 +13,7 @@
 }
 
 .form-submit {
-  height: 35px;
+  height: 40px;
   background-color: $red;
   color: white;
   width: 100%;
@@ -47,4 +48,12 @@
   color: $red;
   font-size: 11px;
   margin: -8px 0 10px 5px;
+}
+
+.form-title {
+  font-weight: bold;
+  margin: 15px 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid $orange;
+  display: inline-block;
 }
