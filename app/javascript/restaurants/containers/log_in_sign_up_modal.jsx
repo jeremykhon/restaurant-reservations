@@ -16,7 +16,6 @@ class LogInSignUpModal extends Component {
   }
 
   logIn = () => {
-    event.preventDefault();
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, password } = this.state
     const body = { email, password };
@@ -44,9 +43,27 @@ class LogInSignUpModal extends Component {
     this.props.closeModal()
   }
 
-  signUp = () => {
-    event.preventDefault();
-    // TODO
+  signUp = (event) => {
+    event.preventDefault()
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    const { email, name, password } = this.state
+    const body = { email, name, password };
+    fetch(`${BASE_URL}/users`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+      },
+      body: JSON.stringify(body),
+    }).then(response => {
+        if (response.ok) {
+          this.logIn()
+        } else {
+          console.log(response);
+        }
+      }
+    )
   }
 
   handleChange = (event) => {
@@ -65,7 +82,7 @@ class LogInSignUpModal extends Component {
 
   logInForm = () => {
     return (
-      <form onSubmit={this.logIn}>
+      <form onSubmit={(e) => {e.preventDefault(); this.logIn()}}>
         <div>
           Log in
         </div>
@@ -85,7 +102,10 @@ class LogInSignUpModal extends Component {
 
   signUpForm = () => {
     return (
-      <form onSubmit={this.signUp}>
+      <form className="sign-up-form" onSubmit={this.signUp}>
+        <div>
+          Sign up
+        </div>
         <div className="form-div">
           <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
         </div>
