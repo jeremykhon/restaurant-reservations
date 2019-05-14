@@ -25,6 +25,7 @@ class Navbar extends Component {
     this.state = {
       modalIsOpen: false,
       loggingIn: false,
+      loggedIn: false,
     };
   }
   
@@ -40,8 +41,8 @@ class Navbar extends Component {
     this.setState({ modalIsOpen: false });
   };
 
-  loggedIn = (jwt) => {
-    if (jwt) {
+  loggedIn = (Authorization) => {
+    if (Authorization) {
       return (
         <div className="nav-link log-out">
           Logout
@@ -73,7 +74,7 @@ class Navbar extends Component {
           </div>
         </div>
         <div className="nav-bar-right">
-          {this.loggedIn(localStorage.getItem('jwt'))}
+          {this.loggedIn(localStorage.getItem('Authorization'))}
         </div>
         <Modal
             isOpen={this.state.modalIsOpen}

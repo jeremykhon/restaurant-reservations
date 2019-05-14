@@ -48,9 +48,23 @@ class LogInSignUpModal extends Component {
     this.setState({[name]: target.value});
   }
 
+  errorMessage = () => {
+    if (this.state.unauthorized) {
+      return (
+        <div className="log-in-sign-up-error-message">Your email or password was incorrect<br/>please try again</div>
+      )
+    }
+  }
+
   logInForm = () => {
     return (
       <form onSubmit={this.logIn}>
+        <div>
+          Log in
+        </div>
+        <div className="log-in-sign-up-messages-container">
+          {this.errorMessage()}
+        </div>
         <div className="form-div">
           <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
         </div>
