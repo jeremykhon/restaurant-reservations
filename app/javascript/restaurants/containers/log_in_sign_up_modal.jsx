@@ -32,6 +32,7 @@ class LogInSignUpModal extends Component {
     }).then(response => {
         if (response.ok) {
           response.json().then(data => localStorage.setItem('Authorization', data.auth_token));
+          this.logInSuccess()
         } else {
           this.setState({unauthorized: true});
         }
@@ -39,8 +40,10 @@ class LogInSignUpModal extends Component {
     )
   }
 
-  // response.json())
-      // .then(data => localStorage.setItem('Authorization', data.auth_token));
+  logInSuccess = () => {
+    this.props.logIn()
+    this.props.closeModal()
+  }
 
   handleChange = (event) => {
     const target = event.target

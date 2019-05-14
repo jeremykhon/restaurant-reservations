@@ -21,11 +21,9 @@ Modal.setAppElement('#root');
 
 class Navbar extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       modalIsOpen: false,
-      loggingIn: false,
-      loggedIn: false,
     };
   }
   
@@ -41,10 +39,10 @@ class Navbar extends Component {
     this.setState({ modalIsOpen: false });
   };
 
-  loggedIn = (Authorization) => {
-    if (Authorization) {
+  loggedIn = (loggedIn) => {
+    if (loggedIn) {
       return (
-        <div className="nav-link log-out">
+        <div className="nav-link log-out" onClick={this.props.logOut} >
           Logout
         </div>
       );
@@ -64,6 +62,7 @@ class Navbar extends Component {
   modal
 
   render () {
+    const { loggedIn } = this.props
     return (
       <div className="container-fluid nav-bar">
         <div className="nav-bar-left">
@@ -74,7 +73,7 @@ class Navbar extends Component {
           </div>
         </div>
         <div className="nav-bar-right">
-          {this.loggedIn(localStorage.getItem('Authorization'))}
+          {this.loggedIn(loggedIn)}
         </div>
         <Modal
             isOpen={this.state.modalIsOpen}
@@ -82,7 +81,7 @@ class Navbar extends Component {
             contentLabel="Sign in or up modal"
             style={modalStyles}
           >
-            <LogInSignUpModal loggingIn={this.state.loggingIn} />
+            <LogInSignUpModal logIn={this.props.logIn} loggingIn={this.state.loggingIn} closeModal={this.closeModal} />
           </Modal>
       </div>
     );
