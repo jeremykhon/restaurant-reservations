@@ -1,0 +1,50 @@
+.form-div {
+  border: 1px solid $light-gray;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.form-text-input {
+  border: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+.form-submit {
+  height: 35px;
+  background-color: $red;
+  color: white;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.form-select-input {
+  width: 100%;
+  background-color: white;
+  border: none;
+  font-size: 14px;
+}
+
+.form-date-input {
+  border: none;
+  font-size: 14px;
+  width: 300px;
+  background-color: transparent;
+}
+
+.invalid {
+  border-color: $red !important;
+}
+
+.form-label-vertical {
+  font-size: 14px;
+  color: $lighter-gray;
+}
+
+.validation-error-message {
+  color: $red;
+  font-size: 11px;
+  margin: -8px 0 10px 5px;
+}

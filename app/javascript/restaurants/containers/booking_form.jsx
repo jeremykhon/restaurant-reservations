@@ -175,18 +175,18 @@ class BookingForm extends Component {
             reservation details
           </div>
           <form onSubmit={this.handleSubmit}>
-            <div className={this.state.dateValid ? "booking-form-date" : "booking-form-date invalid"} >
+            <div className={this.state.dateValid ? "form-div" : "form-div invalid"} >
               <DatePicker
                 selected={this.state.date}
                 onChange={this.handleChangeDate}
                 dateFormat="MMMM d, yyyy"
                 minDate={new Date()}
                 maxDate={addDays(new Date(), 14)}
-                className="booking-form-date-input no-select"
+                className="form-date-input no-select"
               />
             </div>
-            <div className="booking-form-tablesize">
-              <select className="booking-form-select-input no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
+            <div className="form-div">
+              <select className="form-select-input no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
                 <option value="4">4 people</option>
@@ -194,7 +194,7 @@ class BookingForm extends Component {
                 <option value="6">6 people</option>
               </select>
             </div>
-            <div className={this.state.selectedTimeSlotValid ? "booking-form-timeslots" : "booking-form-timeslots invalid"}>
+            <div className={this.state.selectedTimeSlotValid ? "form-div" : "form-div invalid"}>
               <div className="form-label-vertical">
                 choose time & discount
               </div>
@@ -203,16 +203,16 @@ class BookingForm extends Component {
               </div>
             </div>
             {this.errorMessage("timeSlots")}
-            <div className={this.state.nameValid ? "booking-form-name" : "invalid booking-form-name"}>
-              <input className="booking-form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
+            <div className={this.state.nameValid ? "form-div" : "invalid form-div"}>
+              <input className="form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
             </div>
             {this.errorMessage("name")}
-            <div className={this.state.emailValid ? "booking-form-email" : "booking-form-email invalid"}>
-              <input className="booking-form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
+            <div className={this.state.emailValid ? "form-div" : "form-div invalid"}>
+              <input className="form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
             </div>
             {this.errorMessage("email")}
-            <div className={this.state.numberValid ? "booking-form-number" : "booking-form-number invalid"}>
-              <input className="booking-form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
+            <div className={this.state.numberValid ? "form-div" : "form-div invalid"}>
+              <input className="form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
             </div>
             {this.errorMessage("number")}
             <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>

@@ -29,16 +29,22 @@ class LoginSignUpModal extends Component {
   //     .then(data => this.setState({booking: data, confirmed: true}));;
   // }
 
+  handleChange = (event) => {
+    const target = event.target
+    const name = target.name;
+    this.setState({[name]: target.value});
+  }
+
   logIn = () => {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
-          <input type="text" name="email" autoComplete="username" placeholder="email"/>
+        <div className="form-div">
+          <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
         </div>
-        <div>
-          <input type="password" name="password" autoComplete="current-password" placeholder="password"/>
+        <div className="form-div">
+          <input className="form-text-input no-select" type="password" name="password" autoComplete="current-password" placeholder="password" onChange={this.handleChange}/>
         </div>
-        <button className="booking-form-submit" type="submit" value="Submit">Log in</button>
+        <button className="form-submit no-select" type="submit" value="Submit">log in</button>
       </form>
     )
   }
@@ -46,7 +52,19 @@ class LoginSignUpModal extends Component {
   signUp = () => {
     return (
       <form onSubmit={this.handleSubmit}>
-
+        <div className="form-div">
+          <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
+        </div>
+        <div className="form-div">
+          <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
+        </div>
+        <div className="form-div">
+          <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange}/>
+        </div>
+        <div className="form-div">
+          <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange}/>
+        </div>
+        <button className="form-submit no-select" type="submit" value="Submit">sign up</button>
       </form>
     )
   }

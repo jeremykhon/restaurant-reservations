@@ -12,87 +12,10 @@
   display: inline-block;
 }
 
-.invalid {
-  border-color: $red !important;
-}
-
-.booking-form-text-input {
-  border: none;
-  font-size: 14px;
-  width: 100%;
-}
-
-.booking-form-date-input {
-  border: none;
-  font-size: 14px;
-  width: 400px;
-  background-color: transparent;
-}
-
-.booking-form-date {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
-.booking-form-tablesize {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
-.booking-form-timeslots {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
-.form-label-vertical {
-  font-size: 14px;
-  color: $lighter-gray;
-}
-
-.booking-form-name {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
-.booking-form-email {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
-.booking-form-number {
-  border: 1px solid $light-gray;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}
-
 .booking-form-submit {
   height: 55px;
   background-color: $red;
   color: white;
   width: 100%;
   border-radius: 3px;
-}
-
-.booking-form-select-input {
-  width: 100%;
-  background-color: white;
-  border: none;
-  font-size: 14px;
-}
-
-.validation-error-message {
-  color: $red;
-  font-size: 11px;
-  margin: -8px 0 10px 5px;
 }
