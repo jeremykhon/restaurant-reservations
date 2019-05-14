@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BASE_URL from '../utils/base_url';
 
-class LogInSignUpModal extends Component {
+class AuthenticationModal extends Component {
   constructor() {
     super()
     this.state = {
@@ -12,6 +12,7 @@ class LogInSignUpModal extends Component {
       password: "",
       confirmPassword: "",
       unauthorized: false,
+      emailTaken: false,
     };
   }
 
@@ -61,6 +62,7 @@ class LogInSignUpModal extends Component {
           this.logIn()
         } else {
           console.log(response);
+          this.setState({emailTaken: true})
         }
       }
     )
@@ -75,7 +77,12 @@ class LogInSignUpModal extends Component {
   errorMessage = () => {
     if (this.state.unauthorized) {
       return (
-        <div className="log-in-sign-up-error-message">Your email or password was incorrect<br/>please try again</div>
+        <div className="authentication-error-message">Your email or password was incorrect<br/>please try again</div>
+      )
+    }
+    if (this.state.emailTaken) {
+      return (
+        <div className="authentication-error-message">That email has already been taken<br/>please log in or try again</div>
       )
     }
   }
@@ -114,6 +121,9 @@ class LogInSignUpModal extends Component {
         </div>
           <form className="authentication-form" onSubmit={this.signUp}>
             <div className="authentication-form-items">
+              <div className="authentication-form-messages">
+                {this.errorMessage()}
+              </div>
               <div className="form-item">
                 <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange}/>
               </div>
@@ -146,4 +156,4 @@ class LogInSignUpModal extends Component {
     );
   }
 }
-export default LogInSignUpModal;
+export default AuthenticationModal;

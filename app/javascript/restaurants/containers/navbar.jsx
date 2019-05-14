@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import LogInSignUpModal from './log_in_sign_up_modal'
+import AuthenticationModal from './authentication_modal'
 
 const modalStyles = {
   overlay: {
@@ -81,7 +81,7 @@ class Navbar extends Component {
             contentLabel="Sign in or up modal"
             style={modalStyles}
           >
-            <LogInSignUpModal logIn={this.props.logIn} loggingIn={this.state.loggingIn} closeModal={this.closeModal} />
+            <AuthenticationModal logIn={this.props.logIn} loggingIn={this.state.loggingIn} closeModal={this.closeModal} />
           </Modal>
       </div>
     );
