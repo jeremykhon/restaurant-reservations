@@ -3,31 +3,44 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BASE_URL from '../utils/base_url';
 
-class LoginSignUpModal extends Component {
+class LogInSignUpModal extends Component {
   constructor() {
     super()
     this.state = {
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
-      name: "",
+      unauthorized: false,
     };
   }
 
-  // createBooking = () => {
-  //   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-  //   const body = this.props.bookingForm;
-  //   fetch(`${BASE_URL}/bookings`, {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'X-CSRF-Token': csrfToken,
-  //     },
-  //     body: JSON.stringify(body),
-  //   }).then(response => response.json())
-  //     .then(data => this.setState({booking: data, confirmed: true}));;
-  // }
+  logIn = () => {
+    event.preventDefault();
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    const { email, password } = this.state
+    const body = { email, password };
+    console.log(body)
+    fetch(`${BASE_URL}/authenticate`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+      },
+      body: JSON.stringify(body),
+    }).then(response => {
+        if (response.ok) {
+          response.json().then(data => localStorage.setItem('Authorization', data.auth_token));
+        } else {
+          this.setState({unauthorized: true});
+        }
+      }
+    )
+  }
+
+  // response.json())
+      // .then(data => localStorage.setItem('Authorization', data.auth_token));
 
   handleChange = (event) => {
     const target = event.target
@@ -35,9 +48,9 @@ class LoginSignUpModal extends Component {
     this.setState({[name]: target.value});
   }
 
-  logIn = () => {
+  logInForm = () => {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.logIn}>
         <div className="form-div">
           <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange}/>
         </div>
@@ -49,7 +62,7 @@ class LoginSignUpModal extends Component {
     )
   }
 
-  signUp = () => {
+  signUpForm = () => {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-div">
@@ -72,12 +85,12 @@ class LoginSignUpModal extends Component {
   render() {
     if (this.props.loggingIn) {
       return (
-        this.logIn()
+        this.logInForm()
       );
     }
     return (
-      this.signUp()
+      this.signUpForm()
     );
   }
 }
-export default LoginSignUpModal;
+export default LogInSignUpModal;
