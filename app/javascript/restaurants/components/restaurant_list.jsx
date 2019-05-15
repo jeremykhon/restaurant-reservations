@@ -19,8 +19,10 @@ class RestaurantList extends Component {
   render() {
     const { restaurants } = this.state;
     return (
-      <div className="row">
-        {restaurants.map(restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} />)}
+      <div className="container">
+        <div className="row">
+          {restaurants.map(restaurant => <Restaurant key={restaurant.id} restaurant={restaurant} />)}
+        </div>
       </div>
     );
   }

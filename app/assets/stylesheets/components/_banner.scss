@@ -1,0 +1,19 @@
+.banner-image-container {
+  position: relative;
+  height: 400px;
+}
+
+.banner-image {
+  width: 100vw;
+  height: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 30%;
+  position: absolute;
+  transition: opacity 2000ms ease-in-out;
+  z-index: -1;
+}
+
+.banner-content-container {
+  z-index: 1;
+}

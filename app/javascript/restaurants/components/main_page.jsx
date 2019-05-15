@@ -4,7 +4,7 @@ import BannerImage from './banner_image';
 
 const MainPage = () => {
   return (
-    <div className="container">
+    <div className="main-page-container">
       <BannerImage />
       <RestaurantList />
     </div>
