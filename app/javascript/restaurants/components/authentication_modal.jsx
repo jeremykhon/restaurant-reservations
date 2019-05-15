@@ -81,7 +81,7 @@ class AuthenticationModal extends Component {
     this.setState({ [name]: target.value });
   }
 
-  errorMessage = () => {
+  messages = () => {
     if (this.state.unauthorized) {
       return (
         <div className="authentication-error-message">
@@ -171,32 +171,6 @@ class AuthenticationModal extends Component {
     }
   }
 
-  logInForm = () => {
-    return (
-      <div className="authentication-container">
-        <div className="authentication-form-title">
-          Log in
-        </div>
-        <form className="authentication-form" onSubmit={this.preLogIn}>
-          <div className="authentication-form-items">
-            <div className="authentication-form-messages">
-              {this.errorMessage()}
-            </div>
-            <div className="form-item">
-              <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange} />
-            </div>
-            <div className="form-item">
-              <input className="form-text-input no-select" type="password" name="password" autoComplete="current-password" placeholder="password" onChange={this.handleChange} />
-            </div>
-          </div>
-          <div className="authentication-form-actions">
-            <button className="form-submit no-select" type="submit" value="Submit">log in</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
-
   errorMessage = (name) => {
     switch (name) {
       case 'name':
@@ -237,6 +211,34 @@ class AuthenticationModal extends Component {
     }
   }
 
+  logInForm = () => {
+    return (
+      <div className="authentication-container">
+        <div className="authentication-form-title">
+          Log in
+        </div>
+        <form className="authentication-form" onSubmit={this.preLogIn}>
+          <div className="authentication-form-items">
+            <div className="authentication-form-messages">
+              {this.messages()}
+            </div>
+            <div className={this.state.emailValid ? "form-item" : "invalid form-item"}>
+              <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange} />
+            </div>
+            {this.errorMessage('email')}
+            <div className={this.state.passwordPresenceValid ? "form-item" : "invalid form-item"}>
+              <input className="form-text-input no-select" type="password" name="password" autoComplete="current-password" placeholder="password" onChange={this.handleChange} />
+            </div>
+            {this.errorMessage('passwordPresence')}
+          </div>
+          <div className="authentication-form-actions">
+            <button className="form-submit no-select" type="submit" value="Submit">log in</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
   signUpForm = () => {
     return (
       <div className="authentication-container">
@@ -248,19 +250,19 @@ class AuthenticationModal extends Component {
             <div className="authentication-form-messages">
               {this.errorMessage()}
             </div>
-            <div className="form-item">
+            <div className={this.state.nameValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
             {this.errorMessage('name')}
-            <div className="form-item">
+            <div className={this.state.emailValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
             {this.errorMessage('email')}
-            <div className="form-item">
+            <div className={this.state.passwordLengthValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
             {this.errorMessage('passwordLength')}
-            <div className="form-item">
+            <div className={this.state.confirmPasswordValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
             {this.errorMessage('confirmPassword')}
