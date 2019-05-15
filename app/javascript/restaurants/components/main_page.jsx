@@ -6,7 +6,12 @@ const MainPage = () => {
   return (
     <div className="main-page-container">
       <BannerImage />
-      <RestaurantList />
+      <div className="container">
+        <div className="section-title">
+          all restaurants
+        </div>
+        <RestaurantList />
+      </div>
     </div>
   );
 };
