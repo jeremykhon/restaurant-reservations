@@ -36,7 +36,7 @@ class Navbar extends Component {
     }
     return (
       <div className="nav-bar-right">
-        <div className="nav-link log-in" name="log-in" onClick={this.openLogInModal}>
+        <div className="nav-link log-in" onClick={this.openLogInModal}>
           login
         </div>
         <div className="nav-link sign-up" onClick={this.openSignUpModal}>
