@@ -1,7 +1,7 @@
 // external modules
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/app';
+import App from './components/app';
 
 // internal modules
 const root = document.getElementById('root');

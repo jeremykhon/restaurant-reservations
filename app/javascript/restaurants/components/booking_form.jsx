@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker'
 import Modal from 'react-modal';
@@ -5,21 +6,8 @@ import SelectableTimeSlot from './selectable_time_slot';
 import ConfirmationModal from './confirmation_modal';
 import addDays from '../utils/add_days';
 import BASE_URL from '../utils/base_url';
-import "react-datepicker/dist/react-datepicker.css";
-
-const modalStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+import 'react-datepicker/dist/react-datepicker.css';
+import modalStyles from '../utils/modal_styles';
 
 Modal.setAppElement('#root');
 
@@ -36,24 +24,23 @@ class BookingForm extends Component {
       timeSlots: [],
       modalIsOpen: false,
       dateValid: true,
-      tableSizeValid: true,
       selectedTimeSlotValid: true,
       nameValid: true,
       emailValid: true,
       numberValid: true,
     };
   }
-  
+
   componentDidMount() {
-    this.fetchTimeSlots()
+    this.fetchTimeSlots();
   }
 
   openModal = () => {
-    this.setState({modalIsOpen: true});
+    this.setState({ modalIsOpen: true });
   }
 
   closeModal = () => {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
   selectTimeSlot = (timeSlot) => {
@@ -70,14 +57,14 @@ class BookingForm extends Component {
   }
 
   handleChangeDate = (date) => {
-    this.setState({date: date}, this.fetchTimeSlots)
-    this.setState({selectedTimeSlot: null})
+    this.setState({ date: date }, this.fetchTimeSlots);
+    this.setState({ selectedTimeSlot: null });
   }
 
   handleChange = (event) => {
     const target = event.target
     const name = target.name;
-    this.setState({[name]: target.value});
+    this.setState({ [name]: target.value });
   }
 
 
@@ -87,19 +74,19 @@ class BookingForm extends Component {
     let emailValid = this.state.emailValid
     let numberValid = this.state.numberValid
 
-    switch(name) {
+    switch (name) {
       case 'name':
         nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
-        this.setState({nameValid: nameValid});
-        break
+        this.setState({ nameValid });
+        break;
       case 'email':
         emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
-        this.setState({emailValid: emailValid});
-        break
+        this.setState({ emailValid });
+        break;
       case 'number':
         numberValid = (/^[0-9][0-9]{5,15}$/).test(this.state.number)
-        this.setState({numberValid: numberValid});
-        break
+        this.setState({ numberValid });
+        break;
     }
   }
 
@@ -116,12 +103,13 @@ class BookingForm extends Component {
     emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
     numberValid = (/^[0-9]{5,15}$/).test(this.state.number) 
 
-    this.setState({dateValid: dateValid,
-                  nameValid: nameValid,
-                  selectedTimeSlotValid: selectedTimeSlotValid,
-                  emailValid: emailValid,
-                  numberValid: numberValid,
-                  });
+    this.setState({
+      dateValid,
+      nameValid,
+      selectedTimeSlotValid,
+      emailValid,
+      numberValid,
+    });
 
     return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
   }

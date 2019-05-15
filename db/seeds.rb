@@ -12,7 +12,7 @@ Restaurant.destroy_all
 Cuisine.destroy_all
 User.destroy_all
 
-User.create!(email: "jeremy@eatigo.com", name: "jeremy", password: "testtest")
+User.create!(email: "admin@eatigo.com", name: "admin", password: "testtest")
 User.create!(email: "maya@eatigo.com", name: "maya", password: "testtest")
 
 Cuisine.create!(name: "Italian")

@@ -11,7 +11,7 @@ class RestaurantPage extends Component {
   }
 
   componentDidMount() {
-    const { restaurant } = this.props.match.params
+    const { restaurant } = this.props.match.params;
     fetch(`${BASE_URL}/restaurants/${restaurant}`)
       .then(response => response.json())
       .then(data => this.setState({ restaurant: data }));

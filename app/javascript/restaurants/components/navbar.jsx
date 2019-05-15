@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import AuthenticationModal from './authentication_modal'
-
-const modalStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import AuthenticationModal from './authentication_modal';
+import modalStyles from '../utils/modal_styles';
 
 Modal.setAppElement('#root');
 
 class Navbar extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       modalIsOpen: false,
     };
   }
-  
+
   openLogInModal = () => {
     this.setState({ modalIsOpen: true, loggingIn: true });
   };
@@ -34,7 +21,7 @@ class Navbar extends Component {
   openSignUpModal = () => {
     this.setState({ modalIsOpen: true, loggingIn: false });
   };
-  
+
   closeModal = () => {
     this.setState({ modalIsOpen: false });
   };
@@ -42,7 +29,7 @@ class Navbar extends Component {
   loggedIn = (loggedIn) => {
     if (loggedIn) {
       return (
-        <div className="nav-link log-out" onClick={this.props.logOut} >
+        <div className="nav-link log-out" onClick={this.props.logOut}>
           Logout
         </div>
       );
@@ -59,9 +46,7 @@ class Navbar extends Component {
     );
   };
 
-  modal
-
-  render () {
+  render() {
     const { loggedIn } = this.props
     return (
       <div className="container-fluid nav-bar">
@@ -76,16 +61,20 @@ class Navbar extends Component {
           {this.loggedIn(loggedIn)}
         </div>
         <Modal
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-            contentLabel="Sign in or up modal"
-            style={modalStyles}
-          >
-            <AuthenticationModal logIn={this.props.logIn} loggingIn={this.state.loggingIn} closeModal={this.closeModal} />
-          </Modal>
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Sign in or up modal"
+          style={modalStyles}
+        >
+          <AuthenticationModal 
+            logIn={this.props.logIn}
+            loggingIn={this.state.loggingIn}
+            closeModal={this.closeModal}
+          />
+        </Modal>
       </div>
     );
   }
-};
+}
 
 export default Navbar;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import TimeSlot from '../components/time_slot';
-
-const BASE_URL = '/api/v1';
+import TimeSlot from './time_slot';
+import BASE_URL from '../utils/base_url';
 
 class Restaurant extends Component {
   constructor() {

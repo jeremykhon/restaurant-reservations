@@ -1,5 +1,5 @@
 const hhmmTime = (t) => {
-  const time = new Date (t);
+  const time = new Date(t);
   const checkTime = (i) => {
     return (i < 10) ? "0" + i : i;
   };
