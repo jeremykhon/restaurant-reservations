@@ -8,6 +8,10 @@
 
 .nav-bar-left {
   display: flex;
+  
+  .nav-link {
+    border-right: 1px solid $light-gray;
+  }
 }
 
 .nav-bar-right {
@@ -23,11 +27,11 @@
   font-size: 15px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 24px;
   height: 100%;
-  border-bottom: 2px solid white;
+  border-bottom: 2.5px solid white;
 
   &:hover {
-    border-bottom: 2px solid $orange;
+    border-bottom: 2.5px solid $orange;
   }
 }

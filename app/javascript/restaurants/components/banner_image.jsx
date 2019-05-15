@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import musselsAndWine from 'images/mussels_and_wine.jpg';
 import pastaInSkillet from 'images/pasta_in_skillet.jpg';
 import steak from 'images/steak.jpg';
+import logo from 'images/logo.svg';
 
 
 class BannerImage extends Component {
@@ -13,7 +14,7 @@ class BannerImage extends Component {
   }
 
   componentDidMount() {
-    const intervalId = setInterval(this.changeCurrentImage, 4000);
+    const intervalId = setInterval(this.changeCurrentImage, 5000);
   }
 
   toggleOpacity = (number) => { return number === this.state.currentImage ? 1 : 0; }
@@ -35,7 +36,10 @@ class BannerImage extends Component {
         <div className="banner-image" style={{ opacity: this.toggleOpacity(2), backgroundImage: `url(${steak})` }} />
         <div className="banner-image" style={{ opacity: this.toggleOpacity(3), backgroundImage: `url(${pastaInSkillet})` }} />
         <div className="banner-content-container">
-          Reservations with discounts
+          <img className="logo" src={logo} alt="eatigo-logo" />
+          <div className="banner-text">
+            reservations with discounts
+          </div>
         </div>
       </div>
     );

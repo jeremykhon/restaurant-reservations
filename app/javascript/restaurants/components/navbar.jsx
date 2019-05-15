@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
+import logoSmall from 'images/logo_small.svg';
 import AuthenticationModal from './authentication_modal';
 import modalStyles from '../utils/modal_styles';
+
 
 Modal.setAppElement('#root');
 
@@ -49,11 +51,11 @@ class Navbar extends Component {
   render() {
     const { loggedIn } = this.props
     return (
-      <div className="container-fluid nav-bar">
+      <div className="nav-bar">
         <div className="nav-bar-left">
           <div>
             <Link className="nav-link" to="/">
-              Home
+              <img src={logoSmall} alt="small-logo" />
             </Link>
           </div>
         </div>
