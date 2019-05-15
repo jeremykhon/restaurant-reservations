@@ -30,14 +30,14 @@ class Navbar extends Component {
     if (loggedIn) {
       return (
         <div className="nav-link log-out" onClick={this.props.logOut}>
-          Logout
+          Log out
         </div>
       );
     }
     return (
       <div className="nav-bar-right">
         <div className="nav-link log-in" onClick={this.openLogInModal}>
-          login
+          log in
         </div>
         <div className="nav-link sign-up" onClick={this.openSignUpModal}>
           sign up

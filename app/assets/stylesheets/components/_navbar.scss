@@ -2,7 +2,6 @@
   display: flex;
   height: 50px;
   justify-content: space-between;
-  align-items: center;
   background: white;
   box-shadow: 0px 10px 10px $light-gray;
 }
@@ -13,4 +12,22 @@
 
 .nav-bar-right {
   display: flex;
+
+  .nav-link {
+    border-left: 1px solid $light-gray;
+  }
+}
+
+.nav-link {
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 100%;
+  border-bottom: 2px solid white;
+
+  &:hover {
+    border-bottom: 2px solid $orange;
+  }
 }
