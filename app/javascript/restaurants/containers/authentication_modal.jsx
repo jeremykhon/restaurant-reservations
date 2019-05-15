@@ -13,6 +13,10 @@ class AuthenticationModal extends Component {
       confirmPassword: "",
       unauthorized: false,
       emailTaken: false,
+      nameValid: true,
+      emailValid: true,
+      passwordValid: true,
+      confirmPasswordValid: true,
     };
   }
 
@@ -85,6 +89,38 @@ class AuthenticationModal extends Component {
         <div className="authentication-error-message">That email has already been taken<br/>please log in or try again</div>
       )
     }
+  }
+
+  validateForm = (form) => {
+    nameValid: true,
+    emailValid: true,
+    passwordValid: true,
+    confirmPasswordValid: true,
+
+    let nameValid = this.state.nameValid
+    let emailValid = this.state.emailValid
+    let passwordValid = this.state.passwordValid
+    let confirmPasswordValid = this.state.confirmPasswordValid
+
+    if (form === "signUp") {
+      nameValid = nameValid.length > 0
+      confirmPasswordValid = this.state.password === this.state.confirmPassword
+    }
+
+    // dateValid = Object.prototype.toString.call(this.state.date) === "[object Date]"
+    // nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
+    // selectedTimeSlotValid = this.state.selectedTimeSlot !== null
+    // emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+    // numberValid = (/^[0-9]{5,15}$/).test(this.state.number) 
+
+    // this.setState({dateValid: dateValid,
+    //               nameValid: nameValid,
+    //               selectedTimeSlotValid: selectedTimeSlotValid,
+    //               emailValid: emailValid,
+    //               numberValid: numberValid,
+    //               });
+
+    // return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
   }
 
   logInForm = () => {
