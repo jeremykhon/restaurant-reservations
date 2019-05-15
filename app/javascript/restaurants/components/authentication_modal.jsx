@@ -1,6 +1,5 @@
-/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable default-case */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import BASE_URL from '../utils/base_url';
 
 class AuthenticationModal extends Component {
@@ -15,7 +14,8 @@ class AuthenticationModal extends Component {
       emailTaken: false,
       nameValid: true,
       emailValid: true,
-      passwordValid: true,
+      passwordPresenceValid: true,
+      passwordLengthValid: true,
       confirmPasswordValid: true,
     };
   }
@@ -45,12 +45,14 @@ class AuthenticationModal extends Component {
   }
 
   logInSuccess = () => {
-    this.props.logIn();
-    this.props.closeModal();
+    // setting parent state to logged in and closing the modal after login success
+    const { logIn, closeModal } = this.props;
+    logIn();
+    closeModal();
   }
 
-  signUp = (event) => {
-    event.preventDefault();
+  signUp = () => {
+    this.validateForm(true);
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, name, password } = this.state;
     const body = { email, name, password };
@@ -100,31 +102,73 @@ class AuthenticationModal extends Component {
     }
   }
 
-  validateForm = (form) => {
+  validateField = (event) => {
+    const name = event.target.name
+    let nameValid = this.state.nameValid
+    let passwordLengthValid = this.state.passwordLengthValid
+    let emailValid = this.state.emailValid
+    let confirmPasswordValid = this.state.confirmPasswordValid
+
+    switch (name) {
+      case 'name':
+        nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
+        this.setState({ nameValid });
+        break;
+      case 'email':
+        emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+        this.setState({ emailValid });
+        break;
+      case 'password':
+        passwordLengthValid = this.state.password.length > 5;
+        this.setState({ passwordLengthValid });
+        break;
+      case 'confirmPassword':
+        confirmPasswordValid = (this.state.password === this.state.confirmPassword);
+        this.setState({ confirmPasswordValid });
+        break;
+    }
+  }
+
+
+  validateForm = (isSignUp) => {
     let nameValid = this.state.nameValid;
     let emailValid = this.state.emailValid;
-    let passwordValid = this.state.passwordValid;
+    let passwordPresenceValid = this.state.passwordPresenceValid;
+    let passwordLengthValid = this.state.passwordlengthValid;
     let confirmPasswordValid = this.state.confirmPasswordValid;
 
-    if (form === 'signUp') {
-      nameValid = nameValid.length > 0;
+    emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+    passwordPresenceValid = this.state.password.length > 0;
+
+    if (isSignUp) {
+      passwordLengthValid = this.state.password.length > 5;
+      nameValid = (/^[A-z ]{1,20}$/).test(this.state.name);
       confirmPasswordValid = (this.state.password === this.state.confirmPassword);
+      this.setState({
+        nameValid, emailValid, passwordLengthValid, confirmPasswordValid,
+      });
+      return (nameValid && emailValid && passwordLengthValid && confirmPasswordValid);
     }
 
-    // dateValid = Object.prototype.toString.call(this.state.date) === "[object Date]"
-    // nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
-    // selectedTimeSlotValid = this.state.selectedTimeSlot !== null
-    // emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
-    // numberValid = (/^[0-9]{5,15}$/).test(this.state.number) 
+    this.setState({
+      emailValid, passwordPresenceValid,
+    });
 
-    // this.setState({dateValid: dateValid,
-    //               nameValid: nameValid,
-    //               selectedTimeSlotValid: selectedTimeSlotValid,
-    //               emailValid: emailValid,
-    //               numberValid: numberValid,
-    //               });
+    return (emailValid && passwordPresenceValid);
+  }
 
-    // return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
+  preLogIn = (event) => {
+    event.preventDefault();
+    if (this.validateForm()) {
+      this.logIn();
+    }
+  }
+
+  preSignUp = (event) => {
+    event.preventDefault();
+    if (this.validateForm(true)) {
+      this.signUp();
+    }
   }
 
   logInForm = () => {
@@ -133,7 +177,7 @@ class AuthenticationModal extends Component {
         <div className="authentication-form-title">
           Log in
         </div>
-        <form className="authentication-form" onSubmit={(e) => { e.preventDefault(); this.logIn(); }}>
+        <form className="authentication-form" onSubmit={this.preLogIn}>
           <div className="authentication-form-items">
             <div className="authentication-form-messages">
               {this.errorMessage()}
@@ -153,29 +197,73 @@ class AuthenticationModal extends Component {
     );
   }
 
+  errorMessage = (name) => {
+    switch (name) {
+      case 'name':
+        if (this.state.nameValid === false) {
+          return (
+            <div className="validation-error-message">please enter your name</div>
+          );
+        }
+        break;
+      case 'email':
+        if (this.state.emailValid === false) {
+          return (
+            <div className="validation-error-message">please enter a valid email</div>
+          );
+        }
+        break;
+      case 'passwordLength':
+        if (this.state.passwordLengthValid === false) {
+          return (
+            <div className="validation-error-message">please choose a password with at least 6 characters</div>
+          );
+        }
+        break;
+      case 'passwordPresence':
+        if (this.state.passwordPresenceValid === false) {
+          return (
+            <div className="validation-error-message">please enter your password</div>
+          );
+        }
+        break;
+      case 'confirmPassword':
+        if (this.state.confirmPasswordValid === false) {
+          return (
+            <div className="validation-error-message">the password you retyped is different, please check again</div>
+          );
+        }
+        break;
+    }
+  }
+
   signUpForm = () => {
     return (
       <div className="authentication-container">
         <div className="authentication-form-title">
           Sign up
         </div>
-        <form className="authentication-form" onSubmit={this.signUp}>
+        <form className="authentication-form" onSubmit={this.preSignUp}>
           <div className="authentication-form-items">
             <div className="authentication-form-messages">
               {this.errorMessage()}
             </div>
             <div className="form-item">
-              <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange} />
+              <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
+            {this.errorMessage('name')}
             <div className="form-item">
-              <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange} />
+              <input className="form-text-input no-select" type="text" name="email" autoComplete="username" placeholder="email" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
+            {this.errorMessage('email')}
             <div className="form-item">
-              <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange} />
+              <input className="form-text-input no-select" type="password" name="password" autoComplete="new-password" placeholder="password" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
+            {this.errorMessage('passwordLength')}
             <div className="form-item">
-              <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange} />
+              <input className="form-text-input no-select" type="password" name="confirmPassword" autoComplete="new-password" placeholder="re-type password" onChange={this.handleChange} onBlur={this.validateField} />
             </div>
+            {this.errorMessage('confirmPassword')}
           </div>
           <div className="authentication-form-actions">
             <button className="form-submit no-select" type="submit" value="Submit">sign up</button>
