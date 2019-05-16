@@ -10,11 +10,17 @@ class BannerImage extends Component {
     super();
     this.state = {
       currentImage: 1,
+      intervalId: null,
     };
   }
 
   componentDidMount() {
     const intervalId = setInterval(this.changeCurrentImage, 5000);
+    this.setState({ intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   toggleOpacity = (number) => { return number === this.state.currentImage ? 1 : 0; }
