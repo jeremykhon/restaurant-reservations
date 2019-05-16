@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         resources :default_time_slots, only: [ :index, :create ]
         resources :reviews, only: [ :index, :create ]
         resources :time_slots, only: [ :index ]
+        resources :restaurant_photos, only: [ :index, :show, :create, :destroy ]
       end
       resources :bookings , only: [ :index, :create ]
     end
