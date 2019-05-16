@@ -9,26 +9,39 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: localStorage.getItem('Authorization') ? true : false,
+      loggedIn: localStorage.getItem('jwt') ? true : false,
+      user: null,
     };
   }
 
   componentDidMount() {
+    this.getUser();
+  }
+
+  getUser = () => {
     if (this.state.loggedIn) {
-      const token = localStorage.getItem('Authorization');
-      fetch(`${BASE_URL}/users/${token}`)
-        .then(response => response.json())
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+      fetch(`${BASE_URL}/return_user`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+          'jwt': localStorage.getItem('jwt'),
+        },
+      }).then(response => response.json())
         .then(data => console.log(data));
     }
   }
 
   logIn = () => {
-    this.setState({ loggedIn: true }) 
+    this.setState({ loggedIn: true });
+    this.getUser();
   }
 
   logOut = () => {
     localStorage.clear()
-    this.setState({ loggedIn: false }) 
+    this.setState({ loggedIn: false, user: null });
   }
 
   render() {

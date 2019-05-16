@@ -23,8 +23,8 @@ class AuthorizeApiRequest
   end
 
   def http_auth_header
-    if headers['Authorization'].present?
-      return headers['Authorization'].split(' ').last
+    if headers['jwt'].present?
+      return headers['jwt'].split(' ').last
     else
       errors.add(:token, 'Missing token')
     end
