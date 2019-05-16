@@ -4,7 +4,7 @@ import axios from "axios";
 import TimeSlot from './time_slot';
 import BASE_URL from '../utils/base_url';
 
-class Restaurant extends Component {
+class RestaurantCard extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,7 +27,7 @@ class Restaurant extends Component {
     const { mainPhoto } = this.state;
     if (mainPhoto) {
       return (
-        <img src={mainPhoto.photo.url} alt={mainPhoto.alt_name} />
+        <div className="restaurant-card-image" style={{ backgroundImage: `url(${mainPhoto.photo.url})` }} />
       );
     }
   }
@@ -36,8 +36,10 @@ class Restaurant extends Component {
     const { timeSlotsToday } = this.state;
     const { restaurant } = this.props;
     return (
-      <div className="col-12 col-sm-3 restaurant-container">
-        {this.renderPhoto()}
+      <div className="col-12 col-sm-3 restaurant-card-container">
+        <div className="restaurant-card-image-container">
+          {this.renderPhoto()}
+        </div>
         <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>
         <div className="time-slots-container">
           {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
@@ -46,4 +48,4 @@ class Restaurant extends Component {
     );
   }
 }
-export default Restaurant;
+export default RestaurantCard;
