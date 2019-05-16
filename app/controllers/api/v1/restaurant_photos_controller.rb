@@ -3,18 +3,22 @@ class Api::V1::RestaurantPhotosController < ApplicationController
   before_action :set_restaurant, only: [:index, :create]
 
   def index
-    photos = @restaurant.restaurant_photos
+    if params[:first]
+      photos = @restaurant.restaurant_photos.first(params[:first].to_i)
+    else
+      photos = @restaurant.restaurant_photos
+    end
     render json: photos
   end
 
-  def show
-    photo = RestaurantPhoto.find_by(id: params[:id])
-    if photo.nil?
-      render json: { message: "photo not found" }, status: :bad_request
-    else
-      render json: photo
-    end
-  end
+  # def show
+  #   photo = RestaurantPhoto.find_by(id: params[:id])
+  #   if photo.nil?
+  #     render json: { message: "photo not found" }, status: :bad_request
+  #   else
+  #     render json: photo
+  #   end
+  # end
 
   def create
     if current_user.admin?
