@@ -24,10 +24,10 @@ class Api::V1::BookingsController < ApplicationController
       booking.user = current_user
     end
 
-    if booking.save!
+    if booking.save
       render json: booking
     else
-      render json: { message: "something went wrong" }, status: :internal_server_error
+      render json: booking.errors, status: :unprocessable_entity
     end
   end
 end
