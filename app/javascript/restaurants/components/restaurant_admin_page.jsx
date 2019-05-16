@@ -13,9 +13,8 @@ class RestaurantAdminPage extends Component {
 
   componentDidMount() {
     const { restaurant } = this.props.match.params;
-    fetch(`${BASE_URL}/restaurants/${restaurant}`)
-      .then(response => response.json())
-      .then(data => this.setState({ restaurant: data }));
+    axios.get(`${BASE_URL}/restaurants/${restaurant}`)
+      .then(response => this.setState({ restaurant: response.data }));
   }
 
   handleFileChange = (event) => {

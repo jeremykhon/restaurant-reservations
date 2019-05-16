@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import Restaurant from './restaurant';
 import BASE_URL from '../utils/base_url';
+import { ServerResponse } from 'http';
 
 class RestaurantList extends Component {
   constructor() {
@@ -11,9 +13,8 @@ class RestaurantList extends Component {
   }
 
   componentDidMount() {
-    fetch(`${BASE_URL}/restaurants`)
-      .then(response => response.json())
-      .then(data => this.setState({ restaurants: data }));
+    axios.get(`${BASE_URL}/restaurants`)
+      .then(response => this.setState({ restaurants: response.data }));
   }
 
   render() {
