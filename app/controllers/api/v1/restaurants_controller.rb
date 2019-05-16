@@ -7,9 +7,7 @@ class Api::V1::RestaurantsController < ApplicationController
   end
 
   def create
-    # restaurant = Restaurant.new(name: params[:name])
-    # restaurant.save
-    # render json: channel
+    # TODO
   end
 
   def show
