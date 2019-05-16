@@ -120,30 +120,30 @@ class BookingForm extends Component {
         if (this.state.selectedTimeSlotValid === false) {
           return (
             <div className="validation-error-message">please select a time and discount</div>
-          )
+          );
         }
-        break
+        break;
       case 'name':
         if (this.state.nameValid === false) {
           return (
             <div className="validation-error-message">please enter your name</div>
-          )
+          );
         }
-        break
+        break;
       case 'email':
         if (this.state.emailValid === false) {
           return (
             <div className="validation-error-message">please enter a valid email address</div>
-          )
+          );
         }
-        break
+        break;
       case 'number':
         if (this.state.numberValid === false) {
           return (
             <div className="validation-error-message">please enter your phone number</div>
-          )
+          );
         }
-        break
+        break;
     }
   }
 

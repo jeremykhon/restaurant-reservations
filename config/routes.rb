@@ -8,12 +8,13 @@ Rails.application.routes.draw do
         resources :default_time_slots, only: [ :index, :create ]
         resources :reviews, only: [ :index, :create ]
         resources :time_slots, only: [ :index ]
-        resources :restaurant_photos, only: [ :index, :show, :create, :destroy ]
+        resources :restaurant_photos, only: [ :index, :show, :destroy ]
       end
       resources :bookings , only: [ :index, :create ]
     end
   end
-
+  
+  post '/api/v1/restaurants/:restaurant_id/restaurant_photos', to: 'api/v1/restaurant_photos#create'
   get '/restaurants/:id', to: 'restaurants#index'
   root to: 'restaurants#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
