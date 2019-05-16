@@ -17,6 +17,8 @@ gem 'webpacker'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'jwt'
 gem 'simple_command'
+gem 'cloudinary'
+gem 'carrierwave'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
