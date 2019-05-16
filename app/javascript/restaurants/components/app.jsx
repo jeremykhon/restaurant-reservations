@@ -4,6 +4,7 @@ import RestaurantPage from './restaurant_page';
 import MainPage from './main_page';
 import Navbar from './navbar';
 import BASE_URL from '../utils/base_url';
+import RestaurantAdminPage from './restaurant_admin_page';
 
 class App extends Component {
   constructor() {
@@ -30,7 +31,7 @@ class App extends Component {
           'jwt': localStorage.getItem('jwt'),
         },
       }).then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => this.setState({ user: data }));
     }
   }
 
@@ -40,32 +41,33 @@ class App extends Component {
   }
 
   logOut = () => {
-    localStorage.clear()
+    localStorage.clear();
     this.setState({ loggedIn: false, user: null });
   }
 
   render() {
+    const { loggedIn, user } = this.state;
     return (
       <Router>
-        <Navbar loggedIn={this.state.loggedIn} logIn={this.logIn} logOut={this.logOut} />
+        <Navbar loggedIn={loggedIn} logIn={this.logIn} logOut={this.logOut} user={user} />
         <Switch>
           <Route
             exact
             path="/"
             render={props => (
-              <MainPage loggedIn={this.state.loggedIn} {...props} />
-            )}
-          />
-          <Route
-            path="/restaurants/:restaurant"
-            render={props => (
-              <RestaurantPage loggedIn={this.state.loggedIn} {...props} />
+              <MainPage loggedIn={loggedIn} user={user} {...props} />
             )}
           />
           <Route
             path="/restaurants/:restaurant/admin"
             render={props => (
-              <RestaurantAdmin loggedIn={this.state.loggedIn} {...props} />
+              <RestaurantAdminPage loggedIn={loggedIn} user={user} {...props} />
+            )}
+          />
+          <Route
+            path="/restaurants/:restaurant"
+            render={props => (
+              <RestaurantPage loggedIn={loggedIn} user={user} {...props} />
             )}
           />
         </Switch>
