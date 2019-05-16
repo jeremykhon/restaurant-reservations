@@ -1,5 +1,5 @@
 class RestaurantPhotoController < ApplicationController
-  before_action :set_restaurant, only: [:show, :index, :create, :destroy]
+  before_action :set_restaurant, only: [:index, :create, :destroy]
 
   def index
     photos = @restaurant.restaurant_photos
@@ -7,20 +7,28 @@ class RestaurantPhotoController < ApplicationController
   end
 
   def create
-    if current_user.admin?
-      @book = Book.new(book_params)
-           
-      if @book.save
-        render json: @book, status: :created, location: @book
+    if current_user == @restaurant.user
+      restaurant_photo = RestarantPhoto.new(photo_params)
+      restaurant_photo.alt_name = @restaurant.name
+      restaurant_photo.restaurant = @restaurant.user
+      restaurant_photo.user = current_user
+      if restaurant_photo.save
+        render json: restaurant_photo, status: :created
       else
-        render json: @book.errors, status: :unprocessable_entity
+        render json: restaurant_photo.errors, status: :unprocessable_entity
       end
+    else
+      render json: { message: "unauthorized, this is not your restaurant" }, status: :unauthorized
     end
   end
 
   def destroy
-    @photo.destroy if current_user == @restaurant.user
-    render json: { message: "photo removed" }, status: :ok
+    if current_user == @restaurant.user
+      @photo.destroy
+      render json: { message: "photo removed" }, status: :ok
+    else
+      render json: { message: "unauthorized, this is not your restaurant" }, status: :unauthorized
+    end
   end
 
   private
