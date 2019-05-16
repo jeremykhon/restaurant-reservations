@@ -1,5 +1,6 @@
 class Api::V1::RestaurantPhotosController < ApplicationController
-  before_action :set_restaurant
+  skip_before_action :authenticate_request, only: [:index, :show]
+  before_action :set_restaurant, only: [:index, :create]
 
   def index
     photos = @restaurant.restaurant_photos
@@ -8,12 +9,15 @@ class Api::V1::RestaurantPhotosController < ApplicationController
 
   def show
     photo = RestaurantPhoto.find_by(id: params[:id])
-    render json: photo, status: :ok unless photo.nil?
-    render json: { message: "photo not found" }, status: :bad_request
+    if photo.nil?
+      render json: { message: "photo not found" }, status: :bad_request
+    else
+      render json: photo
+    end
   end
 
   def create
-    if current_user == @restaurant.user
+    if current_user.admin?
       restaurant_photo = RestarantPhoto.new(photo: params[:photo], alt_name: @restaurant.name)
       restaurant_photo.restaurant = @restaurant
       restaurant_photo.user = current_user
@@ -23,14 +27,14 @@ class Api::V1::RestaurantPhotosController < ApplicationController
         render json: restaurant_photo.errors, status: :unprocessable_entity
       end
     else
-      render json: { message: "unauthorized, this is not your restaurant" }, status: :unauthorized
+      render json: { message: "unauthorized, only admin can add new photos" }, status: :unauthorized
     end
   end
 
   def destroy
-    if current_user == @restaurant.user
+    if current_user.admin?
       @photo.destroy
-      render json: { message: "photo removed" }, status: :ok
+      render json: { message: "photo removed" }
     else
       render json: { message: "unauthorized, this is not your restaurant" }, status: :unauthorized
     end
