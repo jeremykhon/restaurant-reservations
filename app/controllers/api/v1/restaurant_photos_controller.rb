@@ -11,15 +11,6 @@ class Api::V1::RestaurantPhotosController < ApplicationController
     render json: photos
   end
 
-  # def show
-  #   photo = RestaurantPhoto.find_by(id: params[:id])
-  #   if photo.nil?
-  #     render json: { message: "photo not found" }, status: :bad_request
-  #   else
-  #     render json: photo
-  #   end
-  # end
-
   def create
     if current_user.admin?
       restaurant_photo = RestaurantPhoto.new(photo: params[:photo], alt_name: @restaurant.name)
@@ -48,10 +39,5 @@ class Api::V1::RestaurantPhotosController < ApplicationController
 
   def set_restaurant
     @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
-    puts request.body
-    puts params[:photo]
-    puts params
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
   end
 end
