@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import BASE_URL from '../utils/base_url';
 
 class RestaurantAdminPage extends Component {
@@ -25,18 +26,19 @@ class RestaurantAdminPage extends Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append('photo', this.state.photo)
-
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-    fetch(`${BASE_URL}/restaurants/${this.state.restaurant.id}/restaurant_photos`, {
-      method: 'POST',
+
+    axios({
+      method: 'post',
+      url: `${BASE_URL}/restaurants/${this.state.restaurant.id}/restaurant_photos`,
       headers: {
-        'Content-Type': 'image/jpeg',
         'X-CSRF-Token': csrfToken,
-        'jwt': localStorage.getItem('jwt'),
+        jwt: localStorage.getItem('jwt'),
+        'Content-Type': 'multipart/form-data',
       },
-      body: formData,
-    }).then(response => response.json())
-      .then(data => console.log(data));
+      data: formData,
+    })
+      .then(response => console.log(response));
   }
 
   render() {
