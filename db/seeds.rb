@@ -23,10 +23,10 @@ Cuisine.create!(name: "Indian")
 Cuisine.create!(name: "Korean")
 Cuisine.create!(name: "French")
 
-Restaurant.create!(name: "Mcdonalds", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50, allowed_table_sizes: [2, 4, 6], booking_window: 7)
-Restaurant.create!(name: "Burger King", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50, allowed_table_sizes: [2, 4, 6], booking_window: 7)
-Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40, allowed_table_sizes: [2, 4, 6], booking_window: 7)
-Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40, allowed_table_sizes: [2, 4, 6], booking_window: 7)
+Restaurant.create!(name: "Mcdonalds", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
+Restaurant.create!(name: "Burger King", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
+Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
+Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
 
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_hour

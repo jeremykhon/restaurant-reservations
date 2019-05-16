@@ -5,5 +5,5 @@ class Restaurant < ApplicationRecord
   has_many :reviews
   has_many :restaurant_photos
 
-  validates :user, :cuisine, :name, :location, :capacity, :booking_window, presence: true
+  validates :user, :cuisine, :name, :location, :description, :capacity, presence: true
 end
