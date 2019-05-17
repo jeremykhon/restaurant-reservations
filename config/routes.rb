@@ -13,8 +13,8 @@ Rails.application.routes.draw do
       resources :bookings , only: [ :index, :create ]
     end
   end
-  
   post '/api/v1/restaurants/:restaurant_id/restaurant_photos', to: 'api/v1/restaurant_photos#create'
+
   get '/restaurants/:id', to: 'restaurants#index'
   root to: 'restaurants#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

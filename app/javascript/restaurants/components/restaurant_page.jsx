@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import BookingForm from './booking_form';
 import BASE_URL from '../utils/base_url';
+import RestaurantPhotos from './restaurant_photos';
 
 class RestaurantPage extends Component {
   constructor() {
@@ -41,13 +42,15 @@ class RestaurantPage extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-12 restaurant-page-title">
-            <div>{restaurant.name}</div>
+          <div className="col-12 restaurant-page-title-container">
+            <div className="restaurant-page-title">{restaurant.name}</div>
             {this.ifAdmin()}
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-sm-7">restaurant info</div>
+          <div className="col-12 col-sm-7">
+            <RestaurantPhotos restaurant={restaurant} />
+          </div>
           <BookingForm restaurant={restaurant} />
         </div>
       </div>
