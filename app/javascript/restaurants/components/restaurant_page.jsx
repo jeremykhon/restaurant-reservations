@@ -19,6 +19,20 @@ class RestaurantPage extends Component {
       .then(response => this.setState({ restaurant: response.data }));
   }
 
+  ifAdmin = () => {
+    const { loggedIn, user } = this.props;
+    const { restaurant } = this.state;
+    if (loggedIn && user) {
+      if (user.admin) {
+        return (
+          <Link className="link" to={`/restaurants/${restaurant.id}/admin`}>
+            Admin Page
+          </Link>
+        );
+      }
+    }
+  }
+
   render() {
     const { restaurant } = this.state;
     if (restaurant === null) {
@@ -29,9 +43,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 restaurant-page-title">
             <div>{restaurant.name}</div>
-            <Link className="link" to={`/restaurants/${restaurant.id}/admin`}>
-              Admin Page
-            </Link>
+            {this.ifAdmin()}
           </div>
         </div>
         <div className="row">

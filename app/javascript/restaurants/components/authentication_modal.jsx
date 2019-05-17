@@ -1,5 +1,6 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
+import axios from "axios";
 import BASE_URL from '../utils/base_url';
 
 class AuthenticationModal extends Component {
@@ -24,24 +25,21 @@ class AuthenticationModal extends Component {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, password } = this.state;
     const body = { email, password };
-    fetch(`${BASE_URL}/authenticate`, {
+
+    axios({
       method: 'POST',
+      url: `${BASE_URL}/authenticate`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken,
       },
-      body: JSON.stringify(body),
-    }).then(
-      (response) => {
-        if (response.ok) {
-          response.json().then(data => localStorage.setItem('jwt', data.auth_token));
-          this.logInSuccess();
-        } else {
-          this.setState({ unauthorized: true });
-        }
-      },
-    );
+      data: body,
+    }).then((response) => {
+      localStorage.setItem('jwt', response.data.auth_token);
+      this.logInSuccess();
+    })
+      .catch(() => this.setState({ unauthorized: true }));
   }
 
   logInSuccess = () => {
@@ -56,23 +54,17 @@ class AuthenticationModal extends Component {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, name, password } = this.state;
     const body = { email, name, password };
-    fetch(`${BASE_URL}/users`, {
+    axios({
       method: 'POST',
+      url: `${BASE_URL}/users`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken,
       },
-      body: JSON.stringify(body),
-    }).then(
-      (response) => {
-        if (response.ok) {
-          this.logIn();
-        } else {
-          this.setState({ emailTaken: true });
-        }
-      },
-    );
+      data: body,
+    }).then(() => this.logIn())
+      .catch(() => this.setState({ emailTaken: true }));
   }
 
   handleChange = (event) => {
@@ -248,7 +240,7 @@ class AuthenticationModal extends Component {
         <form className="authentication-form" onSubmit={this.preSignUp}>
           <div className="authentication-form-items">
             <div className="authentication-form-messages">
-              {this.errorMessage()}
+              {this.messages()}
             </div>
             <div className={this.state.nameValid ? "form-item" : "invalid form-item"}>
               <input className="form-text-input no-select" type="text" name="name" placeholder="name" onChange={this.handleChange} onBlur={this.validateField} />
