@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from "axios";
+import axios from 'axios';
 import TimeSlot from './time_slot';
 import BASE_URL from '../utils/base_url';
+import history from '../utils/history';
 
 class RestaurantCard extends Component {
   constructor() {
@@ -32,15 +33,20 @@ class RestaurantCard extends Component {
     }
   }
 
+  linkToRestaurant = () => {
+    const { restaurant } = this.props;
+    history.push(`/restaurants/${restaurant.id}`);
+  }
+
   render() {
     const { timeSlotsToday } = this.state;
     const { restaurant } = this.props;
     return (
       <div className="col-12 col-sm-3 restaurant-card-container">
-        <div className="restaurant-card-image-container">
+        <div className="restaurant-card-image-container" onClick={this.linkToRestaurant}>
           {this.renderPhoto()}
         </div>
-        <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>
+        <div>{restaurant.name}</div>
         <div className="time-slots-container">
           {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from '../utils/history';
 import RestaurantPage from './restaurant_page';
 import MainPage from './main_page';
 import Navbar from './navbar';
@@ -48,7 +49,7 @@ class App extends Component {
   render() {
     const { loggedIn, user } = this.state;
     return (
-      <Router>
+      <Router history={history}>
         <Navbar loggedIn={loggedIn} logIn={this.logIn} logOut={this.logOut} user={user} />
         <Switch>
           <Route
