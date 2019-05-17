@@ -1,7 +1,13 @@
+.restaurant-card-container {
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
 .restaurant-card-image-container {
   position: relative;
   height: 200px;
-  margin-bottom: 35px;
 }
 
 .restaurant-card-image {
@@ -11,8 +17,15 @@
   background-repeat: no-repeat;
   background-position: 50% 30%;
   position: absolute;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
-.restaurant-card-container {
-  padding: 0 10px;
+.restaurant-card-content {
+  padding: 8px;
+}
+
+.restaurant-card-title {
+  font-size: 18px;
+  color: $dark-gray;
 }

@@ -42,13 +42,20 @@ class RestaurantCard extends Component {
     const { timeSlotsToday } = this.state;
     const { restaurant } = this.props;
     return (
-      <div className="col-12 col-sm-3 restaurant-card-container">
-        <div className="restaurant-card-image-container" onClick={this.linkToRestaurant}>
-          {this.renderPhoto()}
-        </div>
-        <div>{restaurant.name}</div>
-        <div className="time-slots-container">
-          {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
+      <div className="col-12 col-sm-3" style={{ padding: '0 10px' }}>
+        <div className="restaurant-card-container" onClick={this.linkToRestaurant}>
+          <div className="restaurant-card-image-container">
+            {this.renderPhoto()}
+          </div>
+          <div className="restaurant-card-content">
+            <div className="restaurant-card-info">
+              <div className="restaurant-card-title">{restaurant.name}</div>
+              <div className="restaurant-card-cuisine">{restaurant.name}</div>
+            </div>
+            <div className="time-slots-container">
+              {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
+            </div>
+          </div>
         </div>
       </div>
     );
