@@ -1,7 +1,6 @@
 class Api::V1::BookingsController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :create]
-
   def index
+    render json: current_user.bookings
   end
 
   def create
