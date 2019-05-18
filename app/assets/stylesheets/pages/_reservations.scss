@@ -1,12 +1,5 @@
-
-.reservations-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-}
-
 .reservation-card-photo-container {
-  height: 120px;
+  flex: 1 0 100px;
   width: 150px;
   margin-bottom: 5px;
 }
@@ -17,6 +10,7 @@
 
 .reservation-card {
   border: 1px solid $light-gray;
+  background-color: white;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -32,8 +26,13 @@
   font-size: 14px;
 }
 
+.reservation-card-left {
+  display: flex;
+  flex-direction: column;
+}
+
 .reservation-card-right {
-  padding: 10px 20px;
+  padding: 10px 20px 0 20px;
   font-size: 15px;
 }
 
@@ -41,6 +40,7 @@
   display: flex;
   font-size: 14px;
   color: $lighter-gray;
+  flex-wrap: wrap;
 }
 
 .reservation-card--detail {
@@ -48,7 +48,7 @@
 }
 
 .reservation-card-content-left {
-  margin-right: 40px;
+  margin-right: 30px;
 }
 
 .reservation-card--restaurant-name {

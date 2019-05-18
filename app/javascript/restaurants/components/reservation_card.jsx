@@ -36,7 +36,7 @@ const ReservationCard = ({ reservation }) => {
             </div>
             <div className="reservation-card--detail">
               <i className="fas fa-tag icon" />
-              {reservation.discount}
+              {`${reservation.discount}% off`}
             </div>
           </div>
         </div>

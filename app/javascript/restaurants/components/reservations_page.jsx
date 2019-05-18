@@ -27,7 +27,7 @@ class ReservationsPage extends Component {
         <div className="page-title">Reservations</div>
         <div className="row">
           <div className="col-12 col-sm-3 reservations-menu">todo</div>
-          <div className="col-12 col-sm-9 reservations-container">
+          <div className="col-12 col-sm-9">
             {reservations.map((reservation) => {
               return (
                 <ReservationCard key={reservation.id} reservation={reservation} />
