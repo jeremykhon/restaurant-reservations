@@ -5,6 +5,17 @@ import hhmmTime from '../utils/hhmm_time';
 import longDate from '../utils/long_date';
 import RestaurantPhoto from './restaurant_photo';
 
+const isMobile = window.innerWidth < 500;
+
+const cancelReservationLabel = () => {
+  if (isMobile) {
+    return null;
+  }
+  return (
+    <div className="cancel-reservation-button-label">cancel reservation</div>
+  );
+};
+
 const ReservationCard = ({ reservation }) => {
   return (
     <div className="reservation-card">
@@ -15,8 +26,14 @@ const ReservationCard = ({ reservation }) => {
         <button type="button" className="view-restaurant-button no-select">view restaurant</button>
       </div>
       <div className="reservation-card-right">
-        <div className="reservation-card--restaurant-name">
-          {reservation.restaurant.name}
+        <div className="reservation-card-right-top">
+          <div className="reservation-card--restaurant-name">
+            {reservation.restaurant.name}
+          </div>
+          <div className="cancel-reservation-button">
+            <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
+            {cancelReservationLabel()}
+          </div>
         </div>
         <div className="reservation-card-content">
           <div className="reservation-card-content-left">
