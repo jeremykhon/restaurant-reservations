@@ -5,7 +5,6 @@ class Api::V1::BookingsController < ApplicationController
 
   def create
     booking = Booking.new(
-      date: params[:date],
       table_size: params[:tableSize],
       time_slot_id: params[:selectedTimeSlot][:id],
       restaurant_id: params[:selectedTimeSlot][:restaurant_id],
@@ -16,12 +15,7 @@ class Api::V1::BookingsController < ApplicationController
       discount: params[:selectedTimeSlot][:discount]
     )
 
-    if request.headers["Authentication"] == "null"
-      booking.user = User.first
-    else
-      authenticate_request
-      booking.user = current_user
-    end
+    booking.user = current_user
 
     if booking.save
       render json: booking

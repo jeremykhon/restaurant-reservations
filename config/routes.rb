@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         resources :time_slots, only: [ :index ]
         resources :restaurant_photos, only: [ :index, :destroy ]
       end
-      resources :bookings , only: [ :index, :create ]
+      resources :bookings , only: [ :index, :create, :destroy ]
     end
   end
   post '/api/v1/restaurants/:restaurant_id/restaurant_photos', to: 'api/v1/restaurant_photos#create'

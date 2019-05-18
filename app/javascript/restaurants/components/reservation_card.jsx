@@ -4,8 +4,26 @@ import BASE_URL from '../utils/base_url';
 import hhmmTime from '../utils/hhmm_time';
 import longDate from '../utils/long_date';
 import RestaurantPhoto from './restaurant_photo';
+import history from '../utils/history';
 
 const isMobile = window.innerWidth < 500;
+
+const redirectToRestaurant = (restaurantId) => {
+  history.push(`/restaurants/${restaurantId}`);
+};
+
+const cancelReservation = (id) => {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+  axios({
+    method: 'DELETE',
+    url: `${BASE_URL}/bookings/${id}`,
+    headers: {
+      'X-CSRF-Token': csrfToken,
+      jwt: localStorage.getItem('jwt'),
+    },
+  })
+    .then(response => console.log(response));
+};
 
 const cancelReservationLabel = () => {
   if (isMobile) {
@@ -23,14 +41,14 @@ const ReservationCard = ({ reservation }) => {
         <div className="reservation-card-photo-container">
           <RestaurantPhoto optionalClass="reservation-photo" photo={reservation.restaurant.restaurant_photos[0]} />
         </div>
-        <button type="button" className="view-restaurant-button no-select">view restaurant</button>
+        <button type="button" className="view-restaurant-button no-select" onClick={() => { redirectToRestaurant(reservation.restaurant_id); }}>view restaurant</button>
       </div>
       <div className="reservation-card-right">
         <div className="reservation-card-right-top">
           <div className="reservation-card--restaurant-name">
             {reservation.restaurant.name}
           </div>
-          <div className="cancel-reservation-button">
+          <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id); }}>
             <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
             {cancelReservationLabel()}
           </div>
