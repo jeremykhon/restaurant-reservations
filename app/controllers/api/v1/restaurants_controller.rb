@@ -1,9 +1,9 @@
 class Api::V1::RestaurantsController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show]
+  skip_before_action :authenticate_request, only: %i[index show]
 
   def index
     restaurants = Restaurant.all
-    render json: restaurants
+    render json: restaurants, include: %i[restaurant_photos cuisine]
   end
 
   def create
@@ -15,7 +15,7 @@ class Api::V1::RestaurantsController < ApplicationController
     if restaurant.nil?
       render json: { message: "restaurant does not exist" }, status: :bad_request
     else
-      render json: restaurant
+      render json: restaurant, include: %i[restaurant_photos cuisine]
     end
   end
 end

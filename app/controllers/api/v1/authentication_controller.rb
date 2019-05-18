@@ -1,5 +1,6 @@
 class Api::V1::AuthenticationController < ApplicationController
   skip_before_action :authenticate_request, only: [:authenticate]
+  include ActiveModel::Serialization
 
   def authenticate
     command = AuthenticateUser.call(params[:email], params[:password])
@@ -12,6 +13,6 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def return_user
-    render json: { name: current_user.name, email: current_user.email, admin: current_user.admin }
+    render json: current_user, only: [:name, :email, :admin]
   end
 end

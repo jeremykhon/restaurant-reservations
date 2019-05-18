@@ -3,11 +3,7 @@ class Api::V1::RestaurantPhotosController < ApplicationController
   before_action :set_restaurant, only: [:index, :create]
 
   def index
-    if params[:first]
-      photos = @restaurant.restaurant_photos.first(params[:first].to_i)
-    else
-      photos = @restaurant.restaurant_photos
-    end
+    photos = @restaurant.restaurant_photos
     render json: photos
   end
 

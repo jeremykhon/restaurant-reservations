@@ -49,7 +49,7 @@ class RestaurantPage extends Component {
         </div>
         <div className="row">
           <div className="col-12 col-sm-7">
-            <RestaurantPhotos restaurant={restaurant} />
+            <RestaurantPhotos photos={restaurant.restaurant_photos} />
           </div>
           <BookingForm restaurant={restaurant} />
         </div>

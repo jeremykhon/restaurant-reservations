@@ -6,11 +6,10 @@ import BASE_URL from '../utils/base_url';
 import history from '../utils/history';
 
 class RestaurantCard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       timeSlotsToday: [],
-      mainPhoto: null,
     };
   }
 
@@ -20,17 +19,13 @@ class RestaurantCard extends Component {
     const end = new Date().setHours(23, 59, 59, 999);
     axios.get(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
       .then(response => this.setState({ timeSlotsToday: response.data }));
-    axios.get(`${BASE_URL}/restaurants/${restaurant.id}/restaurant_photos?first=1`)
-      .then(response => this.setState({ mainPhoto: response.data[0] }));
   }
 
   renderPhoto = () => {
-    const { mainPhoto } = this.state;
-    if (mainPhoto) {
-      return (
-        <div className="restaurant-card-image" style={{ backgroundImage: `url(${mainPhoto.photo.url})` }} />
-      );
-    }
+    const { restaurant } = this.props;
+    return (
+      <div className="restaurant-card-image" style={{ backgroundImage: `url(${restaurant.restaurant_photos[0].photo.url})` }} />
+    );
   }
 
   linkToRestaurant = () => {
