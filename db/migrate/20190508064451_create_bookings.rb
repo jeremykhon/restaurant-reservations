@@ -9,7 +9,6 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :number
       t.datetime :time
-      t.string :date
       t.integer :discount
 
       t.timestamps
