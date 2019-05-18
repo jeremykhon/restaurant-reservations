@@ -11,7 +11,11 @@ class ReservationsPage extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/reservations`)
+    axios.get(`${BASE_URL}/bookings`, {
+      headers: {
+        'jwt': localStorage.getItem('jwt')
+      },
+    })
       .then(response => this.setState({ reservations: response.data }));
   }
 
