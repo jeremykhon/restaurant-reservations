@@ -8,13 +8,19 @@ const ReservationCard = ({ reservation }) => {
   return (
     <div className="reservation-card">
       <div>
-        {reservation.discount}
+        {reservation.restaurant.name}
+      </div>
+      <div>
+        {longDate(reservation.time)}
       </div>
       <div>
         {hhmmTime(reservation.time)}
       </div>
       <div>
-        {longDate(reservation.time)}
+        {`${reservation.table_size} people`}
+      </div>
+      <div>
+        {reservation.discount}
       </div>
     </div>
   );
