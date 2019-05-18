@@ -1,15 +1,57 @@
 
 .reservations-container {
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
 }
 
-.reservation-restaurant-photo-container {
-  height: 100px;
+.reservation-card-photo-container {
+  height: 120px;
   width: 150px;
+  margin-bottom: 5px;
 }
 
 .reservation-photo {
+  border-radius: 3px;
+}
+
+.reservation-card {
+  border: 1px solid $light-gray;
+  padding: 10px;
   border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.view-restaurant-button {
+  height: 40px;
+  background-color: $orange;
+  color: white;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.reservation-card-right {
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.reservation-card-content {
+  display: flex;
+  font-size: 14px;
+  color: $lighter-gray;
+}
+
+.reservation-card--detail {
+  margin-bottom: 10px;
+}
+
+.reservation-card-content-left {
+  margin-right: 40px;
+}
+
+.reservation-card--restaurant-name {
+  color: $dark-gray;
+  margin-bottom: 20px;
 }
