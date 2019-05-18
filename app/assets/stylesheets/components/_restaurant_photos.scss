@@ -1,0 +1,42 @@
+.restaurant-photos-container {
+  display: flex;
+}
+
+.restaurant-photos-left {
+  flex: 0 1 70%;
+  margin-right: 6px;
+
+  .photo-1 {
+    height: 330px;
+  }
+}
+
+.restaurant-photos-right {
+  flex: 0 0 30%;
+
+  .photo-2 {
+    height: 106px;
+    margin-bottom: 6px;
+  }
+
+  .photo-3 {
+    height: 106px;
+    margin-bottom: 6px;
+  }
+
+  .photo-4 {
+    height: 106px;
+  }
+}
+
+.restaurant-photo {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 30%;
+}
+
+.restaurant-no-photo {
+  height: 100%;
+  background-color: $light-gray;
+}
