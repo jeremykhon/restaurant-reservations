@@ -1,6 +1,6 @@
 class Api::V1::BookingsController < ApplicationController
   def index
-    render json: current_user.bookings
+    render json: current_user.bookings, include: :restaurant
   end
 
   def create
