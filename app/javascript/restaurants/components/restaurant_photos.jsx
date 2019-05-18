@@ -1,18 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import RestaurantPhoto from './restaurant_photo';
 import axios from "axios";
 import BASE_URL from '../utils/base_url';
-
-const RestaurantPhoto = ({ photo }) => {
-  if (photo) {
-    return (
-      <div className="restaurant-photo" style={{ backgroundImage: `url(${photo.photo.url})` }} />
-    );
-  }
-  return (
-    <div className="restaurant-no-photo" />
-  );
-};
 
 class RestaurantPhotos extends Component {
   render() {
@@ -41,5 +31,3 @@ class RestaurantPhotos extends Component {
 }
 
 export default RestaurantPhotos;
-
-// this.setState({ photos: response.data }
