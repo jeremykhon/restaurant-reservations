@@ -12,6 +12,10 @@ class ReservationsPage extends Component {
   }
 
   componentDidMount() {
+    this.fetchReservations();
+  }
+
+  fetchReservations = () => {
     axios.get(`${BASE_URL}/bookings`, {
       headers: {
         'jwt': localStorage.getItem('jwt')
@@ -30,7 +34,7 @@ class ReservationsPage extends Component {
           <div className="col-12 col-sm-9">
             {reservations.map((reservation) => {
               return (
-                <ReservationCard key={reservation.id} reservation={reservation} />
+                <ReservationCard fetchReservations={this.fetchReservations} key={reservation.id} reservation={reservation} />
               );
             })}
           </div>

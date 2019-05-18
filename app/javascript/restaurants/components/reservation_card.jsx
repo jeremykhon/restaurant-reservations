@@ -12,7 +12,7 @@ const redirectToRestaurant = (restaurantId) => {
   history.push(`/restaurants/${restaurantId}`);
 };
 
-const cancelReservation = (id) => {
+const cancelReservation = (id, fetchReservations) => {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
   axios({
     method: 'DELETE',
@@ -22,7 +22,7 @@ const cancelReservation = (id) => {
       jwt: localStorage.getItem('jwt'),
     },
   })
-    .then(response => console.log(response));
+    .then(() => fetchReservations());
 };
 
 const cancelReservationLabel = () => {
@@ -34,7 +34,7 @@ const cancelReservationLabel = () => {
   );
 };
 
-const ReservationCard = ({ reservation }) => {
+const ReservationCard = ({ reservation, fetchReservations }) => {
   return (
     <div className="reservation-card">
       <div className="reservation-card-left">
@@ -48,7 +48,7 @@ const ReservationCard = ({ reservation }) => {
           <div className="reservation-card--restaurant-name">
             {reservation.restaurant.name}
           </div>
-          <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id); }}>
+          <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id, fetchReservations); }}>
             <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
             {cancelReservationLabel()}
           </div>

@@ -3,6 +3,16 @@ class Api::V1::BookingsController < ApplicationController
     render json: current_user.bookings, include: [restaurant: { include: [:restaurant_photos] }]
   end
 
+  def destroy
+    booking = Booking.find_by(id: params[:id])
+
+    if booking.destroy
+      render json: booking
+    else
+      render booking.errors, status: :unprocessable_entity
+    end
+  end
+
   def create
     booking = Booking.new(
       table_size: params[:tableSize],
