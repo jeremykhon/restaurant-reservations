@@ -27,9 +27,9 @@ class ReservationsPage extends Component {
   reservationSidebar = () => {
     return (
       <div className="reservation-sidebar">
-        <div className="reservation-sidebar-item">Upcoming</div>
-        <div className="reservation-sidebar-item">Historical</div>
-        <div className="reservation-sidebar-item">All</div>
+        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('upcoming')}}>Upcoming</div>
+        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('historical')}}>Historical</div>
+        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('all')}}>All</div>
       </div>
     );
   }
