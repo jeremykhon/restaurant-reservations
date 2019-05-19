@@ -1,6 +1,14 @@
 class Api::V1::BookingsController < ApplicationController
   def index
-    render json: current_user.bookings, include: [restaurant: { include: [:restaurant_photos] }]
+    case params[:only]
+    when 'upcoming'
+      bookings = Booking.where('user_id = ? AND time > ?', current_user.id, Time.now).order(time: :asc)
+    when 'historical'
+      bookings = Booking.where('user_id = ? AND time < ?', current_user.id, Time.now).order(time: :asc)
+    else
+      bookings = Booking.where('user_id = ?', current_user.id).order(time: :asc)
+    end
+    render json: bookings, include: [restaurant: { include: [:restaurant_photos] }]
   end
 
   def destroy

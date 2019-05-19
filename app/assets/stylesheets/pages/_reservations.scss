@@ -68,3 +68,19 @@
 .reservation-card--restaurant-name {
   color: $dark-gray;
 }
+
+.reservation-sidebar {
+  margin-bottom: 20px;
+}
+
+.reservation-sidebar-item {
+  padding: 10px 20px;
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-gray;
+    transition: background-color 100ms ease-in;
+  }
+
+}

@@ -12,16 +12,26 @@ class ReservationsPage extends Component {
   }
 
   componentDidMount() {
-    this.fetchReservations();
+    this.fetchReservations('upcoming');
   }
 
-  fetchReservations = () => {
-    axios.get(`${BASE_URL}/bookings`, {
+  fetchReservations = (only) => {
+    axios.get(`${BASE_URL}/bookings?only=${only}`, {
       headers: {
         'jwt': localStorage.getItem('jwt')
       },
     })
       .then(response => this.setState({ reservations: response.data }));
+  }
+
+  reservationSidebar = () => {
+    return (
+      <div className="reservation-sidebar">
+        <div className="reservation-sidebar-item">Upcoming</div>
+        <div className="reservation-sidebar-item">Historical</div>
+        <div className="reservation-sidebar-item">All</div>
+      </div>
+    );
   }
 
   render() {
@@ -30,7 +40,9 @@ class ReservationsPage extends Component {
       <div className="container">
         <div className="page-title">Reservations</div>
         <div className="row">
-          <div className="col-12 col-sm-3 reservations-menu">todo</div>
+          <div className="col-12 col-sm-3 ">
+            {this.reservationSidebar()}
+          </div>
           <div className="col-12 col-sm-9">
             {reservations.map((reservation) => {
               return (
