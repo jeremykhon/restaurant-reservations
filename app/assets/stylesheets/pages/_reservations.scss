@@ -1,5 +1,6 @@
 .reservation-card-photo-container {
   flex: 1 0 100px;
+  height: 100px;
   width: 140px;
   margin-bottom: 5px;
 }
@@ -95,6 +96,6 @@
 
 @media only screen and (max-width: 576px) {
   .reservations-content-title {
-    margin-top: 20px;
+    margin-top: 15px;
   }
 }

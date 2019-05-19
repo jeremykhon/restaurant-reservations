@@ -52,6 +52,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <Navbar loggedIn={loggedIn} logIn={this.logIn} logOut={this.logOut} user={user} />
+        <div className="navbar-div" />
         <Switch>
           <Route
             exact
