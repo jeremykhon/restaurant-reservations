@@ -6,7 +6,7 @@ import longDate from '../utils/long_date';
 import RestaurantPhoto from './restaurant_photo';
 import history from '../utils/history';
 
-const isMobile = window.innerWidth < 500;
+const isMobile = window.innerWidth < 576;
 
 const redirectToRestaurant = (restaurantId) => {
   history.push(`/restaurants/${restaurantId}`);

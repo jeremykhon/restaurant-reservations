@@ -8,6 +8,7 @@ class ReservationsPage extends Component {
     super();
     this.state = {
       reservations: [],
+      selected: 'upcoming',
     };
   }
 
@@ -21,29 +22,30 @@ class ReservationsPage extends Component {
         'jwt': localStorage.getItem('jwt')
       },
     })
-      .then(response => this.setState({ reservations: response.data }));
+      .then(response => this.setState({ reservations: response.data, selected: only }));
   }
 
   reservationSidebar = () => {
     return (
       <div className="reservation-sidebar">
-        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('upcoming')}}>Upcoming</div>
-        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('historical')}}>Historical</div>
-        <div className="reservation-sidebar-item" onClick={() => {this.fetchReservations('all')}}>All</div>
+        <div className="reservation-sidebar-item" role="button" onClick={() => {this.fetchReservations('upcoming')}}>Upcoming</div>
+        <div className="reservation-sidebar-item" role="button" onClick={() => {this.fetchReservations('historical')}}>Historical</div>
+        <div className="reservation-sidebar-item" role="button" onClick={() => {this.fetchReservations('all reservations')}}>All</div>
       </div>
     );
   }
 
   render() {
-    const { reservations } = this.state;
+    const { reservations, selected } = this.state;
     return (
       <div className="container">
-        <div className="page-title">Reservations</div>
         <div className="row">
           <div className="col-12 col-sm-3 ">
+            <div className="page-title">My Reservations</div>
             {this.reservationSidebar()}
           </div>
           <div className="col-12 col-sm-9">
+            <div className="reservations-content-title">{selected}</div>
             {reservations.map((reservation) => {
               return (
                 <ReservationCard fetchReservations={this.fetchReservations} key={reservation.id} reservation={reservation} />

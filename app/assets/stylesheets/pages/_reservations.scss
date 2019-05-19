@@ -84,3 +84,17 @@
   }
 
 }
+
+.reservations-content-title {
+  font-weight: bold;
+  margin: 40px 0 15px 5px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid $orange;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 576px) {
+  .reservations-content-title {
+    margin-top: 20px;
+  }
+}
