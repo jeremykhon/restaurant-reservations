@@ -1,10 +1,10 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import hhmmTime from '../utils/hhmm_time';
 import formatDate from '../utils/yymmdd_date';
 import BASE_URL from '../utils/base_url';
-import axios from 'axios';
 
 class ConfirmationModal extends Component {
   constructor() {
@@ -17,7 +17,10 @@ class ConfirmationModal extends Component {
 
   createBooking = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-    const body = this.props.bookingForm;
+    const { bookingForm: { tableSize, selectedTimeSlot, name, email, number, discount } } = this.props;
+    const body = {
+      tableSize, selectedTimeSlot, name, email, number, discount,
+    };
 
     axios({
       method: 'POST',
