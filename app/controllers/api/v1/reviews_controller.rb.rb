@@ -1,12 +1,12 @@
 class Api::V1::ReviewsController < ApplicationController
-  before_action :set_restaurant
+  skip_before_action :authenticate_request, only: :index
+  before_action :set_restaurant, only: %i[index create]
 
-  def create
+  def index
+    reviews = Review.where(restaurant_id: params[:restaurant_id].order(time: :created_at))
+    render json: reviews, include: [user: { only: :name }]
   end
 
-  private
-
-  def set_restaurant
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
+  def create
   end
 end

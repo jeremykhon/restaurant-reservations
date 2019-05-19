@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Review from './review';
 import axios from "axios";
 import BASE_URL from '../utils/base_url';
 
 class ReviewsContainer extends Component {
-  constructor(props) {
-    super(props);
-    const { reviews } = this.props;
-    this.state = { reviews };
+  constructor() {
+    super();
+    this.state = {
+      rating: null,
+      content: null,
+    };
   }
 
   render() {
