@@ -22,16 +22,23 @@ const cancelReservation = (id, fetchReservations) => {
       jwt: localStorage.getItem('jwt'),
     },
   })
-    .then(() => fetchReservations());
+    .then(() => fetchReservations('upcoming'))
+    .catch(error => console.log(error));
 };
 
-const cancelReservationLabel = () => {
-  if (isMobile) {
-    return null;
+const cancelReservationButton = (reservation, fetchReservations) => {
+  if (new Date(reservation.time) > new Date()) {
+    return (
+      <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id, fetchReservations); }}>
+        <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
+        { isMobile
+          ? null
+          : <div className="cancel-reservation-button-label">cancel reservation</div>
+        }
+      </div>
+    );
   }
-  return (
-    <div className="cancel-reservation-button-label">cancel reservation</div>
-  );
+  return null;
 };
 
 const ReservationCard = ({ reservation, fetchReservations }) => {
@@ -48,10 +55,11 @@ const ReservationCard = ({ reservation, fetchReservations }) => {
           <div className="reservation-card--restaurant-name">
             {reservation.restaurant.name}
           </div>
-          <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id, fetchReservations); }}>
+          {cancelReservationButton(reservation, fetchReservations)}
+          {/* <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id, fetchReservations); }}>
             <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
             {cancelReservationLabel()}
-          </div>
+          </div> */}
         </div>
         <div className="reservation-card-content">
           <div className="reservation-card-content-left">
