@@ -19,6 +19,7 @@ gem 'jwt'
 gem 'simple_command'
 gem 'cloudinary'
 gem 'carrierwave'
+gem 'faker'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
