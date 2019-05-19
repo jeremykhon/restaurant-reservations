@@ -4,6 +4,7 @@ import axios from "axios";
 import BookingForm from './booking_form';
 import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
+import ReviewsContainer from './reviews_container';
 
 class RestaurantPage extends Component {
   constructor() {
@@ -50,6 +51,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 col-sm-7">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
+            <ReviewsContainer reviews={restaurant.reviews} />
           </div>
           <BookingForm restaurant={restaurant} />
         </div>

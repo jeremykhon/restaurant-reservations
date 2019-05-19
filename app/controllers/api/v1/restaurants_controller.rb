@@ -15,7 +15,7 @@ class Api::V1::RestaurantsController < ApplicationController
     if restaurant.nil?
       render json: { message: "restaurant does not exist" }, status: :bad_request
     else
-      render json: restaurant, include: %i[restaurant_photos cuisine]
+      render json: restaurant, include: [:restaurant_photos, :cuisine, reviews: { include: [user: { only: :name }] }]
     end
   end
 end
