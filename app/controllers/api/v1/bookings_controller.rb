@@ -24,10 +24,13 @@ class Api::V1::BookingsController < ApplicationController
       number: params[:number],
       discount: params[:selectedTimeSlot][:discount]
     )
-
+    puts "%%%%%%%%%%%%%%%%"
+    puts current_user
     booking.user = current_user
+    puts "$$$$$$$$$$$$$$$$"
+    puts booking.user
 
-    if booking.save
+    if booking.save!
       render json: booking
     else
       render json: booking.errors, status: :unprocessable_entity

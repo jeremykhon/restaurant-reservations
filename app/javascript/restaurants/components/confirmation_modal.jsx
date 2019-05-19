@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import hhmmTime from '../utils/hhmm_time';
 import formatDate from '../utils/yymmdd_date';
 import BASE_URL from '../utils/base_url';
+import axios from 'axios';
 
 class ConfirmationModal extends Component {
   constructor() {
@@ -17,17 +18,19 @@ class ConfirmationModal extends Component {
   createBooking = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const body = this.props.bookingForm;
-    fetch(`${BASE_URL}/bookings`, {
+
+    axios({
       method: 'POST',
+      url: `${BASE_URL}/bookings`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken,
         'jwt': localStorage.getItem('jwt'),
       },
-      body: JSON.stringify(body),
-    }).then(response => response.json())
-      .then(data => this.setState({ booking: data, confirmed: true }));
+      data: body,
+    }).then(response => this.setState({ booking: response.data, confirmed: true }))
+      .catch(error => console.log(error));
   }
 
   render() {
