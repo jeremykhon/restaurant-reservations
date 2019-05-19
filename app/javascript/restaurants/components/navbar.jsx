@@ -31,8 +31,13 @@ class Navbar extends Component {
   loggedIn = (loggedIn) => {
     if (loggedIn) {
       return (
-        <div className="nav-link log-out" onClick={this.props.logOut}>
-          Log out
+        <div className="nav-bar-right">
+          <Link className="nav-link" to="/reservations">
+            My Reservations
+          </Link>
+          <div className="nav-link log-out" onClick={this.props.logOut}>
+            Log out
+          </div>
         </div>
       );
     }

@@ -6,27 +6,27 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Booking.destroy_all
-TimeSlot.destroy_all
-Restaurant.destroy_all
-Cuisine.destroy_all
-User.destroy_all
+# Booking.destroy_all
+# TimeSlot.destroy_all
+# Restaurant.destroy_all
+# Cuisine.destroy_all
+# User.destroy_all
 
-User.create!(email: "admin@eatigo.com", name: "admin", password: "testtest")
-User.create!(email: "maya@eatigo.com", name: "maya", password: "testtest")
+# User.create!(email: "admin@eatigo.com", name: "admin", password: "testtest")
+# User.create!(email: "maya@eatigo.com", name: "maya", password: "testtest")
 
-Cuisine.create!(name: "Italian")
-Cuisine.create!(name: "German")
-Cuisine.create!(name: "Chinese")
-Cuisine.create!(name: "Japanese")
-Cuisine.create!(name: "Indian")
-Cuisine.create!(name: "Korean")
-Cuisine.create!(name: "French")
+# Cuisine.create!(name: "Italian")
+# Cuisine.create!(name: "German")
+# Cuisine.create!(name: "Chinese")
+# Cuisine.create!(name: "Japanese")
+# Cuisine.create!(name: "Indian")
+# Cuisine.create!(name: "Korean")
+# Cuisine.create!(name: "French")
 
-Restaurant.create!(name: "Mcdonalds", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
-Restaurant.create!(name: "Burger King", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
-Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
-Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
+# Restaurant.create!(name: "Mcdonalds", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
+# Restaurant.create!(name: "Burger King", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 50)
+# Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
+# Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
 
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_hour

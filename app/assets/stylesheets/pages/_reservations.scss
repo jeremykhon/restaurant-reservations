@@ -1,0 +1,100 @@
+.reservation-card-photo-container {
+  flex: 1 0 100px;
+  width: 140px;
+  margin-bottom: 5px;
+}
+
+.reservation-photo {
+  border-radius: 3px;
+}
+
+.reservation-card {
+  border: 1px solid $light-gray;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.view-restaurant-button {
+  height: 40px;
+  background-color: $orange;
+  color: white;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.reservation-card-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-card-right {
+  padding: 10px 10px 0 20px;
+  font-size: 15px;
+  width: 100%;
+}
+
+.reservation-card-right-top {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-reservation-button {
+  display: flex;
+  align-items: center;
+  color: $lighter-gray;
+  cursor: pointer;
+}
+
+.reservation-card-content {
+  display: flex;
+  font-size: 14px;
+  color: $lighter-gray;
+  flex-wrap: wrap;
+}
+
+.reservation-card--detail {
+  margin-bottom: 10px;
+}
+
+.reservation-card-content-left {
+  margin-right: 30px;
+}
+
+.reservation-card--restaurant-name {
+  color: $dark-gray;
+}
+
+.reservation-sidebar {
+  margin-bottom: 20px;
+}
+
+.reservation-sidebar-item {
+  padding: 10px 20px;
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-gray;
+    transition: background-color 100ms ease-in;
+  }
+
+}
+
+.reservations-content-title {
+  font-weight: bold;
+  margin: 40px 0 15px 5px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid $orange;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 576px) {
+  .reservations-content-title {
+    margin-top: 20px;
+  }
+}

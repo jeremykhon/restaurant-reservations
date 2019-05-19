@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Restaurant from './restaurant_card';
 import BASE_URL from '../utils/base_url';
-import { ServerResponse } from 'http';
 
 class RestaurantList extends Component {
   constructor() {

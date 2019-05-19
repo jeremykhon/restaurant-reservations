@@ -6,6 +6,7 @@ import MainPage from './main_page';
 import Navbar from './navbar';
 import BASE_URL from '../utils/base_url';
 import RestaurantAdminPage from './restaurant_admin_page';
+import ReservationsPage from './reservations_page';
 
 class App extends Component {
   constructor() {
@@ -69,6 +70,13 @@ class App extends Component {
             path="/restaurants/:restaurant"
             render={props => (
               <RestaurantPage loggedIn={loggedIn} user={user} {...props} />
+            )}
+          />
+          <Route
+            exact
+            path="/reservations"
+            render={props => (
+              <ReservationsPage loggedIn={loggedIn} user={user} {...props} />
             )}
           />
         </Switch>

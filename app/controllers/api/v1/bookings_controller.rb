@@ -1,12 +1,28 @@
 class Api::V1::BookingsController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :create]
-
   def index
+    case params[:only]
+    when 'upcoming'
+      bookings = Booking.where('user_id = ? AND time > ?', current_user.id, Time.now).order(time: :asc)
+    when 'historical'
+      bookings = Booking.where('user_id = ? AND time < ?', current_user.id, Time.now).order(time: :asc)
+    else
+      bookings = Booking.where('user_id = ?', current_user.id).order(time: :asc)
+    end
+    render json: bookings, include: [restaurant: { include: [:restaurant_photos] }]
+  end
+
+  def destroy
+    booking = Booking.find_by(id: params[:id])
+
+    if booking.destroy
+      render json: booking
+    else
+      render booking.errors, status: :unprocessable_entity
+    end
   end
 
   def create
     booking = Booking.new(
-      date: params[:date],
       table_size: params[:tableSize],
       time_slot_id: params[:selectedTimeSlot][:id],
       restaurant_id: params[:selectedTimeSlot][:restaurant_id],
@@ -16,15 +32,13 @@ class Api::V1::BookingsController < ApplicationController
       number: params[:number],
       discount: params[:selectedTimeSlot][:discount]
     )
+    puts "%%%%%%%%%%%%%%%%"
+    puts current_user
+    booking.user = current_user
+    puts "$$$$$$$$$$$$$$$$"
+    puts booking.user
 
-    if request.headers["Authentication"] == "null"
-      booking.user = User.first
-    else
-      authenticate_request
-      booking.user = current_user
-    end
-
-    if booking.save
+    if booking.save!
       render json: booking
     else
       render json: booking.errors, status: :unprocessable_entity

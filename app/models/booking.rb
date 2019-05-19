@@ -3,5 +3,5 @@ class Booking < ApplicationRecord
   belongs_to :restaurant
   belongs_to :user
 
-  validates :time_slot, :restaurant, :name, :email, :number, :time, :date, :discount, :table_size, presence: true
+  validates :time_slot, :restaurant, :user, :name, :email, :number, :time, :discount, :table_size, presence: true
 end

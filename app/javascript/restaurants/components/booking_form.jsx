@@ -1,7 +1,8 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
-import DatePicker from 'react-datepicker'
+import DatePicker from 'react-datepicker';
 import Modal from 'react-modal';
+import axios from 'axios';
 import SelectableTimeSlot from './selectable_time_slot';
 import ConfirmationModal from './confirmation_modal';
 import addDays from '../utils/add_days';
@@ -51,9 +52,9 @@ class BookingForm extends Component {
     const { restaurant } = this.props;
     const start = this.state.date.setHours(0, 0, 0, 0);
     const end = this.state.date.setHours(23, 59, 59, 999);
-    fetch(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
-      .then(response => response.json())
-      .then(data => this.setState({ timeSlots: data }));
+    axios.get(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
+      .then(response => this.setState({ timeSlots: response.data }))
+      .catch(err => console.log(err));
   }
 
   handleChangeDate = (date) => {
