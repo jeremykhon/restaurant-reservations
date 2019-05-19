@@ -5,7 +5,7 @@ const Review = ({ review }) => {
     <div>
       <div>{review.user.name}</div>
       <div>{review.content}</div>
-      <div>{review.review}</div>
+      <div>{review.rating}</div>
       <div>{review.created_at}</div>
     </div>
   );

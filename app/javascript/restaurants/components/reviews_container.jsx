@@ -11,12 +11,19 @@ class ReviewsContainer extends Component {
     this.state = { reviews };
   }
 
+  appendReview = (review) => {
+    this.setState((state) => {
+      return { reviews: [...state.reviews, review] };
+    });
+  }
+
   render() {
-    const { reviews } = this.state
+    const { reviews } = this.state;
+    const { restaurantId } = this.props;
     return (
       <div className="reviews-container">
         {reviews.map(review => <Review key={review.id} review={review} />)}
-        <ReviewForm />
+        <ReviewForm appendReview={this.appendReview} restaurantId={restaurantId} />
       </div>
     );
   }

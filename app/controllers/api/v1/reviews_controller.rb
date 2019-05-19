@@ -1,6 +1,5 @@
 class Api::V1::ReviewsController < ApplicationController
   skip_before_action :authenticate_request, only: :index
-  before_action :set_restaurant, only: %i[index create]
 
   def index
     reviews = Review.where(restaurant_id: params[:restaurant_id].order(time: :created_at))
@@ -8,5 +7,6 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def create
+    render json: { "message": "hello" }
   end
 end

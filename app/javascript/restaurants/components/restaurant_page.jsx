@@ -51,7 +51,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 col-sm-7">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
-            <ReviewsContainer reviews={restaurant.reviews} />
+            <ReviewsContainer restaurantId={restaurant.id} reviews={restaurant.reviews} />
           </div>
           <BookingForm restaurant={restaurant} />
         </div>
