@@ -33,20 +33,26 @@ class ReviewsContainer extends Component {
     const { restaurantId } = this.props;
     return (
       <div className="reviews-container">
-        {reviews.map(review => <Review key={review.id} review={review} />)}
-        <button onClick={this.openModal}>Leave a review</button>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="Review Modal"
-          style={modalStyles}
-        >
-          <ReviewForm
-            closeModal={this.closeModal}
-            appendReview={this.appendReview}
-            restaurantId={restaurantId}
-          />
-        </Modal>
+        <div className="reviews-title">reviews</div>
+        <div className="review-list">
+          <div className="reviews-top">
+            <div>{`${reviews.length} reviews`}</div>
+            <button className="leave-review-button" onClick={this.openModal}>Leave a review</button>
+          </div>
+          {reviews.map(review => <Review key={review.id} review={review} />)}
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="Review Modal"
+            style={modalStyles}
+          >
+            <ReviewForm
+              closeModal={this.closeModal}
+              appendReview={this.appendReview}
+              restaurantId={restaurantId}
+            />
+          </Modal>
+        </div>
       </div>
     );
   }
