@@ -66,6 +66,12 @@
   margin-bottom: 15px;
 }
 
+.star-container-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 .star {
   fill: $light-gray;
   width: 100%;
@@ -82,4 +88,20 @@
 
 .star-container {
   display: flex;
+}
+
+.star-svg-clickable {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  transition: fill 200ms ease-in;
+}
+
+.review-form-container {
+  text-align: center;
+}
+
+.review-form-comment-box {
+  width: 300px;
+  height: 50px;
 }
