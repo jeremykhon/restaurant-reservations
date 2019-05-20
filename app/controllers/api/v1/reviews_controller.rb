@@ -13,6 +13,19 @@ class Api::V1::ReviewsController < ApplicationController
       content: params[:content],
       user: current_user
     )
-    render json: review, include: :user if review.save!
+    if review.save!
+      
+      render json: review, include: :user
+    end
+  end
+
+  private
+
+  def recalc_average_rating
+    restaurant = Restaurant.find(params[:restaurant_id])
+    sum = 0
+    reviews = restaurant.reviews
+    reviews.each { |review| sum += review.rating }
+    restaurant.avg_rating = sum.fdiv(reviews)
   end
 end
