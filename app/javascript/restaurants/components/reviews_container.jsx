@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import Review from './review';
 import ReviewForm from './review_form';
-import axios from "axios";
-import BASE_URL from '../utils/base_url';
+import modalStyles from '../utils/modal_styles';
 
 class ReviewsContainer extends Component {
   constructor(props) {
     super(props);
     const { reviews } = this.props;
-    this.state = { reviews };
+    this.state = { 
+      reviews,
+      modalIsOpen: false,
+    };
+  }
+
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
   }
 
   appendReview = (review) => {
@@ -23,7 +34,19 @@ class ReviewsContainer extends Component {
     return (
       <div className="reviews-container">
         {reviews.map(review => <Review key={review.id} review={review} />)}
-        <ReviewForm appendReview={this.appendReview} restaurantId={restaurantId} />
+        <button onClick={this.openModal}>Leave a review</button>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Review Modal"
+          style={modalStyles}
+        >
+          <ReviewForm
+            closeModal={this.closeModal}
+            appendReview={this.appendReview}
+            restaurantId={restaurantId}
+          />
+        </Modal>
       </div>
     );
   }

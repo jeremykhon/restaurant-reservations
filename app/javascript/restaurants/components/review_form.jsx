@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import BASE_URL from '../utils/base_url';
 
 class ReviewForm extends Component {
@@ -23,7 +23,7 @@ class ReviewForm extends Component {
   createReview = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { rating, content } = this.state;
-    const { restaurantId, appendReview } = this.props;
+    const { restaurantId, appendReview, closeModal } = this.props;
     const body = { rating, content };
 
     axios({
@@ -36,7 +36,10 @@ class ReviewForm extends Component {
         'jwt': localStorage.getItem('jwt'),
       },
       data: body,
-    }).then(response => appendReview(response.data))
+    }).then((response) => {
+      appendReview(response.data);
+      closeModal();
+    })
       .catch(error => console.log(error));
   }
 
