@@ -25,6 +25,7 @@
   color: $orange;
   font-size: 12px;
   border-radius: 5px;
+  background-color: white;
   transition: background-color 100ms ease-in;
 
   &:hover {
@@ -115,4 +116,9 @@
   color: $lighter-gray;
   font-size: 12px;
   border-radius: 5px;
+  background-color: white;
+}
+
+.big-average-rating {
+  font-size: 40px;
 }

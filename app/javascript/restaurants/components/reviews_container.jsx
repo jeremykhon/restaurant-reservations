@@ -30,17 +30,22 @@ class ReviewsContainer extends Component {
 
   render() {
     const { reviews } = this.state;
-    const { restaurantId, loggedIn } = this.props;
+    const { restaurant, loggedIn } = this.props;
     return (
       <div className="reviews-container">
         <div className="reviews-title">reviews</div>
         <div className="review-list">
           <div className="reviews-top">
-            <div>{`${reviews.length} reviews`}</div>
-            {loggedIn
-              ? <button className="leave-review-button" type="button" onClick={this.openModal}>Leave a review</button>
-              : <div className="log-in-to-review-message">log in to leave a review</div>
-            }
+            <div>
+              <div className="big-average-rating">{Math.round(restaurant.avg_rating * 10) / 10}</div>
+              <div>{`${reviews.length} reviews`}</div>
+            </div>
+            <div>
+              {loggedIn
+                ? <button className="leave-review-button" type="button" onClick={this.openModal}>Leave a review</button>
+                : <div className="log-in-to-review-message">log in to leave a review</div>
+              }
+            </div>
           </div>
           {reviews.map(review => <Review key={review.id} review={review} />)}
           <Modal
@@ -52,7 +57,7 @@ class ReviewsContainer extends Component {
             <ReviewForm
               closeModal={this.closeModal}
               appendReview={this.appendReview}
-              restaurantId={restaurantId}
+              restaurantId={restaurant.id}
             />
           </Modal>
         </div>
