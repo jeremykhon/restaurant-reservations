@@ -10,6 +10,7 @@ class ReviewForm extends Component {
     this.state = {
       rating: 0,
       content: '',
+      ratingValid: true,
     };
   }
 
@@ -19,7 +20,14 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.createReview();
+    if (this.validateForm()) this.createReview();
+  }
+
+  validateForm = () => {
+    const { rating } = this.state;
+    const ratingValid = rating > 0;
+    this.setState({ ratingValid });
+    return ratingValid;
   }
 
   createReview = () => {
@@ -46,7 +54,7 @@ class ReviewForm extends Component {
   }
 
   updateRating = (rating) => {
-    this.setState({ rating });
+    this.setState({ rating }, this.validateForm);
   }
 
   starFill = (starPosition) => {
@@ -57,13 +65,13 @@ class ReviewForm extends Component {
   };
 
   render() {
-    const { rating, content } = this.state;
+    const { rating, content, ratingValid } = this.state;
     const { closeModal } = this.props;
     return (
       <div className="review-form-container">
         <div className="form-title">Leave a review</div>
         <form onSubmit={this.handleSubmit}>
-          <div className="star-container-center">
+          <div className={ratingValid ? 'form-star-container' : 'form-star-container invalid'}>
             <svg viewBox="0 0 50 50" className="star-svg-clickable" onClick={() => { this.updateRating(1); }}>
               <path className={`star ${this.starFill(1)}`} d={starSvg} />
             </svg>
@@ -80,6 +88,7 @@ class ReviewForm extends Component {
               <path className={`star ${this.starFill(5)}`} d={starSvg} />
             </svg>
           </div>
+          {ratingValid ? null : <div className="validation-error-message">please give a rating</div>}
           <div className="form-item">
             <textarea className="review-form-comment-box form-text-area no-select" wrap="soft" name="content" value={content} placeholder="please share your experience" onChange={this.handleChange} />
           </div>
