@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import axios from 'axios';
 import Review from './review';
 import ReviewForm from './review_form';
 import modalStyles from '../utils/modal_styles';
-import BASE_URL from '../utils/base_url';
 
 class ReviewsContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { reviews } = this.props;
     this.state = { 
-      reviews: [],
+      reviews,
       modalIsOpen: false,
     };
-  }
-
-  componentDidMount() {
-    this.fetchReviews();
-  }
-
-  fetchReviews = () => {
-    const { restaurantId } = this.props;
-    axios.get(`${BASE_URL}/restaurants/${restaurantId}/reviews`)
-      .then(response => this.setState({ reviews: response.data }));
   }
 
   appendReview = (review) => {
