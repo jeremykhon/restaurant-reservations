@@ -15,11 +15,15 @@ class RestaurantPage extends Component {
   }
 
   componentDidMount() {
-    const { restaurant } = this.props.match.params;
+    this.fetchRestaurant();
+  }
 
+  fetchRestaurant = () => {
+    const { restaurant } = this.props.match.params;
     axios.get(`${BASE_URL}/restaurants/${restaurant}`)
       .then(response => this.setState({ restaurant: response.data }));
   }
+
 
   ifAdmin = () => {
     const { loggedIn, user } = this.props;
