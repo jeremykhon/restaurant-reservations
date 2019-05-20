@@ -1,0 +1,33 @@
+.reviews-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.review-container {
+  border-bottom: 1px solid $light-gray;
+  padding: 20px 0;
+}
+
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.review-user-name {
+  font-weight: bold;
+}
+
+.review-date {
+  font-size: 12px;
+  color: $lighter-gray;
+}
+
+.review-rating {
+  margin-bottom: 8px;
+}
+
+.review-content {
+  font-size: 14px;
+}
