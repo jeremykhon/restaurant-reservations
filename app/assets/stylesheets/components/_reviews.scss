@@ -60,3 +60,17 @@
 .review-content {
   font-size: 14px;
 }
+
+.star {
+  fill: $orange;
+  width: 100%;
+}
+
+.star-svg {
+  height: 14px;
+  width: 14px;
+}
+
+.star-container {
+  display: flex;
+}
