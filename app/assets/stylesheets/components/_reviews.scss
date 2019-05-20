@@ -35,7 +35,7 @@
 
 .review-container {
   border-bottom: 1px solid $light-gray;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .review-top {
@@ -46,6 +46,7 @@
 
 .review-user-name {
   font-weight: bold;
+  margin-bottom: 2px;
 }
 
 .review-date {
@@ -61,9 +62,17 @@
   font-size: 14px;
 }
 
+.star-container {
+  margin-bottom: 15px;
+}
+
 .star {
-  fill: $orange;
+  fill: $light-gray;
   width: 100%;
+}
+
+.star-fill {
+  fill: $orange;
 }
 
 .star-svg {
