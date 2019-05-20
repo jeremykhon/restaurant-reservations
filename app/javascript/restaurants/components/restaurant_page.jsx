@@ -37,6 +37,7 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
+    const { loggedIn } = this.props;
     if (restaurant === null) {
       return <div />;
     }
@@ -51,7 +52,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 col-sm-7">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
-            <ReviewsContainer restaurantId={restaurant.id} reviews={restaurant.reviews} />
+            <ReviewsContainer loggedIn={loggedIn} restaurantId={restaurant.id} reviews={restaurant.reviews} />
           </div>
           <BookingForm restaurant={restaurant} />
         </div>
