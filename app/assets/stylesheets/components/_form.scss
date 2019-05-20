@@ -12,6 +12,12 @@
   width: 100%;
 }
 
+.form-text-area {
+  border: none;
+  font-size: 14px;
+  width: 100%;
+}
+
 .form-submit {
   height: 40px;
   background-color: $red;
@@ -20,6 +26,18 @@
   border-radius: 3px;
   font-size: 14px;
 }
+
+.form-cancel {
+  margin-top: 10px;
+  height: 40px;
+  border: 1px solid $lighter-gray;
+  color: $lighter-gray;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+  background-color: white;
+}
+
 
 .form-select-input {
   width: 100%;

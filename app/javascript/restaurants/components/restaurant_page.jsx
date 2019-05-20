@@ -4,6 +4,7 @@ import axios from "axios";
 import BookingForm from './booking_form';
 import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
+import ReviewsContainer from './reviews_container';
 
 class RestaurantPage extends Component {
   constructor() {
@@ -14,11 +15,15 @@ class RestaurantPage extends Component {
   }
 
   componentDidMount() {
-    const { restaurant } = this.props.match.params;
+    this.fetchRestaurant();
+  }
 
+  fetchRestaurant = () => {
+    const { restaurant } = this.props.match.params;
     axios.get(`${BASE_URL}/restaurants/${restaurant}`)
       .then(response => this.setState({ restaurant: response.data }));
   }
+
 
   ifAdmin = () => {
     const { loggedIn, user } = this.props;
@@ -36,6 +41,7 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
+    const { loggedIn } = this.props;
     if (restaurant === null) {
       return <div />;
     }
@@ -50,6 +56,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 col-sm-7">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
+            <ReviewsContainer loggedIn={loggedIn} restaurant={restaurant} reviews={restaurant.reviews} />
           </div>
           <BookingForm restaurant={restaurant} />
         </div>

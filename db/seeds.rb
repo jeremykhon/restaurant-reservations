@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
+
 # Booking.destroy_all
 # TimeSlot.destroy_all
 # Restaurant.destroy_all
@@ -28,12 +31,18 @@
 # Restaurant.create!(name: "Mos Burger", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
 # Restaurant.create!(name: "Shake Shack", description: "the ol burger place", user: User.all.sample, cuisine: Cuisine.all.sample, location: "central", capacity: 40)
 
+# Restaurant.all.each do |restaurant|
+#   d = Time.now.beginning_of_hour
+#   d -= 1440.minutes
+#   (1..200).each do |i|
+#     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+#     d += 30.minutes
+#   end
+#   puts "----------------"
+# end 
+
 Restaurant.all.each do |restaurant|
-  d = Time.now.beginning_of_hour
-  d -= 1440.minutes
-  (1..200).each do |i|
-    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
-    d += 30.minutes
+  (1..20).each do |i|
+    Review.create!(user: User.first, restaurant: restaurant, content: Faker::TvShows::Simpsons.quote, rating: [1,2,3,4,5].sample)
   end
-  puts "----------------"
 end
