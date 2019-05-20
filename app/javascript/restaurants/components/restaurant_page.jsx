@@ -54,7 +54,7 @@ class RestaurantPage extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-sm-7">
+          <div className="col-12 col-sm-7 order-2 order-sm-1">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
             <ReviewsContainer loggedIn={loggedIn} restaurant={restaurant} reviews={restaurant.reviews} />
           </div>

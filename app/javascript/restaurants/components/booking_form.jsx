@@ -158,7 +158,7 @@ class BookingForm extends Component {
   render() {
     const { timeSlots } = this.state
     return (
-      <div className="col-12 col-sm-5">
+      <div className="col-12 col-sm-5 order-1 order-sm-2">
         <div className="booking-form">
           <div className="booking-form-title">
             reservation details
