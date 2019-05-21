@@ -52,10 +52,6 @@
   font-size: 14px;
 }
 
-.star-container {
-  margin-bottom: 15px;
-}
-
 .form-star-container {
   display: flex;
   justify-content: center;
@@ -80,12 +76,17 @@
 }
 
 .star-with-gradient-big {
-  height: 20px;
   width: 20px;
+  height: 20px;
 }
 
 .star-container {
   display: flex;
+}
+
+.star-container-margin {
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .star-svg-clickable {

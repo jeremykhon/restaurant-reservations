@@ -6,6 +6,7 @@ import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
 import ReviewsContainer from './reviews_container';
 import RestaurantAbout from './restaurant_about';
+import StarsWithGradient from './stars_with_gradient';
 
 class RestaurantPage extends Component {
   constructor() {
@@ -55,8 +56,11 @@ class RestaurantPage extends Component {
                 {restaurant.name}
               </div>
               <div className="restaurant-basic-info">
-                <div>
-                  {Math.round(restaurant.avg_rating * 10) / 10}
+                <div className="restaurant-basic-info-rating">
+                  <div className="restaurant-basic-info-star-container">
+                    <StarsWithGradient starClass="restaurant-basic-info-stars" avgRating={restaurant.avg_rating} />
+                  </div>
+                  <div>{Math.round(restaurant.avg_rating * 10) / 10}</div>
                 </div>
                 <div>
                   {restaurant.cuisine.name}

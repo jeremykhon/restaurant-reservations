@@ -39,7 +39,9 @@ class ReviewsContainer extends Component {
           <div className="reviews-top">
             <div className="reviews-summary">
               <div className="big-average-rating">{Math.round(restaurant.avg_rating * 10) / 10}</div>
-              <StarsWithGradient avgRating={restaurant.avg_rating} />
+              <div className="star-container-margin">
+                <StarsWithGradient starClass="star-with-gradient-big" avgRating={restaurant.avg_rating} />
+              </div>
               <div className="number-of-reviews">{`${reviews.length} reviews`}</div>
             </div>
             <div>

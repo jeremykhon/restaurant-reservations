@@ -16,7 +16,7 @@ const Review = ({ review }) => {
         <div className="review-user-name">{review.user.name}</div>
         <div className="review-date">{MmmDdYyyy(review.created_at)}</div>
       </div>
-      <div className="star-container">
+      <div className="star-container-margin">
         <svg viewBox="0 0 50 50" className="star-svg">
           <path className={`star ${starFill(review.rating, 1)}`} d={starSvg} />
         </svg>

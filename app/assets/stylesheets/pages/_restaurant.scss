@@ -11,6 +11,22 @@
 
 .restaurant-basic-info {
   display: flex;
+  margin-top: 10px;
+}
+
+.restaurant-basic-info-rating {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.restaurant-basic-info-star-container {
+  margin-right: 6px;
+}
+
+.restaurant-basic-info-stars {
+  height: 14px;
+  width: 14px;
 }
 
 .restaurant-section-container {
