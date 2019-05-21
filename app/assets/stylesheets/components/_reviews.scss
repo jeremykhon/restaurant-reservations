@@ -1,7 +1,11 @@
 .reviews-top {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.reviews-summary {
+ text-align: center;
 }
 
 .leave-review-button {
@@ -75,6 +79,11 @@
   width: 14px;
 }
 
+.star-with-gradient-big {
+  height: 20px;
+  width: 20px;
+}
+
 .star-container {
   display: flex;
 }
@@ -106,5 +115,11 @@
 }
 
 .big-average-rating {
-  font-size: 40px;
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.number-of-reviews {
+  font-size: 12px;
+  margin-top: -5px;
 }
