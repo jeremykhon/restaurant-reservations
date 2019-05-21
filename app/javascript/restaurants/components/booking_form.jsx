@@ -185,7 +185,7 @@ class BookingForm extends Component {
     const {
       name, nameValid, email, emailValid, number, numberValid,
     } = this.state;
-    const { loggedIn, user } = this.props;
+    const { loggedIn, user, openLogInModal } = this.props;
     if (loggedIn) {
       return (
         <div>
@@ -206,7 +206,7 @@ class BookingForm extends Component {
       );
     }
     return (
-      <div className="log-in-to-reserve">
+      <div className="log-in-to-reserve" onClick={openLogInModal}>
         Please log in to reserve
       </div>
     );

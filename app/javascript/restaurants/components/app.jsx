@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import Modal from 'react-modal';
+import axios from 'axios';
 import history from '../utils/history';
 import RestaurantPage from './restaurant_page';
 import MainPage from './main_page';
@@ -7,6 +9,10 @@ import Navbar from './navbar';
 import BASE_URL from '../utils/base_url';
 import RestaurantAdminPage from './restaurant_admin_page';
 import ReservationsPage from './reservations_page';
+import AuthenticationModal from './authentication_modal';
+import modalStyles from '../utils/modal_styles';
+
+Modal.setAppElement('#root');
 
 class App extends Component {
   constructor() {
@@ -14,6 +20,8 @@ class App extends Component {
     this.state = {
       loggedIn: localStorage.getItem('jwt') ? true : false,
       user: null,
+      modalIsOpen: false,
+      loggingIn: true,
     };
   }
 
@@ -21,19 +29,28 @@ class App extends Component {
     this.getUser();
   }
 
+  openLogInModal = () => {
+    this.setState({ modalIsOpen: true, loggingIn: true });
+  };
+
+  openSignUpModal = () => {
+    this.setState({ modalIsOpen: true, loggingIn: false });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  };
+
   getUser = () => {
-    if (this.state.loggedIn) {
+    const { loggedIn } = this.state;
+    if (loggedIn) {
       const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-      fetch(`${BASE_URL}/return_user`, {
-        method: 'POST',
+      axios.get(`${BASE_URL}/return_user`, {
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
           'X-CSRF-Token': csrfToken,
           'jwt': localStorage.getItem('jwt'),
         },
-      }).then(response => response.json())
-        .then(data => this.setState({ user: data }));
+      }).then(response => this.setState({ user: response.data }));
     }
   }
 
@@ -48,10 +65,18 @@ class App extends Component {
   }
 
   render() {
-    const { loggedIn, user } = this.state;
+    const {
+      loggedIn, user, modalIsOpen, loggingIn,
+    } = this.state;
     return (
       <Router history={history}>
-        <Navbar loggedIn={loggedIn} logIn={this.logIn} logOut={this.logOut} user={user} />
+        <Navbar
+          loggedIn={loggedIn}
+          user={user}
+          openLogInModal={this.openLogInModal}
+          openSignUpModal={this.openSignUpModal}
+          logOut={this.logOut}
+        />
         <div className="navbar-div" />
         <Switch>
           <Route
@@ -70,7 +95,7 @@ class App extends Component {
           <Route
             path="/restaurants/:restaurant"
             render={props => (
-              <RestaurantPage loggedIn={loggedIn} user={user} {...props} />
+              <RestaurantPage openLogInModal={this.openLogInModal} loggedIn={loggedIn} user={user} {...props} />
             )}
           />
           <Route
@@ -81,6 +106,18 @@ class App extends Component {
             )}
           />
         </Switch>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Sign in or up modal"
+          style={modalStyles}
+        >
+          <AuthenticationModal
+            logIn={this.logIn}
+            loggingIn={loggingIn}
+            closeModal={this.closeModal}
+          />
+        </Modal>
       </Router>
     );
   }
