@@ -9,6 +9,18 @@
   font-size: 26px;
 }
 
-.images-container {
-  
+.restaurant-section-container {
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.restaurant-section-title {
+  font-weight: bold;
+  padding: 12px 25px;
+  border-bottom: 1px solid $light-gray;
+}
+
+.restaurant-section-inside-container {
+  padding: 25px;
 }

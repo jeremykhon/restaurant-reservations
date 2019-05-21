@@ -32,9 +32,9 @@ class ReviewsContainer extends Component {
     const { reviews } = this.state;
     const { restaurant, loggedIn, openLogInModal } = this.props;
     return (
-      <div className="reviews-container">
-        <div className="reviews-title">reviews</div>
-        <div className="review-list">
+      <div className="restaurant-section-container">
+        <div className="restaurant-section-title">reviews</div>
+        <div className="restaurant-section-inside-container">
           <div className="reviews-top">
             <div>
               <div className="big-average-rating">{Math.round(restaurant.avg_rating * 10) / 10}</div>

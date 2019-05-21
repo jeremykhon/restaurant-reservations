@@ -23,7 +23,7 @@ class BannerImage extends Component {
     clearInterval(this.state.intervalId);
   }
 
-  toggleOpacity = (number) => { return number === this.state.currentImage ? 1 : 0; }
+  toggleOpacity = number => (number === this.state.currentImage ? 1 : 0)
 
   changeCurrentImage = () => {
     const { currentImage } = this.state;
@@ -35,7 +35,6 @@ class BannerImage extends Component {
   }
 
   render() {
-    const { currentImage } = this.state
     return (
       <div className="banner-image-container">
         <div className="banner-image" style={{ opacity: this.toggleOpacity(1), backgroundImage: `url(${musselsAndWine})` }} />

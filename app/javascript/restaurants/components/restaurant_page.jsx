@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from "axios";
+import axios from 'axios';
 import BookingForm from './booking_form';
 import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
 import ReviewsContainer from './reviews_container';
+import RestaurantAbout from './restaurant_about';
 
 class RestaurantPage extends Component {
   constructor() {
@@ -24,7 +25,6 @@ class RestaurantPage extends Component {
       .then(response => this.setState({ restaurant: response.data }));
   }
 
-
   ifAdmin = () => {
     const { loggedIn, user } = this.props;
     const { restaurant } = this.state;
@@ -37,6 +37,7 @@ class RestaurantPage extends Component {
         );
       }
     }
+    return null;
   }
 
   render() {
@@ -56,6 +57,7 @@ class RestaurantPage extends Component {
         <div className="row">
           <div className="col-12 col-sm-7 order-2 order-sm-1">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
+            <RestaurantAbout restaurantAbout={restaurant.description} />
             <ReviewsContainer
               openLogInModal={openLogInModal}
               loggedIn={loggedIn}
