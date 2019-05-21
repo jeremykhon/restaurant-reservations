@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Review from './review';
 import ReviewForm from './review_form';
 import modalStyles from '../utils/modal_styles';
+import StarsWithGradient from './stars_with_gradient';
 
 class ReviewsContainer extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class ReviewsContainer extends Component {
         <div className="restaurant-section-inside-container">
           <div className="reviews-top">
             <div>
+              <StarsWithGradient avgRating={restaurant.avg_rating} />
               <div className="big-average-rating">{Math.round(restaurant.avg_rating * 10) / 10}</div>
               <div>{`${reviews.length} reviews`}</div>
             </div>

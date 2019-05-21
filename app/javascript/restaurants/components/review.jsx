@@ -1,12 +1,12 @@
 import React from 'react';
 import MmmDdYyyy from '../utils/mmm_dd_yyyy';
-
-const starSvg = 'm25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z';
+import starSvg from '../utils/star_svg';
 
 const starFill = (rating, starPosition) => {
   if (rating >= starPosition) {
     return 'star-fill';
   }
+  return null;
 };
 
 const Review = ({ review }) => {

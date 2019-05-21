@@ -50,7 +50,22 @@ class RestaurantPage extends Component {
       <div className="container">
         <div className="row">
           <div className="col-12 restaurant-page-title-container">
-            <div className="restaurant-page-title">{restaurant.name}</div>
+            <div>
+              <div className="restaurant-page-title">
+                {restaurant.name}
+              </div>
+              <div className="restaurant-basic-info">
+                <div>
+                  {Math.round(restaurant.avg_rating * 10) / 10}
+                </div>
+                <div>
+                  {restaurant.cuisine.name}
+                </div>
+                <div>
+                  {restaurant.location}
+                </div>
+              </div>
+            </div>
             {this.ifAdmin()}
           </div>
         </div>
