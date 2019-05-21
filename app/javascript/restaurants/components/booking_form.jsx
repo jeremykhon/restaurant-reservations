@@ -45,64 +45,68 @@ class BookingForm extends Component {
   }
 
   selectTimeSlot = (timeSlot) => {
-    this.setState({ selectedTimeSlot: timeSlot, selectedTimeSlotValid: true })
+    this.setState({ selectedTimeSlot: timeSlot, selectedTimeSlotValid: true });
   }
 
   fetchTimeSlots = () => {
     const { restaurant } = this.props;
-    const start = this.state.date.setHours(0, 0, 0, 0);
-    const end = this.state.date.setHours(23, 59, 59, 999);
+    const { date } = this.state;
+    const start = date.setHours(0, 0, 0, 0);
+    const end = date.setHours(23, 59, 59, 999);
     axios.get(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
       .then(response => this.setState({ timeSlots: response.data }))
       .catch(err => console.log(err));
   }
 
   handleChangeDate = (date) => {
-    this.setState({ date: date }, this.fetchTimeSlots);
+    this.setState({ date }, this.fetchTimeSlots);
     this.setState({ selectedTimeSlot: null });
   }
 
   handleChange = (event) => {
-    const target = event.target
-    const name = target.name;
-    this.setState({ [name]: target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.validateForm()) {
+      this.openModal();
+    }
+  }
 
   validateField = (event) => {
-    const name = event.target.name
-    let nameValid = this.state.nameValid
-    let emailValid = this.state.emailValid
-    let numberValid = this.state.numberValid
-
-    switch (name) {
+    const fieldName = event.target.name;
+    let { nameValid, emailValid, numberValid } = this.state;
+    const { name, email, number } = this.state;
+    switch (fieldName) {
       case 'name':
-        nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
+        nameValid = (/^[A-z ]{1,20}$/).test(name);
         this.setState({ nameValid });
         break;
       case 'email':
-        emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
+        emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
         this.setState({ emailValid });
         break;
       case 'number':
-        numberValid = (/^[0-9][0-9]{5,15}$/).test(this.state.number)
+        numberValid = (/^[0-9][0-9]{5,15}$/).test(number);
         this.setState({ numberValid });
         break;
     }
   }
 
   validateForm = () => {
-    let dateValid = this.state.dateValid
-    let selectedTimeSlotValid = this.state.selectedTimeSlotValid
-    let nameValid = this.state.nameValid
-    let emailValid = this.state.emailValid
-    let numberValid = this.state.numberValid
+    let {
+      dateValid, selectedTimeSlotValid, nameValid, emailValid, numberValid,
+    } = this.state;
+    const {
+      date, name, selectedTimeSlot, number, email,
+    } = this.state;
 
-    dateValid = Object.prototype.toString.call(this.state.date) === "[object Date]"
-    nameValid = (/^[A-z ]{1,20}$/).test(this.state.name)
-    selectedTimeSlotValid = this.state.selectedTimeSlot !== null
-    emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.state.email)
-    numberValid = (/^[0-9]{5,15}$/).test(this.state.number) 
+    dateValid = Object.prototype.toString.call(date) === '[object Date]';
+    nameValid = (/^[A-z ]{1,20}$/).test(name);
+    selectedTimeSlotValid = selectedTimeSlot !== null;
+    emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
+    numberValid = (/^[0-9]{5,15}$/).test(number);
 
     this.setState({
       dateValid,
@@ -112,51 +116,85 @@ class BookingForm extends Component {
       numberValid,
     });
 
-    return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid)
+    return (dateValid && nameValid && selectedTimeSlotValid && emailValid && numberValid);
   }
 
   errorMessage = (name) => {
-    switch(name) {
+    const {
+      selectedTimeSlotValid, nameValid, emailValid, numberValid,
+    } = this.state;
+    switch (name) {
       case 'timeSlots':
-        if (this.state.selectedTimeSlotValid === false) {
+        if (selectedTimeSlotValid === false) {
           return (
             <div className="validation-error-message">please select a time and discount</div>
           );
         }
         break;
       case 'name':
-        if (this.state.nameValid === false) {
+        if (nameValid === false) {
           return (
             <div className="validation-error-message">please enter your name</div>
           );
         }
         break;
       case 'email':
-        if (this.state.emailValid === false) {
+        if (emailValid === false) {
           return (
             <div className="validation-error-message">please enter a valid email address</div>
           );
         }
         break;
       case 'number':
-        if (this.state.numberValid === false) {
+        if (numberValid === false) {
           return (
             <div className="validation-error-message">please enter your phone number</div>
           );
         }
         break;
     }
+    return null;
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    if (this.validateForm()) {
-      this.openModal()
+  renderTimeSlots = () => {
+    const { timeSlots, selectedTimeSlot } = this.state;
+    if (timeSlots.length === 0) {
+      return (
+        <div className="no-time-slots">
+          There are no reservations available for this day
+        </div>
+      );
     }
+    return (
+      <div className="time-slots-container">
+        {timeSlots.map((timeSlot) => {
+          return (
+            <SelectableTimeSlot
+              key={timeSlot.id}
+              timeSlot={timeSlot}
+              selectedTimeSlot={selectedTimeSlot}
+              selectTimeSlot={this.selectTimeSlot}
+            />
+          );
+        })}
+      </div>
+    );
   }
 
   render() {
-    const { timeSlots } = this.state
+    const {
+      date,
+      tableSize,
+      name,
+      email,
+      number,
+      dateValid,
+      selectedTimeSlotValid,
+      nameValid,
+      emailValid,
+      numberValid,
+      modalIsOpen,
+    } = this.state;
     return (
       <div className="col-12 col-sm-5 order-1 order-sm-2">
         <div className="booking-form">
@@ -164,9 +202,9 @@ class BookingForm extends Component {
             reservation details
           </div>
           <form onSubmit={this.handleSubmit}>
-            <div className={this.state.dateValid ? "form-item" : "form-item invalid"} >
+            <div className={dateValid ? 'form-item' : 'form-item invalid'}>
               <DatePicker
-                selected={this.state.date}
+                selected={date}
                 onChange={this.handleChangeDate}
                 dateFormat="MMMM d, yyyy"
                 minDate={new Date()}
@@ -175,7 +213,7 @@ class BookingForm extends Component {
               />
             </div>
             <div className="form-item">
-              <select className="form-select-input no-select" name="tableSize" defaultValue={this.state.tableSize} onChange={this.handleChange}>
+              <select className="form-select-input no-select" name="tableSize" defaultValue={tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
                 <option value="4">4 people</option>
@@ -183,37 +221,35 @@ class BookingForm extends Component {
                 <option value="6">6 people</option>
               </select>
             </div>
-            <div className={this.state.selectedTimeSlotValid ? "form-item" : "form-item invalid"}>
+            <div className={selectedTimeSlotValid ? 'form-item' : 'form-item invalid'}>
               <div className="form-label-vertical">
                 choose time & discount
               </div>
-              <div className="time-slots-container">
-                {timeSlots.map(timeSlot => <SelectableTimeSlot key={timeSlot.id} timeSlot={timeSlot} selectedTimeSlot={this.state.selectedTimeSlot} selectTimeSlot={this.selectTimeSlot}/>)}
-              </div>
+              {this.renderTimeSlots()}
             </div>
-            {this.errorMessage("timeSlots")}
-            <div className={this.state.nameValid ? "form-item" : "invalid form-item"}>
-              <input className="form-text-input no-select" type="text" name="name" value={this.state.name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
+            {this.errorMessage('timeSlots')}
+            <div className={nameValid ? 'form-item' : 'invalid form-item'}>
+              <input className="form-text-input no-select" type="text" name="name" value={name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
             </div>
-            {this.errorMessage("name")}
-            <div className={this.state.emailValid ? "form-item" : "form-item invalid"}>
-              <input className="form-text-input no-select" type="text" name="email" value={this.state.email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
+            {this.errorMessage('name')}
+            <div className={emailValid ? 'form-item' : 'form-item invalid'}>
+              <input className="form-text-input no-select" type="text" name="email" value={email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
             </div>
-            {this.errorMessage("email")}
-            <div className={this.state.numberValid ? "form-item" : "form-item invalid"}>
-              <input className="form-text-input no-select" type="text" name="number" value={this.state.number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number"/>
+            {this.errorMessage('email')}
+            <div className={numberValid ? 'form-item' : 'form-item invalid'}>
+              <input className="form-text-input no-select" type="text" name="number" value={number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number" />
             </div>
-            {this.errorMessage("number")}
+            {this.errorMessage('number')}
             <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
           </form>
         </div>
         <Modal
-          isOpen={this.state.modalIsOpen}
+          isOpen={modalIsOpen}
           onRequestClose={this.closeModal}
           contentLabel="Confirm Modal"
           style={modalStyles}
         >
-          <ConfirmationModal closeModal={this.closeModal} bookingForm={this.state}/>
+          <ConfirmationModal closeModal={this.closeModal} bookingForm={this.state} />
         </Modal>
       </div>
     );
