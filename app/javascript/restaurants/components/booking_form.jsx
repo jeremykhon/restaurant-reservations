@@ -181,18 +181,43 @@ class BookingForm extends Component {
     );
   }
 
+  renderFieldsIfLoggedIn = () => {
+    const {
+      name, nameValid, email, emailValid, number, numberValid,
+    } = this.state;
+    const { loggedIn, user } = this.props;
+    if (loggedIn) {
+      return (
+        <div>
+          <div className={nameValid ? 'form-item' : 'invalid form-item'}>
+            <input className="form-text-input no-select" type="text" name="name" value={name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
+          </div>
+          {this.errorMessage('name')}
+          <div className={emailValid ? 'form-item' : 'form-item invalid'}>
+            <input className="form-text-input no-select" type="text" name="email" value={email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
+          </div>
+          {this.errorMessage('email')}
+          <div className={numberValid ? 'form-item' : 'form-item invalid'}>
+            <input className="form-text-input no-select" type="text" name="number" value={number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number" />
+          </div>
+          {this.errorMessage('number')}
+          <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
+        </div>
+      );
+    }
+    return (
+      <div className="log-in-to-reserve">
+        Please log in to reserve
+      </div>
+    );
+  }
+
   render() {
     const {
       date,
       tableSize,
-      name,
-      email,
-      number,
       dateValid,
       selectedTimeSlotValid,
-      nameValid,
-      emailValid,
-      numberValid,
       modalIsOpen,
     } = this.state;
     return (
@@ -228,19 +253,7 @@ class BookingForm extends Component {
               {this.renderTimeSlots()}
             </div>
             {this.errorMessage('timeSlots')}
-            <div className={nameValid ? 'form-item' : 'invalid form-item'}>
-              <input className="form-text-input no-select" type="text" name="name" value={name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
-            </div>
-            {this.errorMessage('name')}
-            <div className={emailValid ? 'form-item' : 'form-item invalid'}>
-              <input className="form-text-input no-select" type="text" name="email" value={email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
-            </div>
-            {this.errorMessage('email')}
-            <div className={numberValid ? 'form-item' : 'form-item invalid'}>
-              <input className="form-text-input no-select" type="text" name="number" value={number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number" />
-            </div>
-            {this.errorMessage('number')}
-            <button className="booking-form-submit" type="submit" value="Submit">review reservation</button>
+            {this.renderFieldsIfLoggedIn()}
           </form>
         </div>
         <Modal
