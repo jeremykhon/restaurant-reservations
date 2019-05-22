@@ -43,6 +43,7 @@ class RestaurantCard extends Component {
             <div className="restaurant-card-info">
               <div className="restaurant-card-title">{restaurant.name}</div>
               <div className="restaurant-card-cuisine">{restaurant.cuisine.name}</div>
+              <div className="restaurant-card-location">{restaurant.location}</div>
               <div className="restaurant-card-stats">
                 <div className="restaurant-card-rating">
                   <StarsWithGradient starClass="restaurant-basic-info-stars" avgRating={restaurant.avg_rating} />
