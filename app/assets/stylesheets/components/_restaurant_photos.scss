@@ -35,10 +35,25 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 30%;
-  
 }
 
 .restaurant-no-photo {
   height: 100%;
   background-color: $light-gray;
 }
+
+.restaurant-photo-with-time-slots {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 30%;
+  display: flex;
+
+  .time-slots-container {
+    align-self: flex-end;
+    display: flex;
+    overflow: auto;
+    padding: 12px 0;
+  }
+}
+

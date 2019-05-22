@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TimeSlot from './time_slot';
 import BASE_URL from '../utils/base_url';
 import history from '../utils/history';
-import RestaurantPhoto from './restaurant_photo';
+import RestaurantPhotoWithTimeSlots from './restaurant_photo_with_time_slots';
 
 class RestaurantCard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       timeSlotsToday: [],
     };
@@ -33,15 +32,15 @@ class RestaurantCard extends Component {
       <div className="col-12 col-sm-3" style={{ padding: '0 10px' }}>
         <div className="restaurant-card-container" onClick={this.linkToRestaurant}>
           <div className="restaurant-card-image-container">
-            <RestaurantPhoto photo={restaurant.restaurant_photos[0]} />
+            <RestaurantPhotoWithTimeSlots
+              photo={restaurant.restaurant_photos[0]}
+              timeSlotsToday={timeSlotsToday}
+            />
           </div>
           <div className="restaurant-card-content">
             <div className="restaurant-card-info">
               <div className="restaurant-card-title">{restaurant.name}</div>
               <div className="restaurant-card-cuisine">{restaurant.cuisine.name}</div>
-            </div>
-            <div className="time-slots-container">
-              {timeSlotsToday.map(timeSlot => <TimeSlot key={timeSlot.id} timeSlot={timeSlot} />)}
             </div>
           </div>
         </div>
