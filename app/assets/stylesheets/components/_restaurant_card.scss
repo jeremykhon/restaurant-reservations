@@ -1,6 +1,6 @@
 .restaurant-card-container {
   background-color: white;
-  border-radius: 3px;
+  border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.1);
   cursor: pointer;
 }
@@ -17,4 +17,18 @@
 .restaurant-card-title {
   font-size: 18px;
   color: $dark-gray;
+}
+
+.restaurant-card-rating {
+  display: flex;
+  align-items: center;
+}
+
+.restaurant-card-rating-label {
+  margin-left: 5px;
+}
+
+.restaurant-card-stats {
+  display: flex;
+  justify-content: space-between;
 }

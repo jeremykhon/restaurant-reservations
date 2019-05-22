@@ -3,6 +3,8 @@ import axios from 'axios';
 import BASE_URL from '../utils/base_url';
 import history from '../utils/history';
 import RestaurantPhotoWithTimeSlots from './restaurant_photo_with_time_slots';
+import StarsWithGradient from './stars_with_gradient';
+import PriceLevel from './price_level';
 
 class RestaurantCard extends Component {
   constructor() {
@@ -41,6 +43,15 @@ class RestaurantCard extends Component {
             <div className="restaurant-card-info">
               <div className="restaurant-card-title">{restaurant.name}</div>
               <div className="restaurant-card-cuisine">{restaurant.cuisine.name}</div>
+              <div className="restaurant-card-stats">
+                <div className="restaurant-card-rating">
+                  <StarsWithGradient starClass="restaurant-basic-info-stars" avgRating={restaurant.avg_rating} />
+                  <div className="restaurant-card-rating-label">{Math.round(restaurant.avg_rating * 10) / 10}</div>
+                </div>
+                <div className="restaurant-card-price-level">
+                  <PriceLevel priceLevel={restaurant.price_level} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
