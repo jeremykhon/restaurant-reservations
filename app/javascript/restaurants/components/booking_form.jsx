@@ -13,14 +13,15 @@ import modalStyles from '../utils/modal_styles';
 Modal.setAppElement('#root');
 
 class BookingForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { loggedIn, user } = this.props;
     this.state = {
       date: new Date(),
       tableSize: '2',
       selectedTimeSlot: null,
-      name: '',
-      email: '',
+      name: loggedIn ? user.name : '',
+      email: loggedIn ? user.email : '',
       number: '',
       timeSlots: [],
       modalIsOpen: false,
