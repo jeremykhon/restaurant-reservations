@@ -62,11 +62,11 @@ class RestaurantPage extends Component {
                   </div>
                   <div>{Math.round(restaurant.avg_rating * 10) / 10}</div>
                 </div>
-                <div>
-                  {restaurant.cuisine.name}
+                <div className="restaurant-basic-info-price-level">
+                  {restaurant.price_level}
                 </div>
-                <div>
-                  {restaurant.location}
+                <div className="restaurant-basic-info-cuisine">
+                  {restaurant.cuisine.name}
                 </div>
               </div>
             </div>

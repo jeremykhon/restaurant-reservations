@@ -12,12 +12,24 @@
 .restaurant-basic-info {
   display: flex;
   margin-top: 10px;
+  color: $lighter-gray;
+  font-size: 15px;
 }
 
 .restaurant-basic-info-rating {
   display: flex;
   align-items: center;
   padding-right: 20px;
+  border-right: 1px solid $lighter-gray;
+}
+
+.restaurant-basic-info-price-level {
+  padding: 0 20px;
+  border-right: 1px solid $lighter-gray;
+}
+
+.restaurant-basic-info-cuisine {
+  padding-left: 20px;
 }
 
 .restaurant-basic-info-star-container {
