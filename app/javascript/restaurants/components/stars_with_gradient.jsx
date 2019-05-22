@@ -19,7 +19,7 @@ const starWithGradient = (averageRating, i, starClass) => {
 const StarsWithGradient = ({ avgRating, starClass }) => {
   return (
     <div className="star-container">
-      {[...Array(5).keys()].map(i => starWithGradient(avgRating, i + 1, starClass))}
+      {[...Array(5).keys()].map(i => starWithGradient(avgRating, i, starClass))}
     </div>
   );
 };
