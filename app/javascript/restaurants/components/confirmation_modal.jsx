@@ -1,11 +1,11 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import history from '../utils/history';
 import hhmmTime from '../utils/hhmm_time';
-import formatDate from '../utils/yymmdd_date';
 import BASE_URL from '../utils/base_url';
 import longDate from '../utils/long_date';
+import monkeyThumbsUp from 'images/monkey_thumbs_up.png';
 
 class ConfirmationModal extends Component {
   constructor() {
@@ -37,24 +37,31 @@ class ConfirmationModal extends Component {
       .catch(error => console.log(error));
   }
 
-  render() {
+  redirectToReservations = () => {
+    history.push(`/reservations`);
+  };
+
+  renderConfirmed = () => {
     const {
       closeModal, bookingForm: {
         selectedTimeSlot, tableSize, name, email, number
       },
     } = this.props;
-    if (this.state.confirmed) {
+    const { confirmed } = this.state
+    if (confirmed) {
       return (
         <div>
-          <div>confirmed!</div>
-          <Link to="/">Keep Browsing</Link>
+          <div className="reservation-success-container">
+            <img className="reservation-success-image" src={monkeyThumbsUp} alt="reservation-success-monkey" />
+            <div className="reservation-success">reservation confirmed!</div>
+          </div>
+          <button className="form-submit" type="button" onClick={this.redirectToReservations}>see reservations</button>
         </div>
       );
     }
     return (
-      <div className="confirmation-modal">
-        <div className="form-title">Please confirm your reservation</div>
-        <div className="modal-content">
+      <div>
+        <div className="modal-form-content">
           <div className="confirmation_modal_field">
             <i className="far fa-calendar-alt icon" />
             <div>{longDate(selectedTimeSlot.time)}</div>
@@ -86,6 +93,15 @@ class ConfirmationModal extends Component {
         </div>
         <button className="form-submit" type="button" onClick={this.createBooking}>Confirm</button>
         <button className="form-cancel" type="button" onClick={closeModal}>Cancel</button>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="confirmation-modal">
+        <div className="form-title">Please confirm your reservation</div>
+        {this.renderConfirmed()}
       </div>
     );
   }
