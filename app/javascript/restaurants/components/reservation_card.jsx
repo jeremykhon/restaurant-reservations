@@ -56,10 +56,6 @@ const ReservationCard = ({ reservation, fetchReservations }) => {
             {reservation.restaurant.name}
           </div>
           {cancelReservationButton(reservation, fetchReservations)}
-          {/* <div className="cancel-reservation-button" onClick={() => { cancelReservation(reservation.id, fetchReservations); }}>
-            <i style={{ marginRight: '5px' }} className="far fa-times-circle" />
-            {cancelReservationLabel()}
-          </div> */}
         </div>
         <div className="reservation-card-content">
           <div className="reservation-card-content-left">

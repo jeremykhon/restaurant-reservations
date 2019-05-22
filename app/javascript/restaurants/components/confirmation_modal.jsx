@@ -5,6 +5,7 @@ import axios from 'axios';
 import hhmmTime from '../utils/hhmm_time';
 import formatDate from '../utils/yymmdd_date';
 import BASE_URL from '../utils/base_url';
+import longDate from '../utils/long_date';
 
 class ConfirmationModal extends Component {
   constructor() {
@@ -37,7 +38,11 @@ class ConfirmationModal extends Component {
   }
 
   render() {
-    const { bookingForm, closeModal } = this.props
+    const {
+      closeModal, bookingForm: {
+        selectedTimeSlot, tableSize, name, email, number
+      },
+    } = this.props;
     if (this.state.confirmed) {
       return (
         <div>
@@ -47,16 +52,40 @@ class ConfirmationModal extends Component {
       );
     }
     return (
-      <div>
-        <div>{formatDate(bookingForm.date)}</div>
-        <div>{bookingForm.tableSize}</div>
-        <div>{hhmmTime(bookingForm.selectedTimeSlot.time)}</div>
-        <div>{bookingForm.selectedTimeSlot.discount}</div>
-        <div>{bookingForm.name}</div>
-        <div>{bookingForm.email}</div>
-        <div>{bookingForm.number}</div>
-        <button type="button" onClick={this.createBooking}>Confirm</button>
-        <button type="button" onClick={closeModal}>Cancel</button>
+      <div className="confirmation-modal">
+        <div className="form-title">Please confirm your reservation</div>
+        <div className="modal-content">
+          <div className="confirmation_modal_field">
+            <i className="far fa-calendar-alt icon" />
+            <div>{longDate(selectedTimeSlot.time)}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="fas fa-user-friends icon" />
+            <div>{`${tableSize} people`}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="far fa-clock icon" />
+            <div>{hhmmTime(selectedTimeSlot.time)}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="fas fa-tag icon" />
+            <div>{`${selectedTimeSlot.discount}% off`}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="fas fa-user icon" />
+            <div>{name}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="fas fa-envelope icon" />
+            <div>{email}</div>
+          </div>
+          <div className="confirmation_modal_field">
+            <i className="fas fa-phone icon" />
+            <div>{number}</div>
+          </div>
+        </div>
+        <button className="form-submit" type="button" onClick={this.createBooking}>Confirm</button>
+        <button className="form-cancel" type="button" onClick={closeModal}>Cancel</button>
       </div>
     );
   }
