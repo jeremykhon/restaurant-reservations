@@ -191,14 +191,17 @@ class BookingForm extends Component {
       return (
         <div>
           <div className={nameValid ? 'form-item' : 'invalid form-item'}>
+            <i className="fas fa-user icon" />
             <input className="form-text-input no-select" type="text" name="name" value={name} onChange={this.handleChange} onBlur={this.validateField} placeholder="name" />
           </div>
           {this.errorMessage('name')}
           <div className={emailValid ? 'form-item' : 'form-item invalid'}>
+            <i className="fas fa-envelope icon" />
             <input className="form-text-input no-select" type="text" name="email" value={email} onChange={this.handleChange} onBlur={this.validateField} placeholder="email" />
           </div>
           {this.errorMessage('email')}
           <div className={numberValid ? 'form-item' : 'form-item invalid'}>
+            <i className="fas fa-phone icon" />
             <input className="form-text-input no-select" type="text" name="number" value={number} onChange={this.handleChange} onBlur={this.validateField} placeholder="number" />
           </div>
           {this.errorMessage('number')}
@@ -229,6 +232,7 @@ class BookingForm extends Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className={dateValid ? 'form-item' : 'form-item invalid'}>
+              <i className="far fa-calendar-alt icon" />
               <DatePicker
                 selected={date}
                 onChange={this.handleChangeDate}
@@ -239,6 +243,7 @@ class BookingForm extends Component {
               />
             </div>
             <div className="form-item">
+              <i className="fas fa-user-friends icon" />
               <select className="form-select-input no-select" name="tableSize" defaultValue={tableSize} onChange={this.handleChange}>
                 <option value="2">2 people</option>
                 <option value="3">3 people</option>
@@ -248,10 +253,13 @@ class BookingForm extends Component {
               </select>
             </div>
             <div className={selectedTimeSlotValid ? 'form-item' : 'form-item invalid'}>
-              <div className="form-label-vertical">
-                choose time & discount
+              <div className="form-time-slots-container">
+                <div className="form-label-vertical">
+                  <i className="far fa-clock icon" />
+                  <div className="label">choose time & discount</div>
+                </div>
+                {this.renderTimeSlots()}
               </div>
-              {this.renderTimeSlots()}
             </div>
             {this.errorMessage('timeSlots')}
             {this.renderFieldsIfLoggedIn()}

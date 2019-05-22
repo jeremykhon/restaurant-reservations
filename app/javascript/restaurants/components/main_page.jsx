@@ -6,7 +6,7 @@ const MainPage = () => {
   return (
     <div className="main-page-container">
       <BannerImage />
-      <div className="container">
+      <div className="container big-container">
         <div className="section-title">
           all restaurants
         </div>

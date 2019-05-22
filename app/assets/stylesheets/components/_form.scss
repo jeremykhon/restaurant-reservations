@@ -4,6 +4,8 @@
   border-radius: 3px;
   margin-bottom: 10px;
   padding: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .form-text-input {
@@ -58,8 +60,13 @@
 }
 
 .form-label-vertical {
-  font-size: 14px;
   color: $lighter-gray;
+  display: flex;
+  align-items: center;
+
+  .label {
+    font-size: 14px;
+  }
 }
 
 .validation-error-message {
