@@ -13,7 +13,6 @@ class Api::V1::BookingsController < ApplicationController
 
   def destroy
     booking = Booking.find_by(id: params[:id])
-
     if booking.destroy
       render json: booking
     else
@@ -30,14 +29,9 @@ class Api::V1::BookingsController < ApplicationController
       name: params[:name],
       email: params[:email],
       number: params[:number],
-      discount: params[:selectedTimeSlot][:discount]
+      discount: params[:selectedTimeSlot][:discount],
+      user: current_user
     )
-    puts "%%%%%%%%%%%%%%%%"
-    puts current_user
-    booking.user = current_user
-    puts "$$$$$$$$$$$$$$$$"
-    puts booking.user
-
     if booking.save!
       render json: booking
     else
