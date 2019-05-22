@@ -4,7 +4,7 @@ import inactivePrice from 'images/inactive_price.svg';
 
 const PriceIcon = (priceLevel, i) => {
   return (
-    <img className="price-level" src={priceLevel > i ? activePrice : inactivePrice} alt="price-level" />
+    <img key={i} className="price-level" src={priceLevel > i ? activePrice : inactivePrice} alt="price-level" />
   );
 };
 

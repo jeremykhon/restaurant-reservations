@@ -4,7 +4,7 @@ import starSvg from '../utils/star_svg';
 const starWithGradient = (averageRating, i, starClass) => {
   const remainder = averageRating - i;
   return (
-    <svg viewBox="0 0 50 50" className={starClass}>
+    <svg key={i} viewBox="0 0 50 50" className={starClass}>
       <defs>
         <linearGradient id={`grad${i}`} x1="0%" x2="100%">
           <stop offset={remainder > 1 ? '100%' : remainder} stopColor="#ed9102" stopOpacity="100%" />

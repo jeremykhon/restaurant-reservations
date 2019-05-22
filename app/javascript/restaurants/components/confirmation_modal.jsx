@@ -1,18 +1,17 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import axios from 'axios';
+import monkeyThumbsUp from 'images/monkey_thumbs_up.png';
 import history from '../utils/history';
 import hhmmTime from '../utils/hhmm_time';
 import BASE_URL from '../utils/base_url';
 import longDate from '../utils/long_date';
-import monkeyThumbsUp from 'images/monkey_thumbs_up.png';
 
 class ConfirmationModal extends Component {
   constructor() {
     super();
     this.state = {
       confirmed: false,
-      booking: null,
     };
   }
 
@@ -33,21 +32,19 @@ class ConfirmationModal extends Component {
         'jwt': localStorage.getItem('jwt'),
       },
       data: body,
-    }).then(response => this.setState({ booking: response.data, confirmed: true }))
+    }).then(() => this.setState({ confirmed: true }))
       .catch(error => console.log(error));
   }
 
   redirectToReservations = () => {
-    history.push(`/reservations`);
+    history.push('/reservations');
   };
 
   renderConfirmed = () => {
     const {
-      closeModal, bookingForm: {
-        selectedTimeSlot, tableSize, name, email, number
-      },
+      closeModal, bookingForm: { selectedTimeSlot, tableSize, name, email, number },
     } = this.props;
-    const { confirmed } = this.state
+    const { confirmed } = this.state;
     if (confirmed) {
       return (
         <div>
@@ -62,31 +59,31 @@ class ConfirmationModal extends Component {
     return (
       <div>
         <div className="modal-form-content">
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="far fa-calendar-alt icon" />
             <div>{longDate(selectedTimeSlot.time)}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="fas fa-user-friends icon" />
             <div>{`${tableSize} people`}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="far fa-clock icon" />
             <div>{hhmmTime(selectedTimeSlot.time)}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="fas fa-tag icon" />
             <div>{`${selectedTimeSlot.discount}% off`}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="fas fa-user icon" />
             <div>{name}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="fas fa-envelope icon" />
             <div>{email}</div>
           </div>
-          <div className="confirmation_modal_field">
+          <div className="confirmation-modal-field">
             <i className="fas fa-phone icon" />
             <div>{number}</div>
           </div>
@@ -100,7 +97,7 @@ class ConfirmationModal extends Component {
   render() {
     return (
       <div className="confirmation-modal">
-        <div className="form-title">Please confirm your reservation</div>
+        <div className="form-title">confirm your reservation</div>
         {this.renderConfirmed()}
       </div>
     );
