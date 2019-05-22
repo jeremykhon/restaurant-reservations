@@ -19,17 +19,24 @@
 .restaurant-basic-info-rating {
   display: flex;
   align-items: center;
-  padding-right: 20px;
+  padding-right: 16px;
   border-right: 1px solid $lighter-gray;
 }
 
 .restaurant-basic-info-price-level {
-  padding: 0 20px;
+  padding: 0 16px;
   border-right: 1px solid $lighter-gray;
+  display: flex;
+  align-items: center;
+}
+
+.price-level-container {
+  display: flex;
+  align-items: center;
 }
 
 .restaurant-basic-info-cuisine {
-  padding-left: 20px;
+  padding-left: 16px;
 }
 
 .restaurant-basic-info-star-container {

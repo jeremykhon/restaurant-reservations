@@ -7,7 +7,6 @@
 }
 
 .restaurant-card-image-container {
-  position: relative;
   height: 200px;
 }
 
@@ -26,6 +25,14 @@
   align-items: center;
 }
 
+.restaurant-card-cuisine {
+  font-size: 14px;
+}
+
+.restaurant-card-location {
+  font-size: 14px;
+}
+
 .restaurant-card-rating-label {
   margin-left: 5px;
 }
@@ -34,4 +41,9 @@
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
+}
+
+.restaurant-card-price-level {
+  display: flex;
+  align-items: center;
 }
