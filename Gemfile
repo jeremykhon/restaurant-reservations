@@ -17,7 +17,7 @@ gem 'webpacker'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'jwt'
 gem 'simple_command'
-gem 'cloudinary'
+gem 'cloudinary', '>1.11.0'
 gem 'carrierwave'
 gem 'faker'
 

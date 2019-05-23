@@ -56,10 +56,9 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
-    cloudinary (1.10.0)
+    cloudinary (1.11.1)
       aws_cf_signer
-      json (~> 1.8)
-      rest-client (< 2.0)
+      rest-client
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
@@ -85,7 +84,6 @@ GEM
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    json (1.8.6)
     jwt (2.1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -153,10 +151,10 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     redis (4.1.1)
-    rest-client (1.8.0)
+    rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -213,7 +211,7 @@ DEPENDENCIES
   bcrypt (~> 3.1, >= 3.1.12)
   bootsnap
   carrierwave
-  cloudinary
+  cloudinary (> 1.11.0)
   dotenv-rails
   faker
   font-awesome-sass (~> 5.6.1)
