@@ -1,3 +1,4 @@
+Review.destroy_all
 RestaurantPhoto.destroy_all
 Booking.destroy_all
 TimeSlot.destroy_all
@@ -5,7 +6,29 @@ Restaurant.destroy_all
 Cuisine.destroy_all
 User.destroy_all
 
-User.create!(email: "jeremy@eatigo.com", name: "jeremy", password: "1234qwer93", admin: true)
+p "destroyed all"
+
+User.create!(email: "jeremy@eatigo.com", name: "Jeremy", password: "1234qwer93", admin: true)
+User.create!(email: "kyle@eatigo.com", name: "Kyle", password: "1234qwer93", admin: false)
+User.create!(email: "steve@eatigo.com", name: "Steve", password: "1234qwer93", admin: false)
+User.create!(email: "jim@eatigo.com", name: "Jim", password: "1234qwer93", admin: false)
+User.create!(email: "bobby@eatigo.com", name: "Bobby", password: "1234qwer93", admin: false)
+User.create!(email: "kenny@eatigo.com", name: "Kenny", password: "1234qwer93", admin: false)
+User.create!(email: "stan@eatigo.com", name: "Stan", password: "1234qwer93", admin: false)
+User.create!(email: "jenny@eatigo.com", name: "Jenny", password: "1234qwer93", admin: false)
+User.create!(email: "richard@eatigo.com", name: "Richard", password: "1234qwer93", admin: false)
+User.create!(email: "dany@eatigo.com", name: "Dany", password: "1234qwer93", admin: false)
+User.create!(email: "bart@eatigo.com", name: "Bart", password: "1234qwer93", admin: false)
+User.create!(email: "homer@eatigo.com", name: "Homer", password: "1234qwer93", admin: false)
+User.create!(email: "nick@eatigo.com", name: "Nick", password: "1234qwer93", admin: false)
+User.create!(email: "jeffrey@eatigo.com", name: "Jeffrey", password: "1234qwer93", admin: false)
+User.create!(email: "david@eatigo.com", name: "David", password: "1234qwer93", admin: false)
+User.create!(email: "john@eatigo.com", name: "John", password: "1234qwer93", admin: false)
+User.create!(email: "lisa@eatigo.com", name: "Lisa", password: "1234qwer93", admin: false)
+User.create!(email: "terry@eatigo.com", name: "Terry", password: "1234qwer93", admin: false)
+User.create!(email: "joe@eatigo.com", name: "Joe", password: "1234qwer93", admin: false)
+
+p "created users"
 
 international = Cuisine.create!(name: "International")
 european = Cuisine.create!(name: "European")
@@ -19,6 +42,8 @@ italian = Cuisine.create!(name: "Italian")
 mongolian = Cuisine.create!(name: "Mongolian")
 steakhouse = Cuisine.create!(name: "Steakhouse")
 thai = Cuisine.create!(name: "Thai")
+
+p "created cuisines"
 
 Restaurant.create!(
   name: "The Continental",
@@ -140,18 +165,97 @@ Restaurant.create!(
   price_level: 2
 )
 
+p "created restaurants"
+
+reviews = [
+  ["Good location, good service, excellent food, spectacular environment!", 5],
+  ["The drink, food and service are all excellent. Exactly what to expect for an amazing date night.", 3],
+  ["food was delicious but service needs to improve", 4],
+  ["Good food and nice environment", 4],
+  ["Food was decent overall and it was good value for money", 4],
+  ["Delicious food matched with professional, efficient and friendly service.", 4],
+  ["Tasty food at a good price, what more could you ask?", 4],
+  ["THe chicken was a bit dry", 3],
+  ["Very dissapointed to be honest, my food was overcooked and looked like a piece of coal", 1],
+  ["mediocre food at a mediocre price", 3],
+  ["one of the best restaurants for this type of food", 4],
+  ["food was not bad", 2],
+  ["really really good!", 4],
+  ["amazing food, everything I expected and more. The staff was also friendly and very attentive", 4],
+  ["Staff as attentive and I really like the decor", 4],
+  ["the service could be better, but the food was okay", 3],
+  ["Great food, excellent service and convenient location", 4],
+  ["Not as good as I expected, really had my hopes up for this restaurant", 2],
+  ["This place gave me food poisoning", 1],
+  ["The staff made every effort to avoid taking my order. that otherwise, food was pretty good", 2],
+  ["really good food if you have no tastebuds", 2],
+  ["5 stars!~", 5],
+  ["this is my new favorite place", 4],
+  ["I just come here cos I'm rly cheap", 4],
+  ["everything here tasted like poop. don't ask", 1],
+  ["Can't wait to come back again", 5],
+  ["I would not have come if not for the discount, but I was pleasantly surprised", 4],
+  ["The food here is amazing and it was such a good deal, definitely recommend!", 4],
+  ["Eating here cured my cancer", 5]
+]
+
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_hour
-  d -= 1440.minutes
-  (1..200).each do |i|
+  d += 300.minutes
+  60.times do |i|
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
     d += 30.minutes
-  end
-  puts "----------------"
-end 
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 40, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 40, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 30, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 10, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 10, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 20, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 30, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 30, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 40, capacity: 20, restaurant: restaurant)
+    d += 150.minutes
 
-# Restaurant.all.each do |restaurant|
-#   (1..20).each do |i|
-#     Review.create!(user: User.first, restaurant: restaurant, content: Faker::TvShows::Simpsons.quote, rating: [1,2,3,4,5].sample)
-#   end
-# end
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 30, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 10, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 10, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 10, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 20, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 30, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    d += 30.minutes
+    timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
+    
+    d += 690.minutes
+    p "created timeslot #{i}"
+  end
+
+  6.times do
+    review = reviews.sample
+    Review.create!(user: User.all.sample, content: review[0], rating: review[1], restaurant: restaurant )
+  end
+
+  p "-------------"
+end
