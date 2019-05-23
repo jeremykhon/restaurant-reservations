@@ -8,25 +8,26 @@ User.destroy_all
 
 p "destroyed all"
 
-User.create!(email: "jeremy@eatigo.com", name: "Jeremy", password: "1234qwer93", admin: true)
-User.create!(email: "kyle@eatigo.com", name: "Kyle", password: "1234qwer93", admin: false)
-User.create!(email: "steve@eatigo.com", name: "Steve", password: "1234qwer93", admin: false)
-User.create!(email: "jim@eatigo.com", name: "Jim", password: "1234qwer93", admin: false)
-User.create!(email: "bobby@eatigo.com", name: "Bobby", password: "1234qwer93", admin: false)
-User.create!(email: "kenny@eatigo.com", name: "Kenny", password: "1234qwer93", admin: false)
-User.create!(email: "stan@eatigo.com", name: "Stan", password: "1234qwer93", admin: false)
-User.create!(email: "jenny@eatigo.com", name: "Jenny", password: "1234qwer93", admin: false)
-User.create!(email: "richard@eatigo.com", name: "Richard", password: "1234qwer93", admin: false)
-User.create!(email: "dany@eatigo.com", name: "Dany", password: "1234qwer93", admin: false)
-User.create!(email: "bart@eatigo.com", name: "Bart", password: "1234qwer93", admin: false)
-User.create!(email: "homer@eatigo.com", name: "Homer", password: "1234qwer93", admin: false)
-User.create!(email: "nick@eatigo.com", name: "Nick", password: "1234qwer93", admin: false)
-User.create!(email: "jeffrey@eatigo.com", name: "Jeffrey", password: "1234qwer93", admin: false)
-User.create!(email: "david@eatigo.com", name: "David", password: "1234qwer93", admin: false)
-User.create!(email: "john@eatigo.com", name: "John", password: "1234qwer93", admin: false)
-User.create!(email: "lisa@eatigo.com", name: "Lisa", password: "1234qwer93", admin: false)
-User.create!(email: "terry@eatigo.com", name: "Terry", password: "1234qwer93", admin: false)
-User.create!(email: "joe@eatigo.com", name: "Joe", password: "1234qwer93", admin: false)
+
+User.create!(email: "jeremy@eatigo.com", name: "Jeremy", password: ENV["ADMIN_PW"], admin: true)
+User.create!(email: "kyle@eatigo.com", name: "Kyle", password: "testtest", admin: false)
+User.create!(email: "steve@eatigo.com", name: "Steve", password: "testtest", admin: false)
+User.create!(email: "jim@eatigo.com", name: "Jim", password: "testtest", admin: false)
+User.create!(email: "bobby@eatigo.com", name: "Bobby", password: "testtest", admin: false)
+User.create!(email: "kenny@eatigo.com", name: "Kenny", password: "testtest", admin: false)
+User.create!(email: "stan@eatigo.com", name: "Stan", password: "testtest", admin: false)
+User.create!(email: "jenny@eatigo.com", name: "Jenny", password: "testtest", admin: false)
+User.create!(email: "richard@eatigo.com", name: "Richard", password: "testtest", admin: false)
+User.create!(email: "dany@eatigo.com", name: "Dany", password: "testtest", admin: false)
+User.create!(email: "bart@eatigo.com", name: "Bart", password: "testtest", admin: false)
+User.create!(email: "homer@eatigo.com", name: "Homer", password: "testtest", admin: false)
+User.create!(email: "nick@eatigo.com", name: "Nick", password: "testtest", admin: false)
+User.create!(email: "jeffrey@eatigo.com", name: "Jeffrey", password: "testtest", admin: false)
+User.create!(email: "david@eatigo.com", name: "David", password: "testtest", admin: false)
+User.create!(email: "john@eatigo.com", name: "John", password: "testtest", admin: false)
+User.create!(email: "lisa@eatigo.com", name: "Lisa", password: "testtest", admin: false)
+User.create!(email: "terry@eatigo.com", name: "Terry", password: "testtest", admin: false)
+User.create!(email: "joe@eatigo.com", name: "Joe", password: "testtest", admin: false)
 
 p "created users"
 
@@ -200,8 +201,8 @@ reviews = [
 ]
 
 Restaurant.all.each do |restaurant|
-  d = Time.now.beginning_of_hour
-  d += 300.minutes
+  d = Time.now.beginning_of_day
+  d += 630.minutes
   60.times do |i|
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
     d += 30.minutes
