@@ -8,7 +8,6 @@ User.destroy_all
 
 p "destroyed all"
 
-
 User.create!(email: "jeremy@eatigo.com", name: "Jeremy", password: ENV["ADMIN_PW"], admin: true)
 User.create!(email: "kyle@eatigo.com", name: "Kyle", password: "testtest", admin: false)
 User.create!(email: "steve@eatigo.com", name: "Steve", password: "testtest", admin: false)
@@ -202,7 +201,7 @@ reviews = [
 
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_day
-  d += 630.minutes
+  d += 90.minutes
   60.times do |i|
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
     d += 30.minutes
