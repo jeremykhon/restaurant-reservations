@@ -7,8 +7,6 @@ import SelectableTimeSlot from './selectable_time_slot';
 import ConfirmationModal from './confirmation_modal';
 import addDays from '../utils/add_days';
 import BASE_URL from '../utils/base_url';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import modalStyles from '../utils/modal_styles';
 
 Modal.setAppElement('#root');
