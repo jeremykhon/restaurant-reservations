@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'restaurants#index'
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post 'authenticate', to: 'authentication#authenticate'
@@ -17,6 +18,5 @@ Rails.application.routes.draw do
 
   get '/restaurants/:id', to: 'restaurants#index'
   get '/reservations', to: 'restaurants#index'
-  root to: 'restaurants#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
