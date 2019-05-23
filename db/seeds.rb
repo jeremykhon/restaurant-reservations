@@ -202,7 +202,7 @@ TimeSlot.destroy_all
 Restaurant.all.each do |restaurant|
   d = Time.now.beginning_of_day
   d += 90.minutes
-  60.times do |i|
+  30.times do |i|
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
     d += 30.minutes
     timeslot = TimeSlot.create!(time: d, discount: 50, capacity: 20, restaurant: restaurant)
