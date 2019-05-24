@@ -96,7 +96,7 @@ class RestaurantPage extends Component {
             loggedIn={loggedIn}
             user={user}
             restaurant={restaurant}
-            selectedTimeSlotId={location.state ? location.state.selectedTimeSlotId : null}
+            selectedTimeSlot={location.state ? location.state.selectedTimeSlot : null}
           />
         </div>
       </div>

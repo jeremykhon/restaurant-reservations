@@ -31,12 +31,12 @@ class RestaurantCard extends Component {
     });
   }
 
-  linkToRestaurantWithTimeSlot = (event, selectedTimeSlotId) => {
+  linkToRestaurantWithTimeSlot = (event, selectedTimeSlot) => {
     event.stopPropagation();
     const { restaurant } = this.props;
     history.push({
       pathname: `/restaurants/${restaurant.id}`,
-      state: { restaurant, selectedTimeSlotId },
+      state: { restaurant, selectedTimeSlot },
     });
   }
 

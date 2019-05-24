@@ -4,14 +4,17 @@ import hhmmTime from '../utils/hhmm_time';
 class SelectableTimeSlot extends Component {
   handleClick = () => {
     const { selectTimeSlot, timeSlot } = this.props;
-    selectTimeSlot(timeSlot.id);
+    selectTimeSlot(timeSlot);
   }
 
   selectedStyle = () => {
-    const { selectedTimeSlotId, timeSlot } = this.props;
-    if (selectedTimeSlotId === timeSlot.id) {
-      return {"backgroundColor": "#ed9102"};
+    const { selectedTimeSlot, timeSlot } = this.props;
+    if (selectedTimeSlot) {
+      if (selectedTimeSlot.id === timeSlot.id) {
+        return {"backgroundColor": "#ed9102"};
+      }
     }
+    return null;
   }
 
   render() {
