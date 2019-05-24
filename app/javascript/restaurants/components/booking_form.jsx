@@ -37,7 +37,7 @@ class BookingForm extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const oldProps = this.props
+    const oldProps = this.props;
     if (oldProps.user !== newProps.user) {
       if (newProps.user) {
         this.setState({ name: newProps.user.name, email: newProps.user.email });

@@ -111,3 +111,11 @@
   margin-bottom: 20px;
   text-align: center;
 }
+
+.no-reservations {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $lighter-gray;
+}

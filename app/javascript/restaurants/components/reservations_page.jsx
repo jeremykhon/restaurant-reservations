@@ -19,7 +19,7 @@ class ReservationsPage extends Component {
   fetchReservations = (only) => {
     axios.get(`${BASE_URL}/bookings?only=${only}`, {
       headers: {
-        'jwt': localStorage.getItem('jwt')
+        jwt: localStorage.getItem('jwt'),
       },
     })
       .then(response => this.setState({ reservations: response.data, selected: only }));
@@ -46,11 +46,18 @@ class ReservationsPage extends Component {
           </div>
           <div className="col-12 col-sm-9">
             <div className="reservations-content-title">{selected}</div>
-            {reservations.map((reservation) => {
-              return (
-                <ReservationCard fetchReservations={this.fetchReservations} key={reservation.id} reservation={reservation} />
-              );
-            })}
+            {(reservations.length === 0)
+              ? <div className="no-reservations">you have no reserservations</div>
+              : reservations.map((reservation) => {
+                return (
+                  <ReservationCard
+                    fetchReservations={this.fetchReservations}
+                    key={reservation.id}
+                    reservation={reservation}
+                  />
+                );
+              })
+            }
           </div>
         </div>
       </div>

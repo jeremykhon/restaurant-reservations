@@ -1,6 +1,6 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import BASE_URL from '../utils/base_url';
 
 class AuthenticationModal extends Component {

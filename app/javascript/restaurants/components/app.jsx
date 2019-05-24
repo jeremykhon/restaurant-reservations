@@ -48,7 +48,7 @@ class App extends Component {
       axios.get(`${BASE_URL}/return_user`, {
         headers: {
           'X-CSRF-Token': csrfToken,
-          'jwt': localStorage.getItem('jwt'),
+          jwt: localStorage.getItem('jwt'),
         },
       }).then(response => this.setState({ user: response.data }));
     }
