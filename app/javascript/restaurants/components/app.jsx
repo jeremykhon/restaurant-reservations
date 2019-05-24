@@ -11,6 +11,7 @@ import RestaurantAdminPage from './restaurant_admin_page';
 import ReservationsPage from './reservations_page';
 import AuthenticationModal from './authentication_modal';
 import modalStyles from '../utils/modal_styles';
+import ScrollToTop from './scroll_to_top';
 
 Modal.setAppElement('#root');
 
@@ -70,54 +71,56 @@ class App extends Component {
     } = this.state;
     return (
       <Router history={history}>
-        <Navbar
-          loggedIn={loggedIn}
-          user={user}
-          openLogInModal={this.openLogInModal}
-          openSignUpModal={this.openSignUpModal}
-          logOut={this.logOut}
-        />
-        <div className="navbar-div" />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <MainPage loggedIn={loggedIn} user={user} {...props} />
-            )}
+        <ScrollToTop>
+          <Navbar
+            loggedIn={loggedIn}
+            user={user}
+            openLogInModal={this.openLogInModal}
+            openSignUpModal={this.openSignUpModal}
+            logOut={this.logOut}
           />
-          <Route
-            path="/restaurants/:restaurant/admin"
-            render={props => (
-              <RestaurantAdminPage loggedIn={loggedIn} user={user} {...props} />
-            )}
-          />
-          <Route
-            path="/restaurants/:restaurant"
-            render={props => (
-              <RestaurantPage openLogInModal={this.openLogInModal} loggedIn={loggedIn} user={user} {...props} />
-            )}
-          />
-          <Route
-            exact
-            path="/reservations"
-            render={props => (
-              <ReservationsPage loggedIn={loggedIn} user={user} {...props} />
-            )}
-          />
-        </Switch>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="Sign in or up modal"
-          style={modalStyles}
-        >
-          <AuthenticationModal
-            logIn={this.logIn}
-            loggingIn={loggingIn}
-            closeModal={this.closeModal}
-          />
-        </Modal>
+          <div className="navbar-div" />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <MainPage loggedIn={loggedIn} user={user} {...props} />
+              )}
+            />
+            <Route
+              path="/restaurants/:restaurant/admin"
+              render={props => (
+                <RestaurantAdminPage loggedIn={loggedIn} user={user} {...props} />
+              )}
+            />
+            <Route
+              path="/restaurants/:restaurant"
+              render={props => (
+                <RestaurantPage openLogInModal={this.openLogInModal} loggedIn={loggedIn} user={user} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/reservations"
+              render={props => (
+                <ReservationsPage loggedIn={loggedIn} user={user} {...props} />
+              )}
+            />
+          </Switch>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="Sign in or up modal"
+            style={modalStyles}
+          >
+            <AuthenticationModal
+              logIn={this.logIn}
+              loggingIn={loggingIn}
+              closeModal={this.closeModal}
+            />
+          </Modal>
+        </ScrollToTop>
       </Router>
     );
   }

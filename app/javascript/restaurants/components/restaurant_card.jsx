@@ -6,12 +6,14 @@ import RestaurantPhotoWithTimeSlots from './restaurant_photo_with_time_slots';
 import StarsWithGradient from './stars_with_gradient';
 import PriceLevel from './price_level';
 
+const isMobile = window.innerWidth < 576;
+
 class RestaurantCard extends Component {
   constructor() {
     super();
     this.state = {
       timeSlotsToday: [],
-      timeSlotOpacity: 0.5,
+      timeSlotOpacity: isMobile ? 1 : 0.5,
     };
   }
 
@@ -45,7 +47,11 @@ class RestaurantCard extends Component {
   }
 
   onHoverOut = () => {
-    this.setState({ timeSlotOpacity: 0.65 });
+    if (isMobile) {
+      this.setState({ timeSlotOpacity: 1 });
+    } else {
+      this.setState({ timeSlotOpacity: 0.5 });
+    }
   }
 
   render() {
