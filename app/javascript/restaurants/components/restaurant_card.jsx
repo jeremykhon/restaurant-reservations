@@ -11,6 +11,7 @@ class RestaurantCard extends Component {
     super();
     this.state = {
       timeSlotsToday: [],
+      timeSlotOpacity: 0.5,
     };
   }
 
@@ -27,16 +28,25 @@ class RestaurantCard extends Component {
     history.push(`/restaurants/${restaurant.id}`);
   }
 
+  onHoverIn = () => {
+    this.setState({ timeSlotOpacity: 1 });
+  }
+
+  onHoverOut = () => {
+    this.setState({ timeSlotOpacity: 0.65 });
+  }
+
   render() {
-    const { timeSlotsToday } = this.state;
+    const { timeSlotsToday, timeSlotOpacity } = this.state;
     const { restaurant } = this.props;
     return (
       <div className="col-12 col-sm-3" style={{ padding: '0 10px' }}>
-        <div className="restaurant-card-container" onClick={this.linkToRestaurant}>
+        <div className="restaurant-card-container" onClick={this.linkToRestaurant} onFocus={this.onHoverIn} onMouseOver={this.onHoverIn} onMouseOut={this.onHoverOut}>
           <div className="restaurant-card-image-container">
             <RestaurantPhotoWithTimeSlots
               photo={restaurant.restaurant_photos[0]}
               timeSlotsToday={timeSlotsToday}
+              timeSlotOpacity={timeSlotOpacity}
             />
           </div>
           <div className="restaurant-card-content">

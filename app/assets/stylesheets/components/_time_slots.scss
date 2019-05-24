@@ -2,6 +2,7 @@
   display: flex;
   overflow: auto;
   padding: 12px 0;
+  transition: opacity 150ms ease-in;
 }
 
 .no-time-slots {
