@@ -14,11 +14,11 @@ Modal.setAppElement('#root');
 class BookingForm extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const { user, selectedTimeSlotId } = this.props;
     this.state = {
       date: new Date(),
       tableSize: '2',
-      selectedTimeSlot: null,
+      selectedTimeSlotId,
       name: user ? user.name : '',
       email: user ? user.email : '',
       number: '',
@@ -55,8 +55,8 @@ class BookingForm extends Component {
     this.setState({ modalIsOpen: false });
   }
 
-  selectTimeSlot = (timeSlot) => {
-    this.setState({ selectedTimeSlot: timeSlot, selectedTimeSlotValid: true });
+  selectTimeSlot = (timeSlotId) => {
+    this.setState({ selectedTimeSlotId: timeSlotId, selectedTimeSlotValid: true });
   }
 
   fetchTimeSlots = () => {
@@ -71,7 +71,7 @@ class BookingForm extends Component {
 
   handleChangeDate = (date) => {
     this.setState({ date }, this.fetchTimeSlots);
-    this.setState({ selectedTimeSlot: null });
+    this.setState({ selectedTimeSlotId: null });
   }
 
   handleChange = (event) => {
@@ -110,12 +110,12 @@ class BookingForm extends Component {
       dateValid, selectedTimeSlotValid, nameValid, emailValid, numberValid,
     } = this.state;
     const {
-      date, name, selectedTimeSlot, number, email,
+      date, name, selectedTimeSlotId, number, email,
     } = this.state;
 
     dateValid = Object.prototype.toString.call(date) === '[object Date]';
     nameValid = (/^[A-z ]{1,20}$/).test(name);
-    selectedTimeSlotValid = selectedTimeSlot !== null;
+    selectedTimeSlotValid = selectedTimeSlotId !== null;
     emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
     numberValid = (/^[0-9]{5,15}$/).test(number);
 
@@ -168,7 +168,7 @@ class BookingForm extends Component {
   }
 
   renderTimeSlots = () => {
-    const { timeSlots, selectedTimeSlot } = this.state;
+    const { timeSlots, selectedTimeSlotId } = this.state;
     if (timeSlots.length === 0) {
       return (
         <div className="no-time-slots">
@@ -183,7 +183,7 @@ class BookingForm extends Component {
             <SelectableTimeSlot
               key={timeSlot.id}
               timeSlot={timeSlot}
-              selectedTimeSlot={selectedTimeSlot}
+              selectedTimeSlotId={selectedTimeSlotId}
               selectTimeSlot={this.selectTimeSlot}
             />
           );

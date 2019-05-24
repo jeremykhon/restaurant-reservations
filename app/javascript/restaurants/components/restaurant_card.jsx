@@ -31,6 +31,15 @@ class RestaurantCard extends Component {
     });
   }
 
+  linkToRestaurantWithTimeSlot = (event, selectedTimeSlotId) => {
+    event.stopPropagation();
+    const { restaurant } = this.props;
+    history.push({
+      pathname: `/restaurants/${restaurant.id}`,
+      state: { restaurant, selectedTimeSlotId },
+    });
+  }
+
   onHoverIn = () => {
     this.setState({ timeSlotOpacity: 1 });
   }
@@ -50,6 +59,7 @@ class RestaurantCard extends Component {
               photo={restaurant.restaurant_photos[0]}
               timeSlotsToday={timeSlotsToday}
               timeSlotOpacity={timeSlotOpacity}
+              linkToRestaurantWithTimeSlot={this.linkToRestaurantWithTimeSlot}
             />
           </div>
           <div className="restaurant-card-content">

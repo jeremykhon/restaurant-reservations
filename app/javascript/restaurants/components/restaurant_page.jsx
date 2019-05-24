@@ -45,7 +45,7 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
-    const { loggedIn, user, openLogInModal } = this.props;
+    const { loggedIn, user, openLogInModal, location } = this.props;
     if (restaurant === null) {
       return <div />;
     }
@@ -96,6 +96,7 @@ class RestaurantPage extends Component {
             loggedIn={loggedIn}
             user={user}
             restaurant={restaurant}
+            selectedTimeSlotId={location.state ? location.state.selectedTimeSlotId : null}
           />
         </div>
       </div>
