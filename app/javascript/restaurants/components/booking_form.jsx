@@ -14,13 +14,13 @@ Modal.setAppElement('#root');
 class BookingForm extends Component {
   constructor(props) {
     super(props);
-    const { loggedIn, user } = this.props;
+    const { user } = this.props;
     this.state = {
       date: new Date(),
       tableSize: '2',
       selectedTimeSlot: null,
-      name: loggedIn ? user.name : '',
-      email: loggedIn ? user.email : '',
+      name: user ? user.name : '',
+      email: user ? user.email : '',
       number: '',
       timeSlots: [],
       modalIsOpen: false,
@@ -34,6 +34,17 @@ class BookingForm extends Component {
 
   componentDidMount() {
     this.fetchTimeSlots();
+  }
+
+  componentWillReceiveProps(newProps) {
+    const oldProps = this.props
+    if (oldProps.user !== newProps.user) {
+      if (newProps.user) {
+        this.setState({ name: newProps.user.name, email: newProps.user.email });
+      } else {
+        this.setState({ name: '', email: '' });
+      }
+    }
   }
 
   openModal = () => {
@@ -186,7 +197,7 @@ class BookingForm extends Component {
       name, nameValid, email, emailValid, number, numberValid,
     } = this.state;
     const { loggedIn, user, openLogInModal } = this.props;
-    if (loggedIn) {
+    if (user) {
       return (
         <div>
           <div className={nameValid ? 'form-item' : 'invalid form-item'}>
