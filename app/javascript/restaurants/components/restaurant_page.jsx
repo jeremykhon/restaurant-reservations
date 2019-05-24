@@ -10,10 +10,11 @@ import StarsWithGradient from './stars_with_gradient';
 import PriceLevel from './price_level';
 
 class RestaurantPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { location } = this.props;
     this.state = {
-      restaurant: null,
+      restaurant: location.state ? location.state.restaurant : null,
     };
   }
 
@@ -78,12 +79,17 @@ class RestaurantPage extends Component {
           <div className="col-12 col-sm-7 order-2 order-sm-1">
             <RestaurantPhotos photos={restaurant.restaurant_photos} />
             <RestaurantAbout restaurantAbout={restaurant.description} />
-            <ReviewsContainer
-              openLogInModal={openLogInModal}
-              loggedIn={loggedIn}
-              restaurant={restaurant}
-              reviews={restaurant.reviews}
-            />
+            {restaurant.reviews
+              ? (
+                <ReviewsContainer
+                  openLogInModal={openLogInModal}
+                  loggedIn={loggedIn}
+                  restaurant={restaurant}
+                  reviews={restaurant.reviews}
+                />
+              )
+              : null
+            }
           </div>
           <BookingForm
             openLogInModal={openLogInModal}

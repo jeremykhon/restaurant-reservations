@@ -25,7 +25,10 @@ class RestaurantCard extends Component {
 
   linkToRestaurant = () => {
     const { restaurant } = this.props;
-    history.push(`/restaurants/${restaurant.id}`);
+    history.push({
+      pathname: `/restaurants/${restaurant.id}`,
+      state: { restaurant },
+    });
   }
 
   onHoverIn = () => {
