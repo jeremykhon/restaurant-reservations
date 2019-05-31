@@ -115,7 +115,7 @@ class BookingForm extends Component {
 
     dateValid = Object.prototype.toString.call(date) === '[object Date]';
     nameValid = (/^[A-z ]{1,20}$/).test(name);
-    selectedTimeSlotValid = selectedTimeSlot !== null;
+    selectedTimeSlotValid = selectedTimeSlot;
     emailValid = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
     numberValid = (/^[0-9]{5,15}$/).test(number);
 

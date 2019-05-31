@@ -23,7 +23,7 @@ class RestaurantList extends Component {
     if (restaurants.length === 0) {
       return (
         <div className="row">
-          {[...Array(12).keys()].map(() => <RestaurantLoadingCard />)}
+          {[...Array(12).keys()].map(number => <RestaurantLoadingCard key={number} />)}
         </div>
       );
     }

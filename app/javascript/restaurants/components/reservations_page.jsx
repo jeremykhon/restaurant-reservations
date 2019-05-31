@@ -47,7 +47,7 @@ class ReservationsPage extends Component {
           <div className="col-12 col-sm-9">
             <div className="reservations-content-title">{selected}</div>
             {(reservations.length === 0)
-              ? <div className="no-reservations">you have no reserservations</div>
+              ? <div className="no-reservations">you have no reservations</div>
               : reservations.map((reservation) => {
                 return (
                   <ReservationCard
