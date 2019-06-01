@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 import history from '../utils/history';
@@ -13,6 +13,8 @@ import ScrollToTop from './scroll_to_top';
 import { fetchUser } from '../actions/authentication';
 
 Modal.setAppElement('#root');
+
+const UserContext = React.createContext(null);
 
 class App extends Component {
   constructor() {
@@ -55,62 +57,62 @@ class App extends Component {
   }
 
   render() {
-    const {
-      loggedIn, user, modalIsOpen, loggingIn,
-    } = this.state;
+    const { user, modalIsOpen, loggingIn } = this.state;
     return (
-      <Router history={history}>
-        <ScrollToTop>
-          <Navbar
-            user={user}
-            openLogInModal={this.openLogInModal}
-            openSignUpModal={this.openSignUpModal}
-            logOut={this.logOut}
-            fetchUser={this.fetchUser}
-          />
-          <div className="navbar-div" />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <MainPage loggedIn={loggedIn} user={user} {...props} />
-              )}
+      <UserContext.provider value={user}>
+        <Router history={history}>
+          <ScrollToTop>
+            <Navbar
+              user={user}
+              openLogInModal={this.openLogInModal}
+              openSignUpModal={this.openSignUpModal}
+              logOut={this.logOut}
             />
-            <Route
-              path="/restaurants/:restaurant/admin"
-              render={props => (
-                <RestaurantAdminPage loggedIn={loggedIn} user={user} {...props} />
-              )}
-            />
-            <Route
-              path="/restaurants/:restaurant"
-              render={props => (
-                <RestaurantPage openLogInModal={this.openLogInModal} loggedIn={loggedIn} user={user} {...props} />
-              )}
-            />
-            <Route
-              exact
-              path="/reservations"
-              render={props => (
-                <ReservationsPage loggedIn={loggedIn} user={user} {...props} />
-              )}
-            />
-          </Switch>
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={this.closeModal}
-            contentLabel="Sign in or up modal"
-            style={modalStyles}
-          >
-            <AuthenticationModal
-              logIn={this.logIn}
-              loggingIn={loggingIn}
-              closeModal={this.closeModal}
-            />
-          </Modal>
-        </ScrollToTop>
-      </Router>
+            <div className="navbar-div" />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <MainPage user={user} {...props} />
+                )}
+              />
+              <Route
+                path="/restaurants/:restaurant/admin"
+                render={props => (
+                  <RestaurantAdminPage user={user} {...props} />
+                )}
+              />
+              <Route
+                path="/restaurants/:restaurant"
+                render={props => (
+                  <RestaurantPage openLogInModal={this.openLogInModal} user={user} {...props} />
+                )}
+              />
+              <Route
+                exact
+                path="/reservations"
+                render={props => (
+                  <ReservationsPage user={user} {...props} />
+                )}
+              />
+            </Switch>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={this.closeModal}
+              contentLabel="Sign in or up modal"
+              style={modalStyles}
+            >
+              <AuthenticationModal
+                fetchUser={this.fetchUser}
+                logIn={this.logIn}
+                loggingIn={loggingIn}
+                closeModal={this.closeModal}
+              />
+            </Modal>
+          </ScrollToTop>
+        </Router>
+      </UserContext.provider>
     );
   }
 }

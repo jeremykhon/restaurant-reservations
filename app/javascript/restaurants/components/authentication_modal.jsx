@@ -33,9 +33,8 @@ class AuthenticationModal extends Component {
   }
 
   logInSuccess = () => {
-    // setting parent state to logged in and closing the modal after login success
-    const { logIn, closeModal } = this.props;
-    logIn();
+    const { fetchUser, closeModal } = this.props;
+    fetchUser();
     closeModal();
   }
 
