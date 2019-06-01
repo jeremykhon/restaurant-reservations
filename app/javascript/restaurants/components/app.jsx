@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
-import axios from 'axios';
 import history from '../utils/history';
 import RestaurantPage from './restaurant_page';
 import MainPage from './main_page';
 import Navbar from './navbar';
-import BASE_URL from '../utils/base_url';
 import RestaurantAdminPage from './restaurant_admin_page';
 import ReservationsPage from './reservations_page';
 import AuthenticationModal from './authentication_modal';
 import modalStyles from '../utils/modal_styles';
 import ScrollToTop from './scroll_to_top';
+import { fetchUser } from '../actions/authentication';
 
 Modal.setAppElement('#root');
 
@@ -45,13 +44,9 @@ class App extends Component {
   getUser = () => {
     const { loggedIn } = this.state;
     if (loggedIn) {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-      axios.get(`${BASE_URL}/return_user`, {
-        headers: {
-          'X-CSRF-Token': csrfToken,
-          jwt: localStorage.getItem('jwt'),
-        },
-      }).then(response => this.setState({ user: response.data }));
+      fetchUser()
+        .then(response => this.setState({ user: response.data }))
+        .catch(error => console.log(error));
     }
   }
 
