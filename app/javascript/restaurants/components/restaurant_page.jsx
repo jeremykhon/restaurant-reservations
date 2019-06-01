@@ -45,7 +45,7 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
-    const { loggedIn, user, openLogInModal, location } = this.props;
+    const { user, openLogInModal, location } = this.props;
     if (restaurant === null) {
       return <div />;
     }
@@ -83,8 +83,8 @@ class RestaurantPage extends Component {
               ? (
                 <ReviewsContainer
                   openLogInModal={openLogInModal}
-                  loggedIn={loggedIn}
                   restaurant={restaurant}
+                  user={user}
                   reviews={restaurant.reviews}
                 />
               )
@@ -93,7 +93,6 @@ class RestaurantPage extends Component {
           </div>
           <BookingForm
             openLogInModal={openLogInModal}
-            loggedIn={loggedIn}
             user={user}
             restaurant={restaurant}
             selectedTimeSlot={location.state ? location.state.selectedTimeSlot : null}
