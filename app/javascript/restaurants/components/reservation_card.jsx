@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Modal from 'react-modal';
 import { cancelReservation } from '../actions/reservation';
-import BASE_URL from '../utils/base_url';
 import hhmmTime from '../utils/hhmm_time';
 import longDate from '../utils/long_date';
 import RestaurantPhoto from './restaurant_photo';
@@ -44,7 +42,7 @@ class ReservationCard extends Component {
       .catch(error => console.log(error));
   };
 
-  cancelReservationButton = (reservation, fetchReservations) => {
+  cancelReservationButton = (reservation) => {
     if (new Date(reservation.time) > new Date()) {
       return (
         <div className="cancel-reservation-button" onClick={this.openModal}>
@@ -60,7 +58,7 @@ class ReservationCard extends Component {
   };
 
   render() {
-    const { reservation, fetchReservations } = this.props; 
+    const { reservation } = this.props; 
     return (
       <div className="reservation-card">
         <div className="reservation-card-left">

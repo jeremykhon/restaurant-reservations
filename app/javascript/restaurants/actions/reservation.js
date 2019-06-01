@@ -18,7 +18,7 @@ export function createReservation(body, jwt) {
 }
 
 export function fetchReservations(filter, jwt) {
-  return axios.get(`${BASE_URL}/bookings?only=${filter}`, {
+  return axios.get(`${BASE_URL}/bookings?filter=${filter}`, {
     headers: {
       jwt,
     },
