@@ -8,7 +8,4 @@ class Api::V1::TimeSlotsController < ApplicationController
     ).order(time: :asc)
     render json: time_slots
   end
-
-  def create
-  end
 end
