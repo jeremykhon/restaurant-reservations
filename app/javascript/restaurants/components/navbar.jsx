@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logoSmall from 'images/logo_small.svg';
 
-const loggedIn = ({loggedIn, openLogInModal, openSignUpModal, logOut}) => {
-  if (loggedIn) {
+const loggedIn = ({user, openLogInModal, openSignUpModal, logOut}) => {
+  if (user) {
     return (
       <div className="nav-bar-right">
         <Link className="nav-link" to="/reservations">

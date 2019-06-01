@@ -14,8 +14,6 @@ import { fetchUser } from '../actions/authentication';
 
 Modal.setAppElement('#root');
 
-const UserContext = React.createContext(null);
-
 class App extends Component {
   constructor() {
     super();
@@ -59,60 +57,58 @@ class App extends Component {
   render() {
     const { user, modalIsOpen, loggingIn } = this.state;
     return (
-      <UserContext.provider value={user}>
-        <Router history={history}>
-          <ScrollToTop>
-            <Navbar
-              user={user}
-              openLogInModal={this.openLogInModal}
-              openSignUpModal={this.openSignUpModal}
-              logOut={this.logOut}
+      <Router history={history}>
+        <ScrollToTop>
+          <Navbar
+            user={user}
+            openLogInModal={this.openLogInModal}
+            openSignUpModal={this.openSignUpModal}
+            logOut={this.logOut}
+          />
+          <div className="navbar-div" />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <MainPage user={user} {...props} />
+              )}
             />
-            <div className="navbar-div" />
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <MainPage user={user} {...props} />
-                )}
-              />
-              <Route
-                path="/restaurants/:restaurant/admin"
-                render={props => (
-                  <RestaurantAdminPage user={user} {...props} />
-                )}
-              />
-              <Route
-                path="/restaurants/:restaurant"
-                render={props => (
-                  <RestaurantPage openLogInModal={this.openLogInModal} user={user} {...props} />
-                )}
-              />
-              <Route
-                exact
-                path="/reservations"
-                render={props => (
-                  <ReservationsPage user={user} {...props} />
-                )}
-              />
-            </Switch>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={this.closeModal}
-              contentLabel="Sign in or up modal"
-              style={modalStyles}
-            >
-              <AuthenticationModal
-                fetchUser={this.fetchUser}
-                logIn={this.logIn}
-                loggingIn={loggingIn}
-                closeModal={this.closeModal}
-              />
-            </Modal>
-          </ScrollToTop>
-        </Router>
-      </UserContext.provider>
+            <Route
+              path="/restaurants/:restaurant/admin"
+              render={props => (
+                <RestaurantAdminPage user={user} {...props} />
+              )}
+            />
+            <Route
+              path="/restaurants/:restaurant"
+              render={props => (
+                <RestaurantPage openLogInModal={this.openLogInModal} user={user} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/reservations"
+              render={props => (
+                <ReservationsPage user={user} {...props} />
+              )}
+            />
+          </Switch>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="Sign in or up modal"
+            style={modalStyles}
+          >
+            <AuthenticationModal
+              fetchUser={this.fetchUser}
+              logIn={this.logIn}
+              loggingIn={loggingIn}
+              closeModal={this.closeModal}
+            />
+          </Modal>
+        </ScrollToTop>
+      </Router>
     );
   }
 }

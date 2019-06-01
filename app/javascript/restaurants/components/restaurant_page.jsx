@@ -29,9 +29,9 @@ class RestaurantPage extends Component {
   }
 
   ifAdmin = () => {
-    const { loggedIn, user } = this.props;
+    const { user } = this.props;
     const { restaurant } = this.state;
-    if (loggedIn && user) {
+    if (user) {
       if (user.admin) {
         return (
           <Link className="link" to={`/restaurants/${restaurant.id}/admin`}>

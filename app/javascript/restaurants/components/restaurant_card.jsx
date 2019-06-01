@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import BASE_URL from '../utils/base_url';
 import history from '../utils/history';
 import RestaurantPhotoWithTimeSlots from './restaurant_photo_with_time_slots';
 import { fetchTimeSlots } from '../actions/time_slot';
@@ -24,7 +22,7 @@ class RestaurantCard extends Component {
     const end = new Date().setHours(23, 59, 59, 999);
     fetchTimeSlots(id, start, end)
       .then(response => this.setState({ timeSlotsToday: response.data }))
-      .then(error => console.log(error));
+      .catch(error => console.log(error));
   }
 
   linkToRestaurant = () => {
