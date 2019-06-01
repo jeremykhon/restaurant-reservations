@@ -18,7 +18,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: localStorage.getItem('jwt') ? true : false,
       user: null,
       modalIsOpen: false,
       loggingIn: true,
@@ -26,7 +25,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUser();
+    this.fetchUser();
+  }
+
+  fetchUser = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      fetchUser(jwt)
+        .then(response => this.setState({ user: response.data }))
+        .catch(error => console.log(error));
+    }
   }
 
   openLogInModal = () => {
@@ -41,24 +49,9 @@ class App extends Component {
     this.setState({ modalIsOpen: false });
   };
 
-  getUser = () => {
-    const { loggedIn } = this.state;
-    const jwt = localStorage.getItem('jwt');
-    if (loggedIn) {
-      fetchUser(jwt)
-        .then(response => this.setState({ user: response.data }))
-        .catch(error => console.log(error));
-    }
-  }
-
-  logIn = () => {
-    this.setState({ loggedIn: true });
-    this.getUser();
-  }
-
   logOut = () => {
     localStorage.clear();
-    this.setState({ loggedIn: false, user: null });
+    this.setState({ user: null });
   }
 
   render() {
@@ -69,11 +62,11 @@ class App extends Component {
       <Router history={history}>
         <ScrollToTop>
           <Navbar
-            loggedIn={loggedIn}
             user={user}
             openLogInModal={this.openLogInModal}
             openSignUpModal={this.openSignUpModal}
             logOut={this.logOut}
+            fetchUser={this.fetchUser}
           />
           <div className="navbar-div" />
           <Switch>
