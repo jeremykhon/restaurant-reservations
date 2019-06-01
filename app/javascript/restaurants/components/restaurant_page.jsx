@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import BookingForm from './booking_form';
-import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
 import ReviewsContainer from './reviews_container';
 import RestaurantAbout from './restaurant_about';
 import StarsWithGradient from './stars_with_gradient';
 import PriceLevel from './price_level';
+import { fetchRestaurant } from '../actions/restaurant';
 
 class RestaurantPage extends Component {
   constructor(props) {
@@ -24,8 +23,9 @@ class RestaurantPage extends Component {
 
   fetchRestaurant = () => {
     const { restaurant } = this.props.match.params;
-    axios.get(`${BASE_URL}/restaurants/${restaurant}`)
-      .then(response => this.setState({ restaurant: response.data }));
+    fetchRestaurant(restaurant)
+      .then(response => this.setState({ restaurant: response.data }))
+      .catch(error => console.log(error));
   }
 
   ifAdmin = () => {

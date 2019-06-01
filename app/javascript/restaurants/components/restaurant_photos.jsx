@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RestaurantPhoto from './restaurant_photo';
 
 const RestaurantPhotos = ({ photos }) => {

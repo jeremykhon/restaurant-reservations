@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import BASE_URL from '../utils/base_url';
 import ReservationCard from './reservation_card';
+import { fetchReservations } from '../actions/reservation';
 
 class ReservationsPage extends Component {
   constructor() {
@@ -16,13 +15,11 @@ class ReservationsPage extends Component {
     this.fetchReservations('upcoming');
   }
 
-  fetchReservations = (only) => {
-    axios.get(`${BASE_URL}/bookings?only=${only}`, {
-      headers: {
-        jwt: localStorage.getItem('jwt'),
-      },
-    })
-      .then(response => this.setState({ reservations: response.data, selected: only }));
+  fetchReservations = (filter) => {
+    const jwt = localStorage.getItem('jwt');
+    fetchReservations(filter, jwt)
+      .then(response => this.setState({ reservations: response.data, selected: filter }))
+      .catch(error => console.log(error));
   }
 
   reservationSidebar = () => {

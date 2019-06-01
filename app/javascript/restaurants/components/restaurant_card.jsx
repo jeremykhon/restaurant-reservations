@@ -3,6 +3,7 @@ import axios from 'axios';
 import BASE_URL from '../utils/base_url';
 import history from '../utils/history';
 import RestaurantPhotoWithTimeSlots from './restaurant_photo_with_time_slots';
+import { fetchTimeSlots } from '../actions/time_slot';
 import StarsWithGradient from './stars_with_gradient';
 import PriceLevel from './price_level';
 
@@ -18,11 +19,12 @@ class RestaurantCard extends Component {
   }
 
   componentDidMount() {
-    const { restaurant } = this.props;
+    const { restaurant: { id } } = this.props;
     const start = new Date().setHours(0, 0, 0, 0);
     const end = new Date().setHours(23, 59, 59, 999);
-    axios.get(`${BASE_URL}/restaurants/${restaurant.id}/time_slots?start=${start}&end=${end}`)
-      .then(response => this.setState({ timeSlotsToday: response.data }));
+    fetchTimeSlots(id, start, end)
+      .then(response => this.setState({ timeSlotsToday: response.data }))
+      .then(error => console.log(error));
   }
 
   linkToRestaurant = () => {

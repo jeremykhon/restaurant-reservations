@@ -1,10 +1,9 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import axios from 'axios';
 import monkeyThumbsUp from 'images/monkey_thumbs_up.png';
+import { createReservation } from '../actions/reservation';
 import history from '../utils/history';
 import hhmmTime from '../utils/hhmm_time';
-import BASE_URL from '../utils/base_url';
 import longDate from '../utils/long_date';
 
 class ConfirmationModal extends Component {
@@ -15,24 +14,16 @@ class ConfirmationModal extends Component {
     };
   }
 
-  createBooking = () => {
+  createReservation = () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { bookingForm: { tableSize, selectedTimeSlot, name, email, number, discount } } = this.props;
     const body = {
       tableSize, selectedTimeSlot, name, email, number, discount,
     };
+    const jwt = localStorage.getItem('jwt');
 
-    axios({
-      method: 'POST',
-      url: `${BASE_URL}/bookings`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-        'jwt': localStorage.getItem('jwt'),
-      },
-      data: body,
-    }).then(() => this.setState({ confirmed: true }))
+    createReservation(body, jwt)
+      .then(() => this.setState({ confirmed: true }))
       .catch(error => console.log(error));
   }
 
@@ -88,7 +79,7 @@ class ConfirmationModal extends Component {
             <div>{number}</div>
           </div>
         </div>
-        <button className="form-submit" type="button" onClick={this.createBooking}>Confirm</button>
+        <button className="form-submit" type="button" onClick={this.createReservation}>Confirm</button>
         <button className="form-cancel" type="button" onClick={closeModal}>Cancel</button>
       </div>
     );

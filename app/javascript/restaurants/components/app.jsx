@@ -43,8 +43,9 @@ class App extends Component {
 
   getUser = () => {
     const { loggedIn } = this.state;
+    const jwt = localStorage.getItem('jwt');
     if (loggedIn) {
-      fetchUser()
+      fetchUser(jwt)
         .then(response => this.setState({ user: response.data }))
         .catch(error => console.log(error));
     }

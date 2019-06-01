@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import BASE_URL from '../utils/base_url';
-
-const starSvg = 'm25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z';
+import { postReview } from '../actions/review';
+import starSvg from '../utils/star_svg';
 
 class ReviewForm extends Component {
   constructor() {
@@ -31,25 +29,15 @@ class ReviewForm extends Component {
   }
 
   createReview = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { rating, content } = this.state;
     const { restaurantId, appendReview, closeModal } = this.props;
     const body = { rating, content };
-
-    axios({
-      method: 'POST',
-      url: `${BASE_URL}/restaurants/${restaurantId}/reviews`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-        'jwt': localStorage.getItem('jwt'),
-      },
-      data: body,
-    }).then((response) => {
-      appendReview(response.data);
-      closeModal();
-    })
+    const jwt = localStorage.getItem('jwt');
+    postReview(body, restaurantId, jwt)
+      .then((response) => {
+        appendReview(response.data);
+        closeModal();
+      })
       .catch(error => console.log(error));
   }
 
