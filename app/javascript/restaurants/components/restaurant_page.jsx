@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import BookingForm from './booking_form';
-import BASE_URL from '../utils/base_url';
 import RestaurantPhotos from './restaurant_photos';
 import ReviewsContainer from './reviews_container';
 import RestaurantAbout from './restaurant_about';
 import StarsWithGradient from './stars_with_gradient';
 import PriceLevel from './price_level';
+import { fetchRestaurant } from '../actions/restaurant';
 
 class RestaurantPage extends Component {
   constructor(props) {
@@ -24,14 +23,15 @@ class RestaurantPage extends Component {
 
   fetchRestaurant = () => {
     const { restaurant } = this.props.match.params;
-    axios.get(`${BASE_URL}/restaurants/${restaurant}`)
-      .then(response => this.setState({ restaurant: response.data }));
+    fetchRestaurant(restaurant)
+      .then(response => this.setState({ restaurant: response.data }))
+      .catch(error => console.log(error));
   }
 
   ifAdmin = () => {
-    const { loggedIn, user } = this.props;
+    const { user } = this.props;
     const { restaurant } = this.state;
-    if (loggedIn && user) {
+    if (user) {
       if (user.admin) {
         return (
           <Link className="link" to={`/restaurants/${restaurant.id}/admin`}>
@@ -45,7 +45,7 @@ class RestaurantPage extends Component {
 
   render() {
     const { restaurant } = this.state;
-    const { loggedIn, user, openLogInModal, location } = this.props;
+    const { user, openLogInModal, location } = this.props;
     if (restaurant === null) {
       return <div />;
     }
@@ -83,8 +83,8 @@ class RestaurantPage extends Component {
               ? (
                 <ReviewsContainer
                   openLogInModal={openLogInModal}
-                  loggedIn={loggedIn}
                   restaurant={restaurant}
+                  user={user}
                   reviews={restaurant.reviews}
                 />
               )
@@ -93,7 +93,6 @@ class RestaurantPage extends Component {
           </div>
           <BookingForm
             openLogInModal={openLogInModal}
-            loggedIn={loggedIn}
             user={user}
             restaurant={restaurant}
             selectedTimeSlot={location.state ? location.state.selectedTimeSlot : null}

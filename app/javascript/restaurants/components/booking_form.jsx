@@ -196,7 +196,7 @@ class BookingForm extends Component {
     const {
       name, nameValid, email, emailValid, number, numberValid,
     } = this.state;
-    const { loggedIn, user, openLogInModal } = this.props;
+    const { user, openLogInModal } = this.props;
     if (user) {
       return (
         <div>

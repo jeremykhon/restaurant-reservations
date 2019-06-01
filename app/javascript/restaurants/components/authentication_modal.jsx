@@ -1,7 +1,7 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
-import axios from 'axios';
-import BASE_URL from '../utils/base_url';
+import { logIn, signUp } from '../actions/authentication';
+
 
 class AuthenticationModal extends Component {
   constructor() {
@@ -22,48 +22,28 @@ class AuthenticationModal extends Component {
   }
 
   logIn = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, password } = this.state;
     const body = { email, password };
-
-    axios({
-      method: 'POST',
-      url: `${BASE_URL}/authenticate`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      data: body,
-    }).then((response) => {
-      localStorage.setItem('jwt', response.data.auth_token);
-      this.logInSuccess();
-    })
-      .catch(() => this.setState({ unauthorized: true }));
+    logIn(body)
+      .then((response) => {
+        localStorage.setItem('jwt', response.data.auth_token);
+        this.logInSuccess();
+      })
+      .catch(error => this.setState({ unauthorized: true }, console.log(error)));
   }
 
   logInSuccess = () => {
-    // setting parent state to logged in and closing the modal after login success
-    const { logIn, closeModal } = this.props;
-    logIn();
+    const { fetchUser, closeModal } = this.props;
+    fetchUser();
     closeModal();
   }
 
   signUp = () => {
     this.validateForm(true);
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const { email, name, password } = this.state;
     const body = { email, name, password };
-    axios({
-      method: 'POST',
-      url: `${BASE_URL}/users`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      data: body,
-    }).then(() => this.logIn())
+    signUp(body)
+      .then(() => this.logIn())
       .catch(() => this.setState({ emailTaken: true }));
   }
 

@@ -31,7 +31,7 @@ class ReviewsContainer extends Component {
 
   render() {
     const { reviews } = this.state;
-    const { restaurant, loggedIn, openLogInModal } = this.props;
+    const { restaurant, user, openLogInModal } = this.props;
     return (
       <div className="restaurant-section-container">
         <div className="restaurant-section-title">reviews</div>
@@ -45,7 +45,7 @@ class ReviewsContainer extends Component {
               <div className="number-of-reviews">{`${reviews.length} reviews`}</div>
             </div>
             <div>
-              {loggedIn
+              {user
                 ? <button className="leave-review-button" type="button" onClick={this.openModal}>Leave a review</button>
                 : <div className="log-in-to-review-message" onClick={openLogInModal}>log in to leave a review</div>
               }

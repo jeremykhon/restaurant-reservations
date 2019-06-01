@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
-import axios from 'axios';
 import history from '../utils/history';
 import RestaurantPage from './restaurant_page';
 import MainPage from './main_page';
 import Navbar from './navbar';
-import BASE_URL from '../utils/base_url';
 import RestaurantAdminPage from './restaurant_admin_page';
 import ReservationsPage from './reservations_page';
 import AuthenticationModal from './authentication_modal';
 import modalStyles from '../utils/modal_styles';
 import ScrollToTop from './scroll_to_top';
+import { fetchUser } from '../actions/authentication';
 
 Modal.setAppElement('#root');
 
@@ -19,7 +18,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: localStorage.getItem('jwt') ? true : false,
       user: null,
       modalIsOpen: false,
       loggingIn: true,
@@ -27,7 +25,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUser();
+    this.fetchUser();
+  }
+
+  fetchUser = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      fetchUser(jwt)
+        .then(response => this.setState({ user: response.data }))
+        .catch(error => console.log(error));
+    }
   }
 
   openLogInModal = () => {
@@ -42,38 +49,17 @@ class App extends Component {
     this.setState({ modalIsOpen: false });
   };
 
-  getUser = () => {
-    const { loggedIn } = this.state;
-    if (loggedIn) {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-      axios.get(`${BASE_URL}/return_user`, {
-        headers: {
-          'X-CSRF-Token': csrfToken,
-          jwt: localStorage.getItem('jwt'),
-        },
-      }).then(response => this.setState({ user: response.data }));
-    }
-  }
-
-  logIn = () => {
-    this.setState({ loggedIn: true });
-    this.getUser();
-  }
-
   logOut = () => {
     localStorage.clear();
-    this.setState({ loggedIn: false, user: null });
+    this.setState({ user: null });
   }
 
   render() {
-    const {
-      loggedIn, user, modalIsOpen, loggingIn,
-    } = this.state;
+    const { user, modalIsOpen, loggingIn } = this.state;
     return (
       <Router history={history}>
         <ScrollToTop>
           <Navbar
-            loggedIn={loggedIn}
             user={user}
             openLogInModal={this.openLogInModal}
             openSignUpModal={this.openSignUpModal}
@@ -85,26 +71,26 @@ class App extends Component {
               exact
               path="/"
               render={props => (
-                <MainPage loggedIn={loggedIn} user={user} {...props} />
+                <MainPage user={user} {...props} />
               )}
             />
             <Route
               path="/restaurants/:restaurant/admin"
               render={props => (
-                <RestaurantAdminPage loggedIn={loggedIn} user={user} {...props} />
+                <RestaurantAdminPage user={user} {...props} />
               )}
             />
             <Route
               path="/restaurants/:restaurant"
               render={props => (
-                <RestaurantPage openLogInModal={this.openLogInModal} loggedIn={loggedIn} user={user} {...props} />
+                <RestaurantPage openLogInModal={this.openLogInModal} user={user} {...props} />
               )}
             />
             <Route
               exact
               path="/reservations"
               render={props => (
-                <ReservationsPage loggedIn={loggedIn} user={user} {...props} />
+                <ReservationsPage user={user} {...props} />
               )}
             />
           </Switch>
@@ -115,6 +101,7 @@ class App extends Component {
             style={modalStyles}
           >
             <AuthenticationModal
+              fetchUser={this.fetchUser}
               logIn={this.logIn}
               loggingIn={loggingIn}
               closeModal={this.closeModal}

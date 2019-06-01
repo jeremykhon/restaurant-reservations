@@ -12,11 +12,8 @@ class Api::V1::RestaurantPhotosController < ApplicationController
       restaurant_photo = RestaurantPhoto.new(photo: params[:photo], alt_name: @restaurant.name)
       restaurant_photo.restaurant = @restaurant
       restaurant_photo.user = current_user
-      if restaurant_photo.save
-        render json: restaurant_photo, status: :created
-      else
-        render json: restaurant_photo.errors, status: :unprocessable_entity
-      end
+      restaurant_photo.save!
+      render json: restaurant_photo, status: :created
     else
       render json: { message: "unauthorized, only admin can add new photos" }, status: :unauthorized
     end
@@ -24,7 +21,7 @@ class Api::V1::RestaurantPhotosController < ApplicationController
 
   def destroy
     if current_user.admin?
-      @photo.destroy
+      @photo.destroy!
       render json: { message: "photo removed" }
     else
       render json: { message: "unauthorized, only admin can remove photos" }, status: :unauthorized

@@ -11,11 +11,7 @@ class Api::V1::RestaurantsController < ApplicationController
   end
 
   def show
-    restaurant = Restaurant.find_by(id: params[:id])
-    if restaurant.nil?
-      render json: { message: "restaurant does not exist" }, status: :bad_request
-    else
-      render json: restaurant, include: [:restaurant_photos, :cuisine, reviews: { include: [user: { only: :name }] }]
-    end
+    restaurant = Restaurant.find_by!(id: params[:id])
+    render json: restaurant, include: [:restaurant_photos, :cuisine, reviews: { include: [user: { only: :name }] }]
   end
 end

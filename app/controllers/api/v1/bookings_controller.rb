@@ -1,6 +1,6 @@
 class Api::V1::BookingsController < ApplicationController
   def index
-    case params[:only]
+    case params[:filter]
     when 'upcoming'
       bookings = Booking.where('user_id = ? AND time > ?', current_user.id, Time.now).order(time: :asc)
     when 'historical'

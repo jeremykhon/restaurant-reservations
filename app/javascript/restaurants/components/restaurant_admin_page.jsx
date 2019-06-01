@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import BASE_URL from '../utils/base_url';
+import { createRestaurantPhoto } from '../actions/restaurant_photo';
+import { fetchRestaurant } from '../actions/restaurant';
 
 class RestaurantAdminPage extends Component {
   constructor() {
@@ -13,8 +13,9 @@ class RestaurantAdminPage extends Component {
 
   componentDidMount() {
     const { restaurant } = this.props.match.params;
-    axios.get(`${BASE_URL}/restaurants/${restaurant}`)
-      .then(response => this.setState({ restaurant: response.data }));
+    fetchRestaurant(restaurant)
+      .then(response => this.setState({ restaurant: response.data }))
+      .catch(error => console.log(error));
   }
 
   handleFileChange = (event) => {
@@ -23,21 +24,13 @@ class RestaurantAdminPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { photo, restaurant: { id } } = this.state;
     const formData = new FormData();
-    formData.append('photo', this.state.photo)
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-
-    axios({
-      method: 'post',
-      url: `${BASE_URL}/restaurants/${this.state.restaurant.id}/restaurant_photos`,
-      headers: {
-        'X-CSRF-Token': csrfToken,
-        jwt: localStorage.getItem('jwt'),
-        'Content-Type': 'multipart/form-data',
-      },
-      data: formData,
-    })
-      .then(response => console.log(response));
+    formData.append('photo', photo);
+    const jwt = localStorage.getItem('jwt');
+    createRestaurantPhoto(id, formData, jwt)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   }
 
   render() {

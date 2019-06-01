@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Modal from 'react-modal';
-import BASE_URL from '../utils/base_url';
+import { cancelReservation } from '../actions/reservation';
 import hhmmTime from '../utils/hhmm_time';
 import longDate from '../utils/long_date';
 import RestaurantPhoto from './restaurant_photo';
@@ -33,21 +32,17 @@ class ReservationCard extends Component {
   };
 
   cancelReservation = () => {
-    const { reservation, fetchReservations } = this.props;
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
-    axios({
-      method: 'DELETE',
-      url: `${BASE_URL}/bookings/${reservation.id}`,
-      headers: {
-        'X-CSRF-Token': csrfToken,
-        jwt: localStorage.getItem('jwt'),
-      },
-    })
-      .then(() => { fetchReservations('upcoming'); this.closeModal(); })
+    const { fetchReservations, reservation: { id } } = this.props;
+    const jwt = localStorage.getItem('jwt');
+    cancelReservation(id, jwt)
+      .then(() => {
+        fetchReservations('upcoming');
+        this.closeModal();
+      })
       .catch(error => console.log(error));
   };
 
-  cancelReservationButton = (reservation, fetchReservations) => {
+  cancelReservationButton = (reservation) => {
     if (new Date(reservation.time) > new Date()) {
       return (
         <div className="cancel-reservation-button" onClick={this.openModal}>
@@ -63,7 +58,7 @@ class ReservationCard extends Component {
   };
 
   render() {
-    const { reservation, fetchReservations } = this.props; 
+    const { reservation } = this.props; 
     return (
       <div className="reservation-card">
         <div className="reservation-card-left">

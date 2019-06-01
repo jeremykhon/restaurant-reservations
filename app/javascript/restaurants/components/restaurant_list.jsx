@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import RestaurantCard from './restaurant_card';
 import RestaurantLoadingCard from './restaurant_loading_card';
-import BASE_URL from '../utils/base_url';
+import { fetchRestaurants } from '../actions/restaurant';
 
 class RestaurantList extends Component {
   constructor() {
@@ -13,7 +12,7 @@ class RestaurantList extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/restaurants`)
+    fetchRestaurants()
       .then(response => this.setState({ restaurants: response.data }))
       .catch(error => console.log(error));
   }

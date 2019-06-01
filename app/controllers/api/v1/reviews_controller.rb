@@ -2,11 +2,6 @@ class Api::V1::ReviewsController < ApplicationController
   skip_before_action :authenticate_request, only: :index
   before_action :set_restaurant, only: :create
 
-  def index
-    # reviews = Review.where(restaurant_id: params[:restaurant_id]).order(created_at: :desc)
-    # render json: reviews, include: [user: { only: :name }]
-  end
-
   def create
     review = Review.new(
       restaurant: @restaurant,
@@ -14,10 +9,9 @@ class Api::V1::ReviewsController < ApplicationController
       content: params[:content],
       user: current_user
     )
-    if review.save!
-      calc_average_rating
-      render json: review, include: :user
-    end
+    review.save!
+    calc_average_rating
+    render json: review, include: :user
   end
 
   private
