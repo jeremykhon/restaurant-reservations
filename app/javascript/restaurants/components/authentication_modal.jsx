@@ -23,8 +23,8 @@ class AuthenticationModal extends Component {
 
   logIn = () => {
     const { email, password } = this.state;
-    const body = { email, password };
-    logIn(body)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    logIn(email, password, csrfToken)
       .then((response) => {
         localStorage.setItem('jwt', response.data.auth_token);
         this.logInSuccess();
@@ -41,8 +41,8 @@ class AuthenticationModal extends Component {
   signUp = () => {
     this.validateForm(true);
     const { email, name, password } = this.state;
-    const body = { email, name, password };
-    signUp(body)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    signUp(email, name, password, csrfToken)
       .then(() => this.logIn())
       .catch(() => this.setState({ emailTaken: true }));
   }

@@ -14,8 +14,8 @@ export function fetchUser(jwt) {
   );
 }
 
-export function logIn(body) {
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+export function logIn(email, password, csrfToken) {
+  const body = { email, password };
   return axios({
     method: 'POST',
     url: `${BASE_URL}/authenticate`,
@@ -28,8 +28,8 @@ export function logIn(body) {
   });
 }
 
-export function signUp(body) {
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+export function signUp(email, name, password, csrfToken) {
+  const body = { email, name, password };
   return axios({
     method: 'POST',
     url: `${BASE_URL}/users`,
