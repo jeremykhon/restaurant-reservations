@@ -1,7 +1,6 @@
 # Review.destroy_all
 # RestaurantPhoto.destroy_all
 # Booking.destroy_all
-TimeSlot.destroy_all
 # Restaurant.destroy_all
 # Cuisine.destroy_all
 # User.destroy_all
