@@ -1,8 +1,8 @@
 ## What is it?
 
-A restaurant reservation website which gives customers discounts if they make reservations at non peak hours, thus helping restaurants smooth out demand and attract more customers overall.
+A restaurant reservation app that delivers discounts for reserving at non-peak hours, thereby smoothing out demand and increasing overall business 
 
-Built using react and rails api
+Built using React and Rails api
 
 ![Eatigo gif](https://user-images.githubusercontent.com/9881038/74096703-84240080-4b45-11ea-92a7-a8c1d4ebc0d0.gif)
 
